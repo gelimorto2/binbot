@@ -48,13 +48,13 @@ without anyone touching the base until evening.
 | Loads | Empty bins: ~1 kN. Full bin held raised: ~2 kN. Full bin lowered to touch‑down: ~4 kN. **Full bin lifted from road mode: ~7.5 kN** (links flat at the start) |
 | Side effect | Raising moves the deck 82 mm forward; the robot creeps 82 mm the other way so the bin goes straight up/down |
 | Lift time | ~10 s up or down |
-| Road mode | Full bin carried with the deck **lowered** on roads and long transfers (CoG −55 mm, see [DWG‑004](../cad/out/DWG-004_stability.pdf)); raised only near the base |
+| Road mode | Bin carried with the deck **lowered** on roads and on slopes > 15° (CoG −55 mm, see [DWG‑004](../cad/out/DWG-004_stability.pdf)); raised only near the base |
 
 ## 4. Weighing
 
 - **On the robot:** 4 load cells between lift bars and deck (live weight while
   harvesters fill). Display on the E‑box: weight, "STOP FILLING" at 450 kg alert,
-  refuses to move above 500 kg. Tare taken after every pickup. IMU tilt correction,
+  refuses to move above 500 kg. **On routes with 30° slopes the target is 400 kg** (set per route by the software). Tare taken after every pickup. IMU tilt correction,
   reading taken only when the robot is still.
 - **At the base:** the FULL bay's load cells give the **official weight** used to
   pay pickers. The robot's weight is only a cross‑check.

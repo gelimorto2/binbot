@@ -20,7 +20,7 @@ E‑stop/enable input (BP‑04).
 | Payload | 500 kg olives + 40 kg bin = **540 kg** |
 | Top module mass | ≈ 150 kg (frame 50, lift 60, E‑box 25, sensors 15) |
 | Gross | **≈ 1,000 kg** (base ~300 kg assumed) |
-| Slopes | 25° up/down the fall line; cross‑slope ≤ 9° loaded |
+| Slopes | **up to 30° up/down** the fall line (farmer); cross‑slope ≤ 9° loaded |
 | Base station | Robot drives under bins on stands (BP‑02, DWG‑003) |
 | Speed | 1.0 m/s flat, 0.5 m/s on slopes > 15°, 0.3 m/s at the base / near people |
 
@@ -53,8 +53,8 @@ Send this:
 > 3. Motors: power each, gearbox, **brake type** (does it brake when power is off?).
 > 4. Motor controllers: can they be commanded by **CAN, RS485, or 0–5 V**? If only by the remote: receiver type (PWM / SBUS / PPM) and connector.
 > 5. Is there an **emergency stop / enable input** we can connect to? 1 or 2 channels?
-> 6. Rated load, max slope fully loaded, speed, weight, IP rating, CE declaration, price with shipping to Italy.
-> 7. A video of it climbing 25° fully loaded.
+> 6. Rated load, max slope fully loaded (we need 30°), speed, weight, IP rating, CE declaration, price with shipping to Italy.
+> 7. A video of it climbing 30° fully loaded.
 
 If the listing offers options, choose: **1.2 m width, ≥ 1 t load, 48 V, the most
 ground clearance, CAN/RS485 controllers.**
@@ -71,17 +71,22 @@ ground clearance, CAN/RS485 controllers.**
 | Direction | Half‑base | Static tip angle | Operating limit (loaded) |
 |---|---|---|---|
 | Sideways (track centre lines) | 0.475 m | **29°** | **9° cross‑slope**, alarm 7°, stop 12° |
-| Forward (going down) | 0.62 m | **36°** | **25° down**, gentle braking, stop at 28° pitch |
+| Forward (going down) | 0.62 m | **36°** | **25° down**, gentle braking |
 | Backward (climbing) | 0.68 m | **39°** | **25° up** |
+| **On 30° routes: ≤ 400 kg olives, deck lowered** (CoG 0.72 m) | | 43° fwd / 41° back | **30° up/down**, stop at 33° pitch |
 
 Building on top raises the CoG by about 8 cm compared with a frame between the
 tracks. Going down 25° keeps an 8° margin with gentle braking (0.5 m/s²).
 On a muddy road, a 9° camber plus a 100 mm rut under one track ≈ 15°, still 14°
 from tipping: that is why the cross‑slope limit is only ~30 % of the tip angle.
 
-**Road mode (recommended):** on roads and long transfers carry the full bin with
-the deck **lowered**: CoG 0.79 m, sideways tip 31°, forward tip 40°. Needs 8 kN
-actuators to lift the full bin again before a FULL bay (BP‑02). Rules:
+**Road mode:** on roads and on any slope > 15°, carry the bin with the deck
+**lowered**: CoG 0.79 m (full), sideways tip 31°, forward tip 40°. Needs 8 kN
+actuators to lift the full bin again before a FULL bay (BP‑02).
+
+**30° slopes:** a full 500 kg bin, raised, would have only 6° left before tipping
+forward. So on routes that include 30° the software fills bins to **≤ 400 kg** and
+drives with the deck lowered (11° margin climbing, 13° going down). Rules:
 bin centred ±50 mm over the tracks, no turning on slopes > 10°, loaded routes on
 the fall line, software refuses cross‑slopes > 9° when loaded.
 
@@ -89,9 +94,9 @@ the fall line, software refuses cross‑slopes > 9° when loaded.
 
 | Need | Why |
 |---|---|
-| Traction: climb 25° fully loaded | needs ≈ 0.59 × weight in grip; wet clay may not allow it for any tracked machine, so put the base station at the bottom of the grove if possible |
-| Motors ≥ 2 kW continuous each | 25° climb ≈ 3 kN per track at 0.5 m/s |
-| **Brakes that hold when power is off** | 1,000 kg on 25° needs ≈ 6.4 kN with safety margin |
+| Traction: climb **30°** loaded | needs ≈ **0.70 × weight** in grip, and **0.58 just to stand still** braked. Wet clay gives 0.4–0.6, so on wet days the robot can **slide even with the brakes on**: 30° routes are dry‑only, and the base station should be at the bottom of the grove so full bins go downhill |
+| Motors ≥ 2 kW continuous each | 30° climb ≈ 3.4 kN per track at 0.5 m/s ≈ 1.7 kW |
+| **Brakes that hold when power is off** | 1,000 kg on 30° needs ≈ 7.4 kN with safety margin |
 | Rated load ≥ 1,000 kg | 540 kg payload + 150 kg top module + margin |
 | E‑stop / enable input | our safety relay must be able to stop the base (BP‑04 E‑02) |
 | A way to command it (CAN / RS485 / RC receiver) | autonomy without opening the base |
@@ -118,9 +123,9 @@ the fall line, software refuses cross‑slopes > 9° when loaded.
 
 | # | Test | Pass |
 |---|---|---|
-| T1 | Base alone: climb steepest wet slope with 500 kg sandbags, up & down | 0.5 m/s, slip < 30 %, stops and restarts mid‑slope |
+| T1 | Base alone: climb your steepest (30°) slope with 400 kg sandbags, dry and wet, up & down | 0.5 m/s, slip < 30 %, stops and restarts mid‑slope |
 | T2 | Static tilt sideways, loaded, **strapped to a tractor**, nobody downhill | No track lift below 27° |
-| T3 | Brake hold on 25°, loaded, base switched off | No creep in 10 min |
+| T3 | Brake hold on 30°, loaded, base switched off, dry and wet | No creep / no slide in 10 min |
 | T4 | E‑stop (our button) at 1 m/s flat and 25° downhill | Base stops within 0.5 m / 1.0 m |
 | T5 | Turn in place in a 4 m row, loaded, mud | Within a 2.4 m circle |
 | T6 | Check nothing of ours hangs below the base top | Base clearance unchanged |
@@ -129,4 +134,4 @@ the fall line, software refuses cross‑slopes > 9° when loaded.
 - **BP‑02:** frame top 560, deck 695/795, stand ledges 745, front ≤ 655.
 - **BP‑03:** battery is the base's; our module draws ≈ 50–120 W + lift peaks.
 - **BP‑04:** power tap, drive interface and E‑stop/enable input of the base.
-- **BP‑05:** pitch stop 28°, roll alarm 7° / stop 12° loaded, slip detection, wet‑day mode.
+- **BP‑05:** pitch stop 33° (30° routes) / 28° otherwise, roll alarm 7° / stop 12° loaded, slip detection, wet‑day mode blocks 30° routes, per‑route bin target (≤ 400 kg on 30° routes).

@@ -100,3 +100,5 @@ M_BASE, Z_BASE = 300, 0.28          # bought base incl. battery (VENDOR)
 M_TOP, Z_TOP, X_TOP = 150, 0.62, -0.12   # top module (frame, lift, E-box at the rear, sensors)
 M_BIN = 40                          # empty bin
 M_OLIVES = 500
+SLOPE_MAX = 30                      # steepest up/down slope in the grove (deg, farmer)
+STEEP_OLIVES = 400                  # max olives on SLOPE_MAX routes, deck lowered (DWG-004)

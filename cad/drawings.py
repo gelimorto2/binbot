@@ -224,7 +224,7 @@ def dwg_001():
             f"Deck top low / raised {DECK_TOP_LOW} / {DECK_TOP_HIGH} mm, bin top {bin_top} mm",
             f"Front parts ≤ {FRONT_ENVELOPE_Z:.0f} mm: robot drives under bins on stands",
             "Tall parts (E-box, GNSS masts, beacon) only at the rear",
-            "Gross mass ≈ 1,000 kg; limits loaded: 25° up/down, 9° cross",
+            "Limits: 30° up/down (≤ 400 kg, deck low, dry), 9° cross loaded",
             "Base: bought with motors, controllers, battery, brakes"]
     notes(sh, 200, 560, rows)
     sh.save("DWG-001_general_arrangement")

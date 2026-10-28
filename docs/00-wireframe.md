@@ -25,7 +25,7 @@ day, recharging briefly at every base visit.
 | Grove | ~8,000 trees, rows 4 m apart, farthest spot ~1 km from base | confirmed |
 | Bin | Standard ag bin 1200 × 1000 × ~750 mm, ~40 kg empty | confirmed |
 | Payload | Up to 500 kg olives + bin → **design for 600 kg** | confirmed |
-| Terrain | Mud, ruts, stones, slopes up to **25°** (≈ 47 %) | confirmed, see §8 |
+| Terrain | Mud, ruts, stones, slopes up to **30°** (≈ 58 %) up/down | confirmed, see §8 and DWG‑004 |
 | Speed | 1.0 m/s max loaded, 0.3 m/s near people / at base | lowered for safety on budget (§7) |
 | Team | ~5 harvesters per spot → ~150–300 kg/h → full bin every ~2–3 h | estimate |
 | Day | Daylight only, 8–10 h, ~3–5 bin trips, ≤ 10 km driven | estimate |
@@ -83,7 +83,7 @@ flowchart LR
 - **Bought electric rubber‑track base, 1.2 m wide, NOT modified:** tracks, motors,
   brakes, motor controllers, battery, charger and remote stay as delivered.
 - **Top module** bolted down onto it: welded frame (DWG‑002), lift, E‑box, sensors.
-- Building on top raises the CoG to ≈ 0.85 m: 25° up/down OK, cross‑slope ≤ 9° loaded.
+- Building on top raises the CoG to ≈ 0.85 m: cross‑slope ≤ 9° loaded. **30° up/down only with ≤ 400 kg and the deck lowered, dry ground.**
   Stability drawing: [DWG‑004](../cad/out/DWG-004_stability.pdf). Road mode: full bin carried with the deck lowered.
 - The base must have brakes that hold when power is off, ≥ 2 kW per motor, ≥ 1 t load,
   an E‑stop/enable input and a way to command it (CAN/RS485/RC receiver).
@@ -229,10 +229,10 @@ EMC & Radio Equipment Directives (CE marking).
 
 ## 8. Key risks to resolve early
 
-1. **25° slopes with 500 kg**: the hardest requirement. Slopes are up/down
-   (confirmed). Stability is OK (BP‑01 §4), but traction on **wet** clay at 25°
-   is borderline for any tracked machine (BP‑01 §5.1). Cross‑slope limited to
-   10° loaded.
+1. **30° slopes**: the hardest requirement. Up/down only. Stability OK with
+   ≤ 400 kg and the deck lowered (DWG‑004). Grip: 0.58 × weight just to stand
+   still and 0.70 to climb, more than wet clay gives → 30° routes are dry‑only,
+   full bins should go downhill. Cross‑slope limited to 9° loaded.
 2. **Traction on wet clay** → test the undercarriage on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.

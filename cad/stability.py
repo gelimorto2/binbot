@@ -33,7 +33,7 @@ def limits(bin_kg, raised=True):
     down = degrees(atan((HALF_CONTACT - x) / z))      # nose-down (going downhill): front edge
     up = degrees(atan((HALF_CONTACT + x) / z))        # nose-up (climbing): rear edge
     return dict(x=x, z=z, m=m, side=side, down=down, up=up,
-                side_op=min(20, round(side * 0.3)), fore_op=min(25, round(min(down, up) - 11)))
+                side_op=min(20, round(side * 0.3)), fore_op=min(SLOPE_MAX, round(min(down, up) - 11)))
 
 
 # ---------------------------------------------------------------- drawing helpers
@@ -136,13 +136,15 @@ def panel(ax, view, angle, title, bin_kg=540, raised=True, rut=0.0, verdict=None
 
 
 def main():
-    L = {k: limits(*v) for k, v in {"full_raised": (540, True), "full_low": (540, False),
+    S = M_BIN + STEEP_OLIVES
+    L = {k: limits(*v) for k, v in {"full_raised": (540, True), "full_low": (540, False), "steep": (S, False),
                                      "empty_raised": (40, True), "none": (0, True)}.items()}
+    T = L["steep"]
     F = L["full_raised"]
     fig = plt.figure(figsize=(16.54, 11.69), facecolor="white")
     gs = fig.add_gridspec(3, 3, height_ratios=[1, 1, 0.62], hspace=0.12, wspace=0.02,
                           left=0.03, right=0.97, top=0.95, bottom=0.03)
-    fig.suptitle("BINBOT — STABILITY LIMITS WITH A FULL BIN (500 kg olives, deck raised)", fontsize=13, weight="bold", x=0.03, ha="left")
+    fig.suptitle(f"BINBOT — STABILITY LIMITS, SLOPES UP TO {SLOPE_MAX}° (top: full bin 500 kg raised · bottom: {STEEP_OLIVES} kg, deck lowered)", fontsize=13, weight="bold", x=0.03, ha="left")
     rut_deg = degrees(atan(0.1 / (2 * HALF_GAUGE)))
     panel(fig.add_subplot(gs[0, 0]), "front", F["side_op"],
           f"A  CROSS-SLOPE LIMIT {F['side_op']}° (driving)", verdict=f"OK: CoG well inside.\nAlarm {F['side_op'] - 2}°, auto-stop {F['side_op'] + 3}°.")
@@ -151,16 +153,20 @@ def main():
           verdict=f"OK: still {F['side'] - F['side_op'] - rut_deg:.0f}° from tipping.\nRuts are why the limit is far below the tip angle.")
     panel(fig.add_subplot(gs[0, 2]), "front", F["side"],
           f"C  SIDEWAYS TIP POINT {F['side']:.0f}° — NEVER", verdict="CoG exactly over the edge:\nthe robot rolls over.")
-    panel(fig.add_subplot(gs[1, 0]), "side", -25,
-          "D  CLIMBING 25° (front up)", verdict=f"OK: tips backwards only at {F['up']:.0f}°.")
-    panel(fig.add_subplot(gs[1, 1]), "side", 25,
-          "E  GOING DOWN 25° (front down)", verdict=f"OK: tips forwards at {F['down']:.0f}°.\nBrake gently (0.5 m/s² ≈ 3° extra).\nRaised deck sits 82 mm forward: worst case.")
-    panel(fig.add_subplot(gs[1, 2]), "side", F["down"],
-          f"F  FORWARD TIP POINT {F['down']:.0f}° — NEVER", verdict="CoG over the front edge\nof the track contact.")
+    panel(fig.add_subplot(gs[1, 0]), "side", -SLOPE_MAX,
+          f"D  CLIMBING {SLOPE_MAX}°, {STEEP_OLIVES} kg, deck low", bin_kg=S, raised=False,
+          verdict=f"Tips backwards at {T['up']:.0f}°: {T['up'] - SLOPE_MAX:.0f}° margin.\nGrip needed 0.70 × weight: DRY ONLY.\nBetter: climb empty, carry full bins downhill.")
+    panel(fig.add_subplot(gs[1, 1]), "side", SLOPE_MAX,
+          f"E  GOING DOWN {SLOPE_MAX}°, {STEEP_OLIVES} kg, deck low", bin_kg=S, raised=False,
+          verdict=f"Tips forwards at {T['down']:.0f}°: {T['down'] - SLOPE_MAX:.0f}° margin.\nBrake gently (0.5 m/s² ≈ 3°).\nFull 500 kg raised would leave only {F['down'] - SLOPE_MAX:.0f}°: NOT allowed.")
+    panel(fig.add_subplot(gs[1, 2]), "side", T["down"],
+          f"F  FORWARD TIP POINT {T['down']:.0f}° — NEVER", bin_kg=S, raised=False,
+          verdict="CoG over the front edge\nof the track contact.")
     # limits table
     ax = fig.add_subplot(gs[2, :2]); ax.axis("off")
     rows = [("Load state", "CoG height", "Tip sideways", "Tip fwd / back", "Cross-slope limit", "Up/down limit")]
-    names = {"full_raised": "Full bin 500 kg, deck RAISED (normal)", "full_low": "Full bin 500 kg, deck LOWERED (road mode)",
+    names = {"full_raised": "Full bin 500 kg, deck RAISED", "full_low": "Full bin 500 kg, deck LOWERED (road mode)",
+             "steep": f"{STEEP_OLIVES} kg olives, deck LOWERED ({SLOPE_MAX}° routes)",
              "empty_raised": "Empty bin", "none": "No bin"}
     for k, n in names.items():
         l = L[k]
@@ -171,17 +177,19 @@ def main():
     for (r, c), cell in t.get_celld().items():
         if r == 0:
             cell.set_facecolor("#e8e8e8"); cell.set_text_props(weight="bold")
-    ax.text(0, 0.08, "Operating limits: sideways ≈ 30 % of the tip angle (ruts, bumps, turning, soft ground); up/down = tip angle − 11°\n"
-                      "(3° braking + 8° bumps), capped at 20° / 25°. Sideways tipping edge taken at the track centre line (soft ground).",
+    ax.text(0, 0.08, f"Operating limits: sideways ≈ 30 % of the tip angle (ruts, bumps, turning, soft ground); up/down = tip angle − 11°\n"
+                      f"(3° braking + 8° bumps), capped at 20° / {SLOPE_MAX}°. Sideways tipping edge taken at the track centre line (soft ground).",
             fontsize=8, transform=ax.transAxes, va="top")
     # notes + title block
     ax2 = fig.add_subplot(gs[2, 2]); ax2.axis("off")
     lo = L["full_low"]
-    ax2.text(0, 1.0, "ROAD MODE (recommended)\n"
-                     f"On roads and long transfers, carry the full bin with the deck LOWERED:\n"
-                     f"CoG drops {(F['z'] - lo['z']) * 1000:.0f} mm, sideways tip {F['side']:.0f}° → {lo['side']:.0f}°.\n"
-                     "Needs 8 kN actuators (instead of 6 kN) to lift a full bin\n"
-                     "again before entering a FULL bay. +€60–100.\n\n"
+    ax2.text(0, 1.0, f"RULES FOR {SLOPE_MAX}° SLOPES\n"
+                     f"• Deck LOWERED whenever the slope is > 15° (road mode, 8 kN actuators)\n"
+                     f"• Bins on {SLOPE_MAX}° routes filled to ≤ {STEEP_OLIVES} kg (software sets the target)\n"
+                     "• Full bins go DOWNHILL: put the base at the bottom of the grove\n"
+                     f"• GRIP: standing still on {SLOPE_MAX}° needs 0.58 × weight, climbing 0.70.\n"
+                     "  Wet clay gives 0.4–0.6 → the robot can SLIDE even braked.\n"
+                     f"  {SLOPE_MAX}° routes are DRY-ONLY; blocked in wet-day mode or on slip.\n\n"
                      "Masses are estimates: weigh the robot once built and\n"
                      "re-run cad/stability.py; the software limits use these values.",
              fontsize=8.5, va="top", transform=ax2.transAxes)
