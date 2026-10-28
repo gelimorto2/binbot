@@ -259,10 +259,10 @@ EMC & Radio Equipment Directives (CE marking).
 
 ## 8. Key risks to resolve early
 
-1. **25° slopes with 500 kg**: the hardest requirement. Up/down the slope is
-   manageable with tracks; **across** a 25° slope with a full bin is close to
-   tipping. Design rule: loaded routes follow the fall line; side slopes
-   limited to ~12° when loaded (exact limit computed in BP‑01).
+1. **25° slopes with 500 kg**: the hardest requirement. Slopes are up/down
+   (confirmed). Stability is OK (BP‑01 §4), but traction on **wet** clay at 25°
+   is borderline for any tracked machine (BP‑01 §5.1). Cross‑slope limited to
+   12° loaded.
 2. **Traction on wet clay** → test the chosen carrier on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
@@ -273,7 +273,7 @@ EMC & Radio Equipment Directives (CE marking).
 
 | ID | Blueprint | Contents |
 |---|---|---|
-| BP‑01 | Chassis & drivetrain | Frame drawings, track/motor sizing, traction & slope calcs |
+| [BP‑01](bp-01-chassis-drivetrain.md) | Chassis & drivetrain | Frame drawings, track/motor sizing, traction & slope calcs |
 | BP‑02 | Bin handling & weighing | Lift deck, guides, load‑cell layout, weighing algorithm |
 | BP‑03 | Power system | Energy budget, battery, BMS, charging dock, power distribution |
 | BP‑04 | Electronics & wiring | Block & wiring diagrams, enclosures, CAN bus, connectors |
@@ -291,10 +291,8 @@ Answered: bin size ✔ · payload 500 kg · slopes 25° · rows 4 m · farthest
 spot ~1 km · ~5 harvesters per spot · paid by weight → certified scale ·
 mains at base · daylight only · 1 robot · budget ~€8k.
 
-Still open:
-1. Is the 25° **up/down** the hill, **across** it, or both? Where are the steepest parts?
-2. Can you weld, fabricate and wire yourself, or will a workshop do it? (This changes the budget a lot.)
-3. Is 4G coverage OK across the whole grove?
+Also answered: 25° is **up/down** the hill · farmer welds and wires ·
+4G coverage across the grove ✔.
 
 ## 11. Budget (target €8,000, parts only, own labour)
 
