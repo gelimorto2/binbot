@@ -266,7 +266,7 @@ EMC & Radio Equipment Directives (CE marking).
 2. **Traction on wet clay** → test the chosen carrier on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
-5. **Budget**: tight (§11), so it is split into two phases.
+5. **Budget**: tight for an autonomous machine (§11).
 6. **Worker safety compliance** (§7).
 
 ## 9. Blueprint roadmap (next documents)
@@ -313,14 +313,15 @@ Still open:
 | Base: 2 bin stands + certified 600 kg platform scale | 1,000–1,600 |
 | **Total** | **≈ 8,000–12,300** |
 
-€8k is only reachable at the low end, with your own labour. Two phases,
-so the money is useful early:
+**Automatic navigation is a core requirement**, not an option. €8k with full
+autonomy is only reachable at the low end (used carrier, own labour);
+plan for €9–12k to be safe. Build order, so problems show up early and cheaply:
 
-- **Phase 1 (≈ €6,000): remote‑controlled bin carrier.** Carrier, lift deck,
-  weighing, E‑stops, pendant, base stands and scale. A person drives it by
-  remote, so it is already useful in the first harvest, and it proves
-  traction and stability in your mud.
-- **Phase 2 (≈ €2,000–2,600): autonomy.** RTK, LiDAR, computer, software.
+- **Step 1: drive base (≈ €6,000).** Carrier, lift deck, weighing, E‑stops,
+  pendant, base stands and scale. Tested by remote control to prove
+  traction and stability in your mud before buying sensors.
+- **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →
+  the robot drives the taught routes by itself. This is the finished robot.
 
 Not included: battery upgrade if the carrier's battery is too small
 (+€1.5–2.5k), workshop labour, safety consultant.
