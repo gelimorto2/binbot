@@ -93,17 +93,11 @@ flowchart LR
 ```
 
 ### 4.2 Chassis & drivetrain (→ BP‑01)
-- **Budget route: retrofit an electric tracked carrier** (motocarriola
-  cingolata elettrica, 500–800 kg class) instead of building a chassis from
-  scratch: tracks, motors, brakes and battery come ready. Replace the tipping
-  skip with the lift deck (§4.3) and add the robot kit.
-  *Fallback:* custom steel frame on a bought rubber‑track undercarriage +
-  2 × 48 V motors with gearboxes.
-- **≥ 1.3 m across the track outer edges** for side‑slope stability with a
-  500 kg bin. Many small dumpers are only 0.8–0.9 m wide → too narrow (§8).
-- Climbing 25° with ~1.1 t total needs ≈ 6 kW at 1 m/s → 2 × ~3 kW motors.
-  Check the carrier's rated gradeability **loaded**, not empty.
-- **Spring‑applied brakes** (no power = braked), to be confirmed on the chosen carrier.
+- **Bought electric rubber‑track undercarriage, 1.2 m wide**, with motors,
+  gearboxes and brakes; upper frame welded by the farmer (BP‑01).
+- 1.2 m width: safe for 25° up/down loaded; cross‑slope limited to 10° loaded.
+- Climbing 25° with ~1 t total needs ≈ 2 × 2 kW motors at 0.5 m/s.
+- **Spring‑applied brakes** (no power = braked), to be confirmed on the chosen undercarriage.
 - Mud scrapers, sealed bearings, track tensioners.
 
 ### 4.3 Bin handling & weighing (→ BP‑02)
@@ -121,8 +115,8 @@ flowchart LR
 
 ### 4.4 Power (→ BP‑03)
 - 48 V LiFePO4, ~7–10 kWh. Daily need ≤ 10 kWh: the robot is parked at the
-  spot most of the day. Use the carrier's battery if it is lithium and big
-  enough, otherwise upgrade.
+  spot most of the day. Use the undercarriage's battery if one is supplied,
+  lithium and big enough; otherwise buy one.
 - **Charged overnight by plug at base** (mains available). Auto‑docking
   charger dropped for budget; can be added later.
 - Separate low‑voltage rail (24/12 V) for computers & sensors.
@@ -262,8 +256,8 @@ EMC & Radio Equipment Directives (CE marking).
 1. **25° slopes with 500 kg**: the hardest requirement. Slopes are up/down
    (confirmed). Stability is OK (BP‑01 §4), but traction on **wet** clay at 25°
    is borderline for any tracked machine (BP‑01 §5.1). Cross‑slope limited to
-   12° loaded.
-2. **Traction on wet clay** → test the chosen carrier on your worst slope, loaded, before buying the rest.
+   10° loaded.
+2. **Traction on wet clay** → test the undercarriage on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
 5. **Budget**: tight for an autonomous machine (§11).
@@ -298,7 +292,7 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 
 | Item | Estimate (€) |
 |---|---|
-| Electric tracked carrier, 500–800 kg class (new or used) | 3,000–4,500 |
+| Electric rubber‑track undercarriage 1.2 m, with motors & brakes | 2,500–4,000 |
 | Lift deck: steel + 2–4 heavy linear actuators | 500–800 |
 | 4 load cells + weighing amplifier | 200–300 |
 | RTK GNSS: 2 rover + 1 base receiver, antennas | 700–900 |
@@ -309,17 +303,17 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | Comms: 4G router, LoRa radios, harvester pendant | 200–300 |
 | Wiring, enclosures, connectors, beacon, display | 400–600 |
 | Base: 2 bin stands + certified 600 kg platform scale | 1,000–1,600 |
-| **Total** | **≈ 8,000–12,300** |
+| **Total** | **≈ 7,500–11,800** |
 
 **Automatic navigation is a core requirement**, not an option. €8k with full
-autonomy is only reachable at the low end (used carrier, own labour);
+autonomy is only reachable at the low end (own labour, careful buying);
 plan for €9–12k to be safe. Build order, so problems show up early and cheaply:
 
-- **Step 1: drive base (≈ €6,000).** Carrier, lift deck, weighing, E‑stops,
+- **Step 1: drive base (≈ €6,000).** Undercarriage + frame, lift deck, weighing, E‑stops,
   pendant, base stands and scale. Tested by remote control to prove
   traction and stability in your mud before buying sensors.
 - **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →
   the robot drives the taught routes by itself. This is the finished robot.
 
-Not included: battery upgrade if the carrier's battery is too small
-(+€1.5–2.5k), workshop labour, safety consultant.
+Not included: 48 V ~7.5 kWh LiFePO4 battery if not
+supplied with the undercarriage (+€1.5–2.5k), workshop labour, safety consultant.
