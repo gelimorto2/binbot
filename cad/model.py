@@ -174,6 +174,13 @@ def electronics():
         p.append(("mast", cyl(MAST_D, ANT_TOP - ANT[1] - ztop + 40, mx, s * MAST_Y, ztop - 40), GRY))
         p.append(("gnss_antenna", cyl(ANT[0], ANT[1], mx, s * MAST_Y, ANT_TOP - ANT[1]), WHT))
     p.append(("beacon", cyl(BEACON[0], BEACON[1], mx, 0, ztop), AMB))
+    # rear anti-slide sprags, stowed upright beside the E-box, held by holding magnets
+    px, pz = SPRAG_PIVOT
+    for s in (1, -1):
+        p.append(("sprag_arm", box(SPRAG_ARM, SPRAG_ARM, SPRAG_L, px, s * SPRAG_Y, pz), (0.85, 0.2, 0.1)))
+        p.append(("sprag_claw", box(SPRAG_CLAW[2], SPRAG_CLAW[0], SPRAG_CLAW[1], px - SPRAG_ARM / 2 - SPRAG_CLAW[2] / 2, s * SPRAG_Y, pz + SPRAG_L - SPRAG_CLAW[1]), (0.4, 0.4, 0.4)))
+        p.append(("sprag_pivot", box(60, 80, 60, px, s * SPRAG_Y, pz - 30), GRY))
+        p.append(("sprag_magnet", box(40, 20, 40, px, s * (EBOX[1] / 2 + 12), pz + SPRAG_L - 120), BLK))
     p.append(("cam_rear", box(*CAM, ex1 + 40, 180, ztop), BLK))
     # low front sensor bar (fits under the stand ledges / bins)
     bx = FRONT_BAR_X0 + FRONT_BAR[0] / 2

@@ -94,7 +94,7 @@ the fall line, software refuses cross‑slopes > 9° when loaded.
 
 | Need | Why |
 |---|---|
-| Traction: climb **30°** loaded | needs ≈ **0.70 × weight** in grip, and **0.58 just to stand still** braked. Wet clay gives 0.4–0.6, so on wet days the robot can **slide even with the brakes on**: 30° routes are dry‑only, and the base station should be at the bottom of the grove so full bins go downhill |
+| Traction: climb **30°** loaded | needs ≈ **0.70 × weight** in grip, and **0.58 just to stand still** braked. Wet clay gives 0.4–0.6, so on wet days the robot can **slide even with the brakes on**. The base is **uphill**, so full bins climb: 30° routes are dry‑only, with rear anti‑slide sprags ([BP‑09a](bp-09-safety-slopes.md), DWG‑005) |
 | Motors ≥ 2 kW continuous each | 30° climb ≈ 3.4 kN per track at 0.5 m/s ≈ 1.7 kW |
 | **Brakes that hold when power is off** | 1,000 kg on 30° needs ≈ 7.4 kN with safety margin |
 | Rated load ≥ 1,000 kg | 540 kg payload + 150 kg top module + margin |

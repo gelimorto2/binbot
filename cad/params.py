@@ -102,3 +102,14 @@ M_BIN = 40                          # empty bin
 M_OLIVES = 500
 SLOPE_MAX = 30                      # steepest up/down slope in the grove (deg, farmer)
 STEEP_OLIVES = 400                  # max olives on SLOPE_MAX routes, deck lowered (DWG-004)
+
+# --- Anti-slide sprags (BP-09): 2 rear arms, spring-deployed, magnet-held (fail-safe) ---
+# The base is UPHILL: full bins climb, empty robot descends in REVERSE on 30° sections,
+# so the rear is always the downhill end and one rear sprag pair covers both cases.
+SPRAG_L = 750                        # pivot to tip
+SPRAG_PIVOT = (-(FRAME_LEN / 2 + 40), FRAME_Z0 + 30)   # (-690, 490) on brackets at the rail ends
+SPRAG_Y = 300                        # arms at y = ±300 (beside the E-box, inside the tracks)
+SPRAG_DEPLOY = 43                    # deg below horizontal, pointing backwards (tip digs ~20 mm)
+SPRAG_STOP = 70                      # mechanical stop: arm becomes a strut, can't fold under
+SPRAG_ARM = 50                       # SHS 50x50x4
+SPRAG_CLAW = (150, 200, 12)          # claw plate width x length x thickness, 3 teeth

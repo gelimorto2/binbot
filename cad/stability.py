@@ -186,7 +186,7 @@ def main():
     ax2.text(0, 1.0, f"RULES FOR {SLOPE_MAX}° SLOPES\n"
                      f"• Deck LOWERED whenever the slope is > 15° (road mode, 8 kN actuators)\n"
                      f"• Bins on {SLOPE_MAX}° routes filled to ≤ {STEEP_OLIVES} kg (software sets the target)\n"
-                     "• Full bins go DOWNHILL: put the base at the bottom of the grove\n"
+                     "• Base is UPHILL: full bins climb → dry only, rear sprags armed (DWG-005)\n"
                      f"• GRIP: standing still on {SLOPE_MAX}° needs 0.58 × weight, climbing 0.70.\n"
                      "  Wet clay gives 0.4–0.6 → the robot can SLIDE even braked.\n"
                      f"  {SLOPE_MAX}° routes are DRY-ONLY; blocked in wet-day mode or on slip.\n\n"

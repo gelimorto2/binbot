@@ -222,7 +222,7 @@ def e03():
     b("lora", 34, 21.5, 38.8, 25, "RF1 LoRa 868 MHz\npendant + remote\nstop + heartbeat")
     b("disp", 34, 12.3, 38.8, 15.5, "HMI1 display\nweight / state\n(RS485)")
     b("imu", 26, 21.5, 30, 25, "IMU1\ntilt / roll\n(I²C)")
-    b("io", 26, 5.5, 33, 11.5, "MCU I/O (24 V)\nOUT: K4 watchdog, K5 drive en,\nK7/K8 lift, K9 RC changeover,\nbeacon, buzzer\nIN: lift limits S5/S6, base\ncharging, KS status, E-stop aux")
+    b("io", 26, 5.5, 33, 11.5, "MCU I/O (24 V)\nOUT: K4 watchdog, K5 drive en,\nK7/K8 lift, K9 RC changeover,\nK10 sprag magnets, beacon, siren\nIN: lift limits, sprag switches,\nrear radar, KS status, E-stop aux")
     b("yard", 1.2, 5.5, 9.5, 11.5, "BASE STATION (farm yard)\nmini PC: fleet manager, logs\nRTK reference F9P → NTRIP\ncertified scale (RS232)\n4G / Wi-Fi router", ls="--")
     b("pend", 34, 5.5, 38.8, 10.5, "PENDANTS (harvesters)\nCALL / SEND / STOP\nLoRa\n+ wireless E-stop TX\n(→ WES, E-02)", ls="--")
 

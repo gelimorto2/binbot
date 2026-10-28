@@ -212,6 +212,7 @@ Layered: if one layer fails, the next still protects people.
 | 8 | **Watchdogs** | Lost comms / lost localisation / software crash / sensor fault → controlled stop |
 | 9 | **Awareness** | Rotating amber beacon, status light bar, buzzer before moving, display with state |
 | 10 | **Operations** | Harvester briefing, high‑vis, robot never approaches a person to < 1 m, manual mode only with pendant held (dead‑man) |
+| 12 | **Slopes & sliding** | 30° routes: ≤ 400 kg, deck low, dry only, nobody downhill; slide detection; **rear sprags** drop by spring if the robot slides or loses power ([BP‑09a](bp-09-safety-slopes.md), DWG‑005) |
 | 11 | **Records** | Black‑box log of every stop, fault and near miss |
 
 **Budget trade‑off:** a certified safety LiDAR (€2–4k) does not fit €8k.
@@ -231,8 +232,10 @@ EMC & Radio Equipment Directives (CE marking).
 
 1. **30° slopes**: the hardest requirement. Up/down only. Stability OK with
    ≤ 400 kg and the deck lowered (DWG‑004). Grip: 0.58 × weight just to stand
-   still and 0.70 to climb, more than wet clay gives → 30° routes are dry‑only,
-   full bins should go downhill. Cross‑slope limited to 9° loaded.
+   still and 0.70 to climb, more than wet clay gives → 30° routes are dry‑only.
+   The base is uphill, so full bins climb: rear anti‑slide sprags + slide
+   detection (BP‑09a). Best fix: cut a ≤ 15° robot track on the 30° section.
+   Cross‑slope limited to 9° loaded.
 2. **Traction on wet clay** → test the undercarriage on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
@@ -276,10 +279,11 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | 3D LiDAR + 2 cameras | 800–1,100 |
 | Electronics (BP‑04): power tap, safety circuit, MCU, comms, E‑box, wiring | 2,000–3,350 |
 | Base: 1 FULL (certified load cells) + 1 EMPTY stand; +€1k for 2 + 2 | 950–1,450 |
-| **Total** | **≈ 6,550–9,550** |
+| Anti‑slide: rear sprags, magnets, rear radar, pendant GPS (BP‑09a) | 400–650 |
+| **Total** | **≈ 6,950–10,200** |
 
 **Automatic navigation is a core requirement**, not an option. After the
-detailed electronics list (BP‑04 §7) the total is **≈ €6,550–9,550**: €8k is
+detailed electronics list (BP‑04 §7) the total is **≈ €6,950–10,200**: €8k is
 reachable only with low‑end choices (see BP‑04 savings). Keep ~€1k contingency.
 Build order, so problems show up early and cheaply:
 
