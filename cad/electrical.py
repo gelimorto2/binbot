@@ -61,15 +61,29 @@ def gnd(d, x, y, lab="0V"):
     d.add(elm.Ground().at((x, y)).label(lab, loc="right", fontsize=8))
 
 
+def white_svg(path):
+    """Give an SVG an opaque white background (readable in dark-mode viewers)."""
+    s = open(path).read()
+    if 'id="bg"' not in s:
+        i = s.index(">", s.index("<svg")) + 1
+        s = s[:i] + '<rect id="bg" x="-100000" y="-100000" width="200000" height="200000" fill="white"/>' + s[i:]
+        open(path, "w").write(s)
+
+
 def save(d, name):
     d.save(OUT + name + ".svg")
+    white_svg(OUT + name + ".svg")
     d.save(OUT + name + ".pdf")
     d.save(OUT + name + ".png", dpi=110)
+    from PIL import Image
+    im = Image.open(OUT + name + ".png").convert("RGBA")
+    bg = Image.new("RGBA", im.size, "white")
+    Image.alpha_composite(bg, im).convert("RGB").save(OUT + name + ".png")
 
 
 def new():
     d = schemdraw.Drawing(show=False)
-    d.config(unit=2, fontsize=10, lw=1.1)
+    d.config(unit=2, fontsize=10, lw=1.1, bgcolor="white")
     d.add(elm.Line(color="white").at((0, 0)).to((SW, SH)))  # fixes the page extent
     return d
 
@@ -80,7 +94,7 @@ def e01():
     sheet(d, "E-01", "POWER DISTRIBUTION 48 V")
     R = 23  # top rail
     # battery + BMS
-    d.add(elm.Battery().at((4, 15)).to((4, 19)).label("BT1  48 V LiFePO4\n16S ~150 Ah\nBMS inside\n(CAN → MCU)", loc="bottom", fontsize=9))
+    d.add(elm.Battery().at((4, 15)).to((4, 19)).label("BT1a ∥ BT1b  48 V LiFePO4\n2 × 16S 105 Ah = 10.7 kWh\n(one pack per end bay)\nBMS each, CAN → MCU", loc="bottom", fontsize=9))
     gnd(d, 4, 15, "0V star point")
     wire(d, (4, 19), (4, R))
     d.add(elm.Dot().at((4, 21)))
@@ -161,7 +175,7 @@ def e02():
         return x
 
     ch1 = [("nc", "ES1a\nfront L"), ("nc", "ES2a\nfront R"), ("nc", "ES3a\nrear L"), ("nc", "ES4a\nrear R"),
-           ("nc", "WES ch1\nwireless"), ("nc", "BF ch1\nbumper F"), ("nc", "BR ch1\nbumper R")]
+           ("nc", "WES ch1\nwireless"), ("nc", "BF ch1\nedge front"), ("nc", "BR ch1\nedge rear")]
     ch2 = [("nc", "ES1b"), ("nc", "ES2b"), ("nc", "ES3b"), ("nc", "ES4b"),
            ("nc", "WES ch2"), ("nc", "BF ch2"), ("nc", "BR ch2"), ("nc", "K4\nwatchdog\n(MCU)")]
     chain(25.5, ch1, KS[0]); text(d, KS[0] + 0.1, 25.9, "S12", fs=7)
@@ -178,10 +192,10 @@ def e02():
         chain(y, items, Rr)
         d.add(elm.Dot().at((Rr, y)))
     text(d, 12.6, 21.0, "Wireless E-stop (WES): own safety radio, receiver relay opens if the\n"
-                       "transmitter's heartbeat is lost. Bumpers BF/BR: safety edges with their own\n"
+                       "transmitter's heartbeat is lost. Safety edges BF/BR (front sensor bar, rear E-box; no low bumpers): own\n"
                        "control unit (dual-channel output).", fs=8)
     text(d, 29, 23.5, "HOW IT FAILS SAFE\n"
-                      "• any button / bumper / radio loss / software\n  watchdog → KS opens → K1 + K3 drop\n"
+                      "• any button / safety edge / radio loss / software\n  watchdog → KS opens → K1 + K3 drop\n"
                       "• K1 open: no power to motors or lift\n"
                       "• K3 open: brake coils lose power →\n  spring brakes clamp the tracks\n"
                       "• restart only with RESET after cause cleared\n"
@@ -207,8 +221,8 @@ def e03():
     b("camf", 6.2, 22, 9.6, 25, "CAM-F\nfront camera")
     b("camr", 10.2, 22, 13.6, 25, "CAM-R\nrear camera")
     b("rtr", 1.2, 15.5, 4.8, 19, "RTR1\n4G router\n(SIM)")
-    b("g1", 14.5, 22, 18, 25, "GNSS1 F9P\nfront antenna\n(RTK rover)")
-    b("g2", 18.6, 22, 22.1, 25, "GNSS2 F9P\nrear antenna\n(heading)")
+    b("g1", 14.5, 22, 18, 25, "GNSS1 F9P\nrear-left mast\n(RTK rover)")
+    b("g2", 18.6, 22, 22.1, 25, "GNSS2 F9P\nrear-right mast\n(heading, 1 m)")
     b("mcu", 26, 13.5, 33, 20, "MCU\nmotion + I/O controller\n(STM32-class on\n24 V I/O board)\nwatchdog to PC1")
     b("mcl", 13, 6.5, 16.5, 9, "MC-L\nmotor ctrl")
     b("mcr", 17.5, 6.5, 21, 9, "MC-R\nmotor ctrl")
@@ -254,7 +268,7 @@ def e03():
 # ---------------------------------------------------------------- E-04 e-box layout
 def e04():
     W, Hh = EBOX[1] - 40, EBOX[2] - 40          # backplate inside 600 x 600 enclosure
-    fig, ax = plt.subplots(figsize=(16.54, 11.69))
+    fig, ax = plt.subplots(figsize=(16.54, 11.69), facecolor="white")
     ax.set_xlim(-40, 1180); ax.set_ylim(-140, 720); ax.set_aspect("equal"); ax.axis("off")
 
     def r(x, y, w, h, t, fc="#ffffff", fs=7):
@@ -298,8 +312,8 @@ def e04():
             ha="center", fontsize=10, weight="bold")
     # bottom face connectors
     con = ["X10 MC-L motor 3~ + encoder", "X11 MC-R motor 3~ + encoder", "X12 brakes YB1/YB2", "X13 lift M3/M4 + limits",
-           "X14 load cells LC1-LC4 (4× M12)", "X15 front hoop: LiDAR, CAM-F, ES1/ES2, GNSS1, BF",
-           "X16 rear: ES3/ES4, CAM-R, HMI1, beacon, BR", "battery + / − (2 × 35 mm² glands)"]
+           "X14 load cells LC1-LC4 (4× M12)", "X15 front bar: LiDAR, CAM-F, ES1/ES2, edge BF",
+           "X16 rear: ES3/ES4, CAM-R, HMI1, beacon, BR, GNSS1/2", "batteries BT1a/b + / − (4 × 25 mm² glands)"]
     ax.text(0, -45, "BOTTOM FACE (all cables enter from below, drip loop):", fontsize=8, weight="bold")
     for i, c in enumerate(con):
         ax.text(0 + (i % 2) * 300, -70 - (i // 2) * 18, "• " + c, fontsize=7.5)
@@ -320,7 +334,7 @@ def e04():
                            "DWG E-04   REV A   SCALE ≈ 1:4   mm", f"PRELIMINARY   {TODAY}")):
         ax.text(tb[0] + 10, tb[1] + tb[3] - 18 - i * 26, t, fontsize=9)
     for ext in ("pdf", "png"):
-        fig.savefig(OUT + f"E-04_ebox_layout.{ext}", dpi=150 if ext == "png" else None, bbox_inches="tight")
+        fig.savefig(OUT + f"E-04_ebox_layout.{ext}", dpi=150 if ext == "png" else None, bbox_inches="tight", facecolor="white")
     plt.close(fig)
 
 

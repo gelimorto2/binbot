@@ -1,14 +1,21 @@
 # BinBot CAD
 
 Parametric CAD for BinBot. **All dimensions live in [`params.py`](params.py)**.
-Change a number, re-run the scripts, and the 3D model and drawings update together.
+Change a number, re-run the scripts, and the 3D model, drawings and video update together.
 
-## Drawings (BP‑01 chassis)
+## Bin swap video (BP‑02)
+
+[bin_swap.mp4](out/bin_swap.mp4) (41 s, side view + section + base top view, to scale)
+
+![Bin swap](out/bin_swap.gif)
+
+## Mechanical drawings
 
 | DWG | Title | Files |
 |---|---|---|
-| 001 | General arrangement, chassis with bin raised | [PDF](out/DWG-001_general_arrangement.pdf) · [PNG](out/DWG-001_general_arrangement.png) · [DXF](out/DWG-001_general_arrangement.dxf) |
+| 001 | General arrangement, robot with bin raised | [PDF](out/DWG-001_general_arrangement.pdf) · [PNG](out/DWG-001_general_arrangement.png) · [DXF](out/DWG-001_general_arrangement.dxf) |
 | 002 | Upper frame weldment (fabrication drawing + cut list) | [PDF](out/DWG-002_upper_frame_weldment.pdf) · [PNG](out/DWG-002_upper_frame_weldment.png) · [DXF](out/DWG-002_upper_frame_weldment.dxf) |
+| 003 | Base bin stand + clearance section (robot drives under) | [PDF](out/DWG-003_bin_stand.pdf) · [PNG](out/DWG-003_bin_stand.png) · [DXF](out/DWG-003_bin_stand.dxf) |
 
 ## Electrical drawings (BP‑04)
 
@@ -19,35 +26,34 @@ Change a number, re-run the scripts, and the 3D model and drawings update togeth
 | E‑03 | Control & communication block diagram | [PDF](out/E-03_control_block.pdf) · [PNG](out/E-03_control_block.png) · [SVG](out/E-03_control_block.svg) |
 | E‑04 | E‑box layout | [PDF](out/E-04_ebox_layout.pdf) · [PNG](out/E-04_ebox_layout.png) |
 
-![DWG-002](out/DWG-002_upper_frame_weldment.png)
-
 ## 3D model
 
 | File | Use |
 |---|---|
-| [`out/chassis_assembly.stl`](out/chassis_assembly.stl) | Rotate it in the browser on GitHub |
-| `out/chassis_assembly.step` | Open in FreeCAD / Fusion 360 / SolidWorks |
-| `out/upper_frame.step`, `.stl` | The weldment only |
+| [`out/chassis_assembly.stl`](out/chassis_assembly.stl) | Robot, bin raised. Rotate it in the browser on GitHub |
+| [`out/bin_stand.stl`](out/bin_stand.stl) | Base stand |
+| `out/chassis_assembly.step`, `out/swap_scene.step`, `out/bin_stand.step`, `out/upper_frame.step` | Open in FreeCAD / Fusion 360 / SolidWorks |
 
-![Chassis front](out/chassis_iso.png) ![Chassis rear](out/chassis_iso_rear.png) ![Upper frame](out/upper_frame_iso.png)
+![Robot front](out/chassis_iso.png) ![Robot rear](out/chassis_iso_rear.png)
+![Robot under a stand](out/swap_scene_iso.png) ![Upper frame](out/upper_frame_iso.png)
 
-Colours / parts in the assembly: tracks (bought undercarriage, **placeholder**),
-upper frame (fabricate), lift bars + load cells + deck (BP‑02 placeholders),
-battery (BP‑03 placeholder), bin, and the BP‑04/05 components: rear E‑box with
-display, E‑stops, isolator and charge inlet; front sensor hoop with LiDAR, camera
-and E‑stops; GNSS antenna masts front and rear; beacon; bumpers with safety
-edges; lift actuators (BP‑02 placeholder).
+Rev B layout: 350 mm clear between the tracks, no low bumpers, low front
+(≤ 545 mm: LiDAR, E‑stops, camera on a sensor bar) so the robot drives under bins;
+tall parts only at the rear (E‑box, GNSS masts 1 m apart, beacon); battery as two
+packs in the frame's end bays; lift = 2 parallel links + 1 actuator per side.
+The 3D model was checked for collisions: robot vs stand in both lift positions,
+and moving lift parts vs frame and batteries.
 
 ## Status
 
 **PRELIMINARY.** Undercarriage size and mounting points are assumed
-(1200 wide, 1700 long, 400 high). When you have the seller's drawing, update
-the `VENDOR` values and bracket positions in `params.py`, re‑run, and check
-DWG‑002 before cutting steel.
+(1200 wide, 1700 long, 400 high). When the seller's drawing arrives, update the
+`VENDOR` values and bracket positions in `params.py`, re‑run, and check DWG‑002
+before cutting steel. Stand ledge positions must be checked against the real bin.
 
 ## Regenerate
 
 ```bash
 pip install -r cad/requirements.txt
-cd cad && python3 model.py && python3 drawings.py && python3 electrical.py
+cd cad && python3 model.py && python3 drawings.py && python3 electrical.py && python3 animate.py
 ```

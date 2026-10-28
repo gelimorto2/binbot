@@ -63,33 +63,20 @@ flowchart LR
 
 ## 4. Robot subsystems
 
-### 4.1 Physical layout (side view, not to scale)
+### 4.1 Physical layout (rev B, see [DWG‑001](../cad/out/DWG-001_general_arrangement.pdf) and the [3D model](../cad/README.md))
 
 ```
-          beacon  antennas (GNSS ×2, LTE, radio)
-             ▲     ▲   ▲
-   ┌─────────┴─────┴───┴─────────────┐   ← removable / open-top BIN
-   │            B I N                │
-   │                                 │
- ══╧═════════════════════════════════╧══ ← LIFT DECK on 4 load cells
-   │  lift actuators (deck up/down)  │
- ┌─┴─────────────────────────────────┴─┐
- │ [3D LiDAR]  battery │ e‑box │ motors │[LiDAR]  ← CHASSIS (sealed bays)
- │ [bumper]                     [E‑STOP]│[bumper]
- └─╥══════════════════════════════════╥─┘
-  (O)══════ rubber track L/R ══════(O)       ← 2 × CINGOLI, skid steer
-```
-
-```
- Top view
- ┌───────────────────────────────┐
- │ E‑STOP        E‑STOP          │   E‑stop buttons on all 4 corners
- │   ┌───────────────────────┐   │
- │   │      BIN (on deck)    │   │   Light bar + display on both sides
- │   └───────────────────────┘   │   (weight, state, battery)
- │ E‑STOP        E‑STOP          │
- └───────────────────────────────┘
- ◄──── track ────► ◄──── track ────►
+  GNSS ×2 (rear corners, 1 m apart)
+    ▲  beacon
+ ┌──┴──┐ ┌──────────────── BIN 1200 ────────────────┐
+ │     │ │                                          │  ← bin on raised deck (685)
+ │  E  │ │                                          │
+ │  B  │ └──────────────────────────────────────────┘
+ │  O  │ ══════ DECK on 4 load cells, lifts 100 ══════
+ │  X  │ [batt]  links   [actuators]   links  [batt]   ← all inside the frame (350–450)
+ └─────┘ ────────── frame rails, 350 mm clear ────────── [LiDAR, E-stops] ← front ≤ 545
+   ( O )════════════ rubber tracks 1.2 m wide ═══════════( O )
+ REAR (tall parts)                                FRONT (low: drives under bins)
 ```
 
 ### 4.2 Chassis & drivetrain (→ BP‑01)
@@ -100,18 +87,14 @@ flowchart LR
 - **Spring‑applied brakes** (no power = braked), to be confirmed on the chosen undercarriage.
 - Mud scrapers, sealed bearings, track tensioners.
 
-### 4.3 Bin handling & weighing (→ BP‑02)
-- **Lift deck**: robot drives *under* a bin standing on a base stand, raises
-  the deck ~100 mm, drives out with the bin. Reverse to drop.
-  Simple, no forks to snag in the field, bin never leaves the robot in the grove.
-  *(Alternative: rear forks — kept as backup option in BP‑02.)*
-- Bin locating pins + side guides so the bin cannot slide on slopes.
-- **4 load cells** (≈ 300 kg each, for overload margin) under the deck → weight; IMU tilt compensation and
-  "settle" filtering (robot stopped, no vibration) before reporting.
-- Weight shown on the robot display and sent to base with GPS spot + time
-  → per‑spot / per‑team yield log.
-- Pickers are paid by weight → the robot value is **indicative only**; the
-  official weight comes from a certified scale built into a base stand (§5).
+### 4.3 Bin handling & weighing (→ [BP‑02](bp-02-bin-swap-weighing.md), [video](../cad/out/bin_swap.mp4))
+- **Drive‑under swap:** the robot drives under a bin standing on a steel stand,
+  lifts its deck 100 mm to take it, lowers 100 mm to leave it, and reverses out.
+  No forks, no crane, nobody at the base. The bin never leaves the robot in the grove.
+- Lift: 2 parallel links + 1 actuator per side, all inside the frame height.
+- **4 load cells** under the deck → live weight while filling (alert 450 kg,
+  max 500 kg), IMU tilt correction, read only when still.
+- Official weight: the FULL bays stand on certified load cells (§5).
 
 ### 4.4 Power (→ BP‑03)
 - 48 V LiFePO4, ~7–10 kWh. Daily need ≤ 10 kWh: the robot is parked at the
@@ -126,7 +109,7 @@ flowchart LR
 ### 4.5 Electronics & compute (→ BP‑04)
 | Layer | Role | Example class |
 |---|---|---|
-| Safety controller | E‑stop chain, bumpers, LiDAR safety fields, brake & contactor | Certified dual‑channel safety relay |
+| Safety controller | E‑stop chain, safety edges, LiDAR safety fields, brake & contactor | Certified dual‑channel safety relay |
 | Motion controller | Motor drives, track odometry, lift actuators, load cells | Industrial MCU / PLC (CAN bus) |
 | Main computer | Navigation, perception, mission logic, comms | Small rugged PC / Jetson Orin Nano‑class, ROS 2 |
 
@@ -142,7 +125,7 @@ Main computer can **request** motion; only the safety controller can
   named nodes on the graph.
 - **Obstacle & person detection**: one 3D LiDAR + front/rear cameras; stops
   for people, slows for objects, waits if a path is blocked. The LiDAR is
-  **not safety‑rated** (budget), so it is backed by bumpers, low speed and
+  **not safety‑rated** (budget), so it is backed by safety edges, low speed and
   operating rules (§7).
 - **Terrain awareness**: IMU tilt/roll limits, track slip detection (odometry
   vs GNSS), "stuck" detection → stop and call for help.
@@ -171,26 +154,21 @@ flowchart TB
   LOG[(Logs: weights, routes, events)] --- FM
 ```
 
-## 5. Base station (→ BP‑08)
+## 5. Base station (→ BP‑08, stands in [BP‑02](bp-02-bin-swap-weighing.md) / [DWG‑003](../cad/out/DWG-003_bin_stand.pdf))
 
 ```
-              ┌─── charge plug ─────┐
-              │        [C]          │
-   EMPTY lane │ [E][E][E][E]        │  robot drives in → lifts empty bin
-   FULL  lane │ [S][F][F][F]        │  robot lowers full bin on [S] = scale stand
-              │                     │  forklift/tractor clears full lane
-              └── fenced, marked ───┘
-   Base computer + RTK reference + LTE router + UPS in weatherproof cabinet
+      yard (robot turns here)          bays 2.2 m apart, open both ends
+   ───────────────────────────►  [ FULL bay  — on certified scale ]  → tractor takes full bins out the front
+   ───────────────────────────►  [ FULL bay  — on certified scale ]
+   ───────────────────────────►  [ EMPTY bay ]                       → robot leaves forward with the empty bin
+   ───────────────────────────►  [ EMPTY bay ]
+   charge plug · base PC + RTK reference + 4G router + UPS in a cabinet · fenced
 ```
-- Fixed bin stands with guides so the robot aligns itself (fiducial markers /
-  reflectors for precise docking).
-- Full and empty lanes separated; tractor/forklift access to the full lane
-  for transport to the mill.
-- **Certified platform scale built into the first full‑bin stand**: robot
-  lowers the bin, the scale records the official weight automatically with
-  spot, team and time, then the robot moves on.
-- Mains power: overnight charger, base computer.
-- Fenced zone; robot at reduced speed inside.
+- Each bay: 4 posts + 2 ledges at 635 mm, ground guides centre the tracks to ±30 mm,
+  AprilTag + reflectors for the LiDAR.
+- FULL bays stand on 4 load cells each with a certified indicator: official
+  weight of every bin, logged with spot, team and time.
+- Mains power: overnight charger, base computer. Fenced zone, 0.3 m/s inside.
 
 ## 6. Operating cycle
 
@@ -229,7 +207,7 @@ Layered: if one layer fails, the next still protects people.
 | 1 | **Design** | Low CoG, limited speed, guarded pinch points on lift & tracks, no sharp edges |
 | 2 | **Emergency stop** | 4 mushroom buttons on robot + wireless E‑stop on pendant (signal lost → stop) + remote stop from base; hard‑wired, cuts drive power, brakes engage |
 | 3 | **Fail‑safe brakes** | Spring‑applied: power loss = robot stopped and held, also on slopes |
-| 4 | **Person/obstacle detection** | LiDAR slow/stop zones (not safety‑rated on this budget) **plus hard‑wired contact bumpers** front/rear that cut drive power directly |
+| 4 | **Person/obstacle detection** | LiDAR slow/stop zones (not safety‑rated on this budget) **plus hard‑wired safety edges** on the front sensor bar and rear E‑box (no low bumpers: rocks) |
 | 5 | **Speed & zone limits** | Slow near people, at base, in steep zones; **geofence** — never leaves taught paths |
 | 6 | **Stability** | Tilt/roll limits with load‑dependent thresholds; refuses routes too steep for current weight; deck lowered while driving |
 | 7 | **Overload** | Will not move above max weight; lift won't operate unless robot stopped & level |
@@ -240,7 +218,7 @@ Layered: if one layer fails, the next still protects people.
 
 **Budget trade‑off:** a certified safety LiDAR (€2–4k) does not fit €8k.
 Compensation: max 1 m/s, 0.3 m/s near people and base, departure only on
-SEND, harvesters stay off the travel paths, bumpers and E‑stops hard‑wired.
+SEND, harvesters stay off the travel paths, safety edges and E‑stops hard‑wired.
 Pickers are workers, so Italian **D.Lgs. 81/2008** applies: have the risk
 assessment reviewed by your RSPP / safety consultant before use with staff.
 
@@ -268,7 +246,7 @@ EMC & Radio Equipment Directives (CE marking).
 | ID | Blueprint | Contents |
 |---|---|---|
 | [BP‑01](bp-01-chassis-drivetrain.md) | Chassis & drivetrain | Frame drawings, track/motor sizing, traction & slope calcs |
-| BP‑02 | Bin handling & weighing | Lift deck, guides, load‑cell layout, weighing algorithm |
+| [BP‑02](bp-02-bin-swap-weighing.md) | Bin swap & weighing | Drive‑under swap, base stands, lift, weighing, video |
 | BP‑03 | Power system | Energy budget, battery, BMS, charging dock, power distribution |
 | [BP‑04](bp-04-electronics-wiring.md) | Electronics & wiring | Block & wiring diagrams, enclosures, CAN bus, connectors |
 | BP‑05 | Navigation & perception | Sensors, mounting, localisation fusion, teach & repeat |
@@ -293,18 +271,18 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | Item | Estimate (€) |
 |---|---|
 | Electric rubber‑track undercarriage 1.2 m (quoted) | **1,200** |
-| Lift deck: steel + 2–4 heavy linear actuators | 500–800 |
+| Lift: 2 actuators, links, deck (BP‑02) | 400–650 |
 | 4 load cells + weighing amplifier | 200–300 |
 | RTK GNSS: 2 rover + 1 base receiver, antennas | 700–900 |
 | Main computer | 300–600 |
 | 3D LiDAR + 2 cameras | 800–1,100 |
 | Electronics (BP‑04): power distribution, safety circuit, MCU, comms, E‑box, wiring | 2,300–3,700 |
 | Motor controllers, only if not supplied with the drivetrain | 0–600 |
-| Base: 2 bin stands + certified 600 kg platform scale | 1,000–1,600 |
-| **Total** | **≈ 7,000–10,700** |
+| Base: 1 FULL (certified load cells) + 1 EMPTY stand; +€1k for 2 + 2 | 950–1,450 |
+| **Total** | **≈ 6,850–9,300** |
 
 **Automatic navigation is a core requirement**, not an option. After the
-detailed electronics list (BP‑04 §7) the total is **≈ €7,000–10,700**: €8k is
+detailed electronics list (BP‑04 §7) the total is **≈ €6,850–9,300**: €8k is
 reachable only with low‑end choices (see BP‑04 savings). Keep ~€1k contingency.
 Build order, so problems show up early and cheaply:
 
@@ -314,5 +292,5 @@ Build order, so problems show up early and cheaply:
 - **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →
   the robot drives the taught routes by itself. This is the finished robot.
 
-Not included: 48 V ~7.5 kWh LiFePO4 battery if not
-supplied with the undercarriage (+€1.5–2.5k), workshop labour, safety consultant.
+Not included: battery, 2 packs × 16S 105 Ah (~10.7 kWh, 32 LiFePO4 cells + 2 BMS)
+if not supplied with the undercarriage (+€1.5–2.5k), workshop labour, safety consultant.
