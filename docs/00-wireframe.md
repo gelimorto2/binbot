@@ -260,7 +260,7 @@ EMC & Radio Equipment Directives (CE marking).
 2. **Traction on wet clay** → test the undercarriage on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
-5. **Budget**: fits €8k at low/mid prices; the battery is the main unknown (§11).
+5. **Budget**: €8k only with low‑end choices; battery and electronics are the main unknowns (§11, BP‑04).
 6. **Worker safety compliance** (§7).
 
 ## 9. Blueprint roadmap (next documents)
@@ -270,7 +270,7 @@ EMC & Radio Equipment Directives (CE marking).
 | [BP‑01](bp-01-chassis-drivetrain.md) | Chassis & drivetrain | Frame drawings, track/motor sizing, traction & slope calcs |
 | BP‑02 | Bin handling & weighing | Lift deck, guides, load‑cell layout, weighing algorithm |
 | BP‑03 | Power system | Energy budget, battery, BMS, charging dock, power distribution |
-| BP‑04 | Electronics & wiring | Block & wiring diagrams, enclosures, CAN bus, connectors |
+| [BP‑04](bp-04-electronics-wiring.md) | Electronics & wiring | Block & wiring diagrams, enclosures, CAN bus, connectors |
 | BP‑05 | Navigation & perception | Sensors, mounting, localisation fusion, teach & repeat |
 | BP‑06 | Software architecture | ROS 2 nodes, state machine, interfaces, fleet manager |
 | BP‑07 | Communications | LTE / LoRa / pendant, RTK corrections, coverage plan |
@@ -298,19 +298,17 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | RTK GNSS: 2 rover + 1 base receiver, antennas | 700–900 |
 | Main computer | 300–600 |
 | 3D LiDAR + 2 cameras | 800–1,100 |
-| Safety: safety relay, 4 E‑stops, bumpers, wireless E‑stop pendant | 700–1,000 |
-| Motor controller interface / replacement | 200–600 |
-| Comms: 4G router, LoRa radios, harvester pendant | 200–300 |
-| Wiring, enclosures, connectors, beacon, display | 400–600 |
+| Electronics (BP‑04): power distribution, safety circuit, MCU, comms, E‑box, wiring | 2,300–3,700 |
+| Motor controllers, only if not supplied with the drivetrain | 0–600 |
 | Base: 2 bin stands + certified 600 kg platform scale | 1,000–1,600 |
-| **Total** | **≈ 6,200–9,000** |
+| **Total** | **≈ 7,000–10,700** |
 
-**Automatic navigation is a core requirement**, not an option. With the
-€1,200 undercarriage, the full autonomous robot fits **€8k at low/mid prices**
-(own labour). Keep ~€1k contingency.
+**Automatic navigation is a core requirement**, not an option. After the
+detailed electronics list (BP‑04 §7) the total is **≈ €7,000–10,700**: €8k is
+reachable only with low‑end choices (see BP‑04 savings). Keep ~€1k contingency.
 Build order, so problems show up early and cheaply:
 
-- **Step 1: drive base (≈ €4,700).** Undercarriage + frame, lift deck, weighing, E‑stops,
+- **Step 1: drive base (≈ €5,200 at low‑end prices).** Undercarriage + frame, lift deck, weighing, E‑stops,
   pendant, base stands and scale. Tested by remote control to prove
   traction and stability in your mud before buying sensors.
 - **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →

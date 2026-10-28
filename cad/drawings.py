@@ -109,8 +109,8 @@ def dwg_001():
     bin_top = bz0 + BIN[2]
 
     # side elevation (x, z)
-    E = (1450, 1000)
-    sh.label(E, 0, bin_top + 180, "SIDE VIEW")
+    E = (1500, 1000)
+    sh.label(E, 0, ANT_TOP + 120, "SIDE VIEW")
     sh.ground(E, -1000, 1000)
     sh.poly(E, stadium(TRACK_LEN, TRACK_H))
     sh.rect(E, -FRAME_LEN / 2, FRAME_Z0, FRAME_LEN / 2, FRAME_Z1, "HIDDEN")
@@ -121,6 +121,31 @@ def dwg_001():
     sh.rect(E, -DECK_LX / 2, DECK_Z0_LOW + lift, DECK_LX / 2, DECK_TOP_HIGH)
     sh.rect(E, -BIN[0] / 2, bz0, BIN[0] / 2, bin_top)
     sh.line(E, 0, -60, 0, bin_top + 60, "CENTER")
+    # electronics & sensors (BP-04/05)
+    hx, mx = HOOP_X0 + HOOP / 2, EBOX_X0 - EBOX[0] / 2
+    ez1 = EBOX_Z0 + EBOX[2]
+    sh.rect(E, EBOX_X0 - EBOX[0], EBOX_Z0, EBOX_X0, ez1)
+    sh.label(E, mx, EBOX_Z0 + 300, "E-BOX")
+    for s_ in (1, -1):
+        sh.rect(E, s_ * BUMPER_X, BUMPER_Z0, s_ * (BUMPER_X + BUMPER[0]), BUMPER_Z0 + BUMPER[2])
+        sh.rect(E, s_ * (BUMPER_X + BUMPER[0]), BUMPER_Z0 + 10, s_ * (BUMPER_X + BUMPER[0] + 30), BUMPER_Z0 + BUMPER[2] - 10)
+    sh.rect(E, HOOP_X0, FRAME_Z0, HOOP_X0 + HOOP, HOOP_TOP)
+    sh.rect(E, hx + 20 - LIDAR[0] / 2, HOOP_TOP, hx + 20 + LIDAR[0] / 2, HOOP_TOP + LIDAR[2])
+    ez = HOOP_TOP - HOOP - ESTOP_BOX - 20
+    sh.rect(E, HOOP_X0 + HOOP, ez, HOOP_X0 + HOOP + ESTOP_BOX, ez + ESTOP_BOX)
+    for x in (hx, mx):
+        z0 = HOOP_TOP if x == hx else ez1
+        sh.rect(E, x - MAST_D / 2, z0, x + MAST_D / 2, ANT_TOP - ANT[1])
+        sh.rect(E, x - ANT[0] / 2, ANT_TOP - ANT[1], x + ANT[0] / 2, ANT_TOP)
+    sh.rect(E, mx - BEACON[0] / 2, 1350, mx + BEACON[0] / 2, 1350 + BEACON[1], "HIDDEN")
+    sh.text(E[0] + hx + 90, E[1] + HOOP_TOP + 10, "LiDAR", h=2.5)
+    sh.text(E[0] + hx + 90, E[1] + ANT_TOP - 50, "GNSS1", h=2.5)
+    sh.text(E[0] + mx - 330, E[1] + ANT_TOP - 50, "GNSS2", h=2.5)
+    sh.text(E[0] + mx - 330, E[1] + 1400, "beacon", h=2.5)
+    sh.text(E[0] + HOOP_X0 + 120, E[1] + ez - 60, "E-stop", h=2.5)
+    xb = BUMPER_X + BUMPER[0] + 30
+    sh.dim(E, (-xb, BUMPER_Z0), (xb, BUMPER_Z0), (0, -370))
+    sh.dim(E, (mx + ANT[0] / 2, 0), (mx + ANT[0] / 2, ANT_TOP), (-1360, 0), vertical=True)
     cog = 750
     sh.circle(E, 0, cog, 40)
     sh.line(E, -60, cog, 60, cog), sh.line(E, 0, cog - 60, 0, cog + 60)
@@ -139,7 +164,7 @@ def dwg_001():
 
     # end view (y, z) from the front
     F = (3350, 1000)
-    sh.label(F, 0, bin_top + 180, "FRONT VIEW")
+    sh.label(F, 0, ANT_TOP + 120, "FRONT VIEW")
     sh.ground(F, -680, 680)
     for s in (1, -1):
         sh.rect(F, s * TRACK_INNER_Y, 0, s * TRACK_OUTER_W / 2, TRACK_H)
@@ -150,6 +175,15 @@ def dwg_001():
     sh.rect(F, -DECK_LY / 2, DECK_Z0_LOW + lift, DECK_LY / 2, DECK_TOP_HIGH)
     sh.rect(F, -BIN[1] / 2, bz0, BIN[1] / 2, bin_top)
     sh.line(F, 0, -60, 0, bin_top + 60, "CENTER")
+    sh.rect(F, -BUMPER[1] / 2, BUMPER_Z0, BUMPER[1] / 2, BUMPER_Z0 + BUMPER[2])
+    for s_ in (1, -1):
+        sh.rect(F, s_ * (HOOP_Y - HOOP / 2), FRAME_Z0, s_ * (HOOP_Y + HOOP / 2), HOOP_TOP)
+        sh.rect(F, s_ * (HOOP_Y - ESTOP_BOX / 2), ez, s_ * (HOOP_Y + ESTOP_BOX / 2), ez + ESTOP_BOX)
+        sh.circle(F, s_ * HOOP_Y, ez + ESTOP_BOX / 2, 20)
+    sh.rect(F, -(HOOP_Y + HOOP / 2), HOOP_TOP - HOOP, HOOP_Y + HOOP / 2, HOOP_TOP)
+    sh.rect(F, -LIDAR[1] / 2, HOOP_TOP, LIDAR[1] / 2, HOOP_TOP + LIDAR[2])
+    sh.rect(F, MAST_Y - MAST_D / 2, HOOP_TOP, MAST_Y + MAST_D / 2, ANT_TOP - ANT[1])
+    sh.rect(F, MAST_Y - ANT[0] / 2, ANT_TOP - ANT[1], MAST_Y + ANT[0] / 2, ANT_TOP)
     sh.dim(F, (-TRACK_OUTER_W / 2, 0), (TRACK_OUTER_W / 2, 0), (0, -250))
     sh.dim(F, (-TRACK_Y, TRACK_H), (TRACK_Y, TRACK_H), (0, -130))
     sh.dim(F, (-BIN[1] / 2, bin_top), (BIN[1] / 2, bin_top), (0, bin_top + 90))
@@ -159,7 +193,8 @@ def dwg_001():
     # key data
     x, y = 200, 620
     rows = ["KEY DATA",
-            f"Overall L x W x H     {TRACK_LEN} x {TRACK_OUTER_W} x {bin_top} mm",
+            f"Overall L x W x H     {2 * xb:.0f} x {max(TRACK_OUTER_W, BUMPER[1])} x {ANT_TOP} mm (bumpers, antennas)",
+            f"Bin top {bin_top} mm (raised)",
             f"Track contact / gauge {TRACK_CONTACT} / {2 * TRACK_Y:.0f} mm",
             f"Deck top low / raised {DECK_TOP_LOW} / {DECK_TOP_HIGH} mm",
             f"Frame ground clearance {FRAME_Z0} mm",
@@ -167,7 +202,7 @@ def dwg_001():
             "Limits loaded: 25° up/down, 10° cross-slope",
             "Undercarriage: bought, 48 V, 2 x ≥2 kW, brakes"]
     for i, r in enumerate(rows):
-        sh.text(x, y - i * 65, r, h=3.2 if i else 4.5)
+        sh.text(x, y - i * 58, r, h=3.2 if i else 4.5)
     sh.save("DWG-001_general_arrangement")
 
 

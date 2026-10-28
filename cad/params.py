@@ -71,3 +71,24 @@ BIN_WALL = 30
 
 # --- Steel ---
 STEEL = 7.85e-6   # kg/mm^3
+
+# --- Electronics & sensors (BP-04 / BP-05) ---
+EBOX = (200, 600, 600)        # depth (x) x width (y) x height (z), IP65 steel enclosure
+EBOX_X0 = -(FRAME_LEN / 2 + 10)   # face toward the robot, x = -660 (e-box runs to -860)
+EBOX_Z0 = 300
+BUMPER = (40, 1100, 150)      # depth x width x height, safety edge on the outer face
+BUMPER_X = TRACK_LEN / 2 + 20     # inner face of bumper, x = 870
+BUMPER_Z0 = 170
+HOOP = 40                     # front sensor hoop RHS 40x40
+HOOP_X0 = FRAME_LEN / 2 + 10      # 660
+HOOP_Y = 250
+HOOP_TOP = 850
+LIDAR = (65, 65, 60)          # Mid-360-class
+CAM = (60, 60, 60)
+ESTOP_BOX = 70                # E-stop housing cube, red mushroom on top
+MAST_D = 30
+MAST_Y = 150
+ANT_TOP = 1560                # GNSS antenna top
+ANT = (150, 60)               # antenna diameter, height
+BEACON = (100, 150)           # beacon diameter, height
+DISPLAY = (10, 200, 120)

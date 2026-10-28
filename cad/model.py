@@ -4,7 +4,7 @@ Outputs (cad/out/):
   upper_frame.step / .stl   weldment to fabricate
   chassis_assembly.step     full assembly, bin raised (transport state)
   chassis_assembly.stl      same, single mesh (GitHub shows it in 3D)
-  chassis_iso.svg           isometric preview
+  chassis_iso*.svg          isometric previews (front / rear)
 """
 from math import degrees
 import cadquery as cq
@@ -87,6 +87,66 @@ def bin_body(z0):
     return b
 
 
+def cyl(d, h, x, y, z0):
+    """Vertical cylinder of diameter d and height h standing at z0."""
+    return cq.Workplane("XY").circle(d / 2).extrude(h).translate((x, y, z0))
+
+
+def estop(x, y, z0, face):
+    """Yellow housing + red mushroom on the outer face (face = +1 front / -1 rear in x)."""
+    s = ESTOP_BOX
+    house = box(s, s, s, x + face * s / 2, y, z0)
+    knob = cq.Workplane("YZ").circle(20).extrude(25).translate((x + face * s if face > 0 else x - s - 25, y, z0 + s / 2))
+    return house, knob
+
+
+def electronics(parts):
+    """Adds BP-04/05 components around the frame: (name, shape, rgb)."""
+    RED, YEL, BLK, GRY, AMB = (0.8, 0.1, 0.1), (0.95, 0.8, 0.1), (0.1, 0.1, 0.1), (0.6, 0.6, 0.6), (1.0, 0.55, 0.0)
+    ex1 = EBOX_X0 - EBOX[0]                                   # rear face of e-box, -860
+    parts.append(("ebox", box(EBOX[0], EBOX[1], EBOX[2], EBOX_X0 - EBOX[0] / 2, 0, EBOX_Z0), GRY))
+    parts.append(("ebox_mount", box(10, 500, 80, EBOX_X0 + 5, 0, FRAME_Z0 + 10), GRY))
+    parts.append(("display", box(DISPLAY[0], DISPLAY[1], DISPLAY[2], ex1 - 5, 0, EBOX_Z0 + 380), BLK))
+    parts.append(("isolator_S1", box(80, 40, 80, EBOX_X0 - 100, EBOX[1] / 2 + 20, EBOX_Z0 + 160), RED))
+    parts.append(("charge_inlet_X1", box(80, 40, 60, EBOX_X0 - 100, -EBOX[1] / 2 - 20, EBOX_Z0 + 160), BLK))
+    for s_, n in ((1, "L"), (-1, "R")):
+        h, k = estop(ex1, s_ * 230, EBOX_Z0 + 470, -1)
+        parts += [(f"estop_rear_{n}", h, YEL), (f"estop_rear_{n}_knob", k, RED)]
+    parts.append(("cam_rear", box(*CAM, ex1 + 40, 0, EBOX_Z0 + EBOX[2]), BLK))
+    # rear masts: GNSS2 antenna and beacon
+    mx = EBOX_X0 - EBOX[0] / 2
+    ztop = EBOX_Z0 + EBOX[2]
+    parts.append(("mast_rear", cyl(MAST_D, ANT_TOP - ANT[1] - ztop, mx, MAST_Y, ztop), GRY))
+    parts.append(("gnss2_antenna", cyl(ANT[0], ANT[1], mx, MAST_Y, ANT_TOP - ANT[1]), (0.9, 0.9, 0.9)))
+    parts.append(("beacon_mast", cyl(MAST_D, 1350 - ztop, mx, -MAST_Y, ztop), GRY))
+    parts.append(("beacon", cyl(BEACON[0], BEACON[1], mx, -MAST_Y, 1350), AMB))
+    # front sensor hoop
+    hx = HOOP_X0 + HOOP / 2
+    for s_ in (1, -1):
+        parts.append((f"hoop_upright_{s_}", box(HOOP, HOOP, HOOP_TOP - FRAME_Z0, hx, s_ * HOOP_Y, FRAME_Z0), GRY))
+    parts.append(("hoop_bar", box(HOOP, 2 * HOOP_Y + HOOP, HOOP, hx, 0, HOOP_TOP - HOOP), GRY))
+    parts.append(("lidar", box(*LIDAR, hx + 20, 0, HOOP_TOP), BLK))
+    parts.append(("cam_front", box(*CAM, HOOP_X0 + HOOP + CAM[0] / 2, 0, HOOP_TOP - HOOP - CAM[2] - 10), BLK))
+    for s_, n in ((1, "L"), (-1, "R")):
+        h, k = estop(HOOP_X0 + HOOP, s_ * HOOP_Y, HOOP_TOP - HOOP - ESTOP_BOX - 20, 1)
+        parts += [(f"estop_front_{n}", h, YEL), (f"estop_front_{n}_knob", k, RED)]
+    parts.append(("mast_front", cyl(MAST_D, ANT_TOP - ANT[1] - HOOP_TOP, hx, MAST_Y, HOOP_TOP), GRY))
+    parts.append(("gnss1_antenna", cyl(ANT[0], ANT[1], hx, MAST_Y, ANT_TOP - ANT[1]), (0.9, 0.9, 0.9)))
+    # bumpers with safety edges + arms to the bumper tabs
+    for s_, n in ((1, "front"), (-1, "rear")):
+        bx = s_ * (BUMPER_X + BUMPER[0] / 2)
+        parts.append((f"bumper_{n}", box(BUMPER[0], BUMPER[1], BUMPER[2], bx, 0, BUMPER_Z0), YEL))
+        parts.append((f"safety_edge_{n}", box(30, BUMPER[1], BUMPER[2] - 20, bx + s_ * (BUMPER[0] / 2 + 15), 0, BUMPER_Z0 + 10), BLK))
+        for sy in (1, -1):
+            x0 = FRAME_LEN / 2 + TAB_T
+            parts.append((f"bumper_arm_{n}_{sy}", box(BUMPER_X - x0, 40, 40, s_ * (x0 + BUMPER_X) / 2, sy * TAB_Y, FRAME_Z0 + 30), GRY))
+    # lift actuators (BP-02 placeholder): 2 per side, vertical, beside the rails
+    for s_ in (1, -1):
+        for sx in (1, -1):
+            parts.append((f"lift_actuator_{s_}{sx}", cyl(50, 110, sx * 450, s_ * (RAIL_Y - 60), FRAME_Z1 - 110), (0.3, 0.3, 0.7)))
+    return parts
+
+
 def assembly(raised=True):
     lift = LIFT_STROKE if raised else 0
     a = cq.Assembly(name="binbot_chassis")
@@ -103,6 +163,8 @@ def assembly(raised=True):
         box(DECK_LX - 120, DECK_LY - 120, DECK_H, 0, 0, DECK_Z0_LOW + lift))
     a.add(deck, name="deck", color=cq.Color(0.9, 0.6, 0.1))
     a.add(bin_body(DECK_TOP_LOW + lift), name="bin", color=cq.Color(0.6, 0.75, 0.9, 0.5))
+    for name, shape, rgb in electronics([]):
+        a.add(shape, name=name, color=cq.Color(*rgb))
     return a
 
 
@@ -120,5 +182,7 @@ if __name__ == "__main__":
     flip = lambda shape: shape.rotate((0, 0, 0), (1, 0, 0), 180)
     cq.exporters.export(cq.Workplane().add(flip(comp)), OUT + "chassis_iso.svg", opt=opt)
     cq.exporters.export(cq.Workplane().add(flip(f.val())), OUT + "upper_frame_iso.svg", opt=opt)
+    cq.exporters.export(cq.Workplane().add(flip(comp)), OUT + "chassis_iso_rear.svg",
+                        opt={**opt, "projectionDir": (-1.0, -1.2, -0.7)})
     print("frame volume mm3:", round(f.val().Volume()), "mass kg:", round(f.val().Volume() * STEEL, 1))
     print("brace length:", BRACE_LEN, "angle deg:", round(degrees(BRACE_ANG), 1))

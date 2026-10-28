@@ -489,7 +489,7 @@ $SKPOLY
   9
 $TDCREATE
  40
-2461342.605347222
+2461342.6769560184
   9
 $TDUCREATE
  40
@@ -497,7 +497,7 @@ $TDUCREATE
   9
 $TDUPDATE
  40
-2461342.605347222
+2461342.6769560184
   9
 $TDUUPDATE
  40
@@ -549,7 +549,7 @@ $SPLINESEGS
   9
 $HANDSEED
   5
-1A4
+1E1
   9
 $SURFTAB1
  70
@@ -929,11 +929,11 @@ $PSTYLEMODE
   9
 $FINGERPRINTGUID
   2
-{16943A81-160B-46E1-854D-F717AC7C4A50}
+{202DEB02-F63D-47CD-BBBD-2354FBD31A7D}
   9
 $VERSIONGUID
   2
-{4905EBD5-B221-4153-B7EC-58DBC2A6A8CD}
+{57FB2556-CDD5-4B24-8F98-D9F5488790F6}
   9
 $EXTNAMES
 290
@@ -1323,9 +1323,9 @@ ISM
   0
 CLASS
   1
-ACDBPLACEHOLDER
+LAYOUT
   2
-AcDbPlaceHolder
+AcDbLayout
   3
 ObjectDBX Classes
  90
@@ -1339,9 +1339,9 @@ ObjectDBX Classes
   0
 CLASS
   1
-LAYOUT
+ACDBPLACEHOLDER
   2
-AcDbLayout
+AcDbPlaceHolder
   3
 ObjectDBX Classes
  90
@@ -3253,7 +3253,7 @@ ACAD
   0
 APPID
   5
-1A1
+1DE
 330
 3
 100
@@ -3267,7 +3267,7 @@ HATCHBACKGROUNDCOLOR
   0
 APPID
   5
-1A2
+1DF
 330
 3
 100
@@ -4969,7 +4969,7 @@ BLOCK_RECORD
 100
 AcDbSymbolTable
  70
-16
+18
   0
 BLOCK_RECORD
   5
@@ -5073,7 +5073,7 @@ _CLOSEDBLANK
   0
 BLOCK_RECORD
   5
-CD
+DB
 330
 9
 100
@@ -5093,7 +5093,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-DC
+EA
 330
 9
 100
@@ -5113,7 +5113,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-EB
+FE
 330
 9
 100
@@ -5133,7 +5133,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-FA
+10D
 330
 9
 100
@@ -5153,7 +5153,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-109
+11C
 330
 9
 100
@@ -5173,7 +5173,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-118
+12B
 330
 9
 100
@@ -5193,7 +5193,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-127
+13A
 330
 9
 100
@@ -5213,7 +5213,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-136
+149
 330
 9
 100
@@ -5233,7 +5233,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-16B
+158
 330
 9
 100
@@ -5253,7 +5253,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-17A
+167
 330
 9
 100
@@ -5273,7 +5273,7 @@ AcDbBlockTableRecord
   0
 BLOCK_RECORD
   5
-189
+1A7
 330
 9
 100
@@ -5282,6 +5282,46 @@ AcDbSymbolTableRecord
 AcDbBlockTableRecord
   2
 *D11
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1B6
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D12
+340
+0
+ 70
+0
+280
+1
+281
+0
+  0
+BLOCK_RECORD
+  5
+1C5
+330
+9
+100
+AcDbSymbolTableRecord
+100
+AcDbBlockTableRecord
+  2
+*D13
 340
 0
  70
@@ -5593,9 +5633,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-CE
+DC
 330
-CD
+DB
 100
 AcDbEntity
   8
@@ -5619,9 +5659,9 @@ AcDbBlockBegin
   0
 LINE
   5
-D0
+DE
 330
-CD
+DB
 100
 AcDbEntity
   8
@@ -5629,23 +5669,23 @@ AcDbEntity
 100
 AcDbLine
  10
-600.0
+560.0
  20
-1190.0
+1160.0
  30
 0.0
  11
-600.0
+560.0
  21
-735.0
+615.0
  31
 0.0
   0
 LINE
   5
-D1
+DF
 330
-CD
+DB
 100
 AcDbEntity
   8
@@ -5653,23 +5693,23 @@ AcDbEntity
 100
 AcDbLine
  10
-2300.0
+2440.0
  20
-1190.0
+1160.0
  30
 0.0
  11
-2300.0
+2440.0
  21
-735.0
+615.0
  31
 0.0
   0
 INSERT
   5
-D2
+E0
 330
-CD
+DB
 100
 AcDbEntity
   8
@@ -5679,7 +5719,491 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-600.0
+560.0
+ 20
+630.0
+ 30
+0.0
+ 41
+25.0
+ 42
+25.0
+ 50
+180.0
+  0
+INSERT
+  5
+E2
+330
+DB
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbBlockReference
+  2
+_ARCHTICK
+ 10
+2440.0
+ 20
+630.0
+ 30
+0.0
+ 41
+25.0
+ 42
+25.0
+  0
+LINE
+  5
+E4
+330
+DB
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+560.0
+ 20
+630.0
+ 30
+0.0
+ 11
+2440.0
+ 21
+630.0
+ 31
+0.0
+  0
+MTEXT
+  5
+E5
+330
+DB
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbMText
+ 10
+1500.0
+ 20
+652.0
+ 30
+0.0
+ 40
+28.0
+ 71
+5
+  1
+1880
+  7
+OpenSansCondensed-Light
+  0
+POINT
+  5
+E6
+330
+DB
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+560.0
+ 20
+630.0
+ 30
+0.0
+  0
+POINT
+  5
+E7
+330
+DB
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+560.0
+ 20
+1170.0
+ 30
+0.0
+  0
+POINT
+  5
+E8
+330
+DB
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+2440.0
+ 20
+1170.0
+ 30
+0.0
+  0
+ENDBLK
+  5
+DD
+330
+DB
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+EB
+330
+EA
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D2
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D2
+  1
+
+  0
+LINE
+  5
+ED
+330
+EA
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+805.0
+ 20
+1000.0
+ 30
+0.0
+ 11
+125.0
+ 21
+1000.0
+ 31
+0.0
+  0
+LINE
+  5
+EE
+330
+EA
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+805.0
+ 20
+2560.0
+ 30
+0.0
+ 11
+125.0
+ 21
+2560.0
+ 31
+0.0
+  0
+INSERT
+  5
+EF
+330
+EA
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbBlockReference
+  2
+_ARCHTICK
+ 10
+140.0
+ 20
+1000.0
+ 30
+0.0
+ 41
+25.0
+ 42
+25.0
+ 50
+270.0
+  0
+INSERT
+  5
+F1
+330
+EA
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbBlockReference
+  2
+_ARCHTICK
+ 10
+140.0
+ 20
+2560.0
+ 30
+0.0
+ 41
+25.0
+ 42
+25.0
+ 50
+90.0
+  0
+LINE
+  5
+F3
+330
+EA
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+140.0
+ 20
+1000.0
+ 30
+0.0
+ 11
+140.0
+ 21
+2560.0
+ 31
+0.0
+  0
+MTEXT
+  5
+F4
+330
+EA
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbMText
+ 10
+118.0
+ 20
+1780.0
+ 30
+0.0
+ 40
+28.0
+ 71
+5
+  1
+1560
+  7
+OpenSansCondensed-Light
+ 50
+90.0
+  0
+POINT
+  5
+F5
+330
+EA
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+140.0
+ 20
+1000.0
+ 30
+0.0
+  0
+POINT
+  5
+F6
+330
+EA
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+815.0
+ 20
+1000.0
+ 30
+0.0
+  0
+POINT
+  5
+F7
+330
+EA
+100
+AcDbEntity
+  8
+Defpoints
+100
+AcDbPoint
+ 10
+815.0
+ 20
+2560.0
+ 30
+0.0
+  0
+ENDBLK
+  5
+EC
+330
+EA
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockEnd
+  0
+BLOCK
+  5
+FF
+330
+FE
+100
+AcDbEntity
+  8
+0
+100
+AcDbBlockBegin
+  2
+*D3
+ 70
+1
+ 10
+0.0
+ 20
+0.0
+ 30
+0.0
+  3
+*D3
+  1
+
+  0
+LINE
+  5
+101
+330
+FE
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+650.0
+ 20
+1190.0
+ 30
+0.0
+ 11
+650.0
+ 21
+735.0
+ 31
+0.0
+  0
+LINE
+  5
+102
+330
+FE
+100
+AcDbEntity
+  8
+0
+100
+AcDbLine
+ 10
+2350.0
+ 20
+1190.0
+ 30
+0.0
+ 11
+2350.0
+ 21
+735.0
+ 31
+0.0
+  0
+INSERT
+  5
+103
+330
+FE
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbBlockReference
+  2
+_ARCHTICK
+ 10
+650.0
  20
 750.0
  30
@@ -5693,9 +6217,9 @@ _ARCHTICK
   0
 INSERT
   5
-D4
+105
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5705,7 +6229,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2300.0
+2350.0
  20
 750.0
  30
@@ -5717,9 +6241,9 @@ _ARCHTICK
   0
 LINE
   5
-D6
+107
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5727,13 +6251,13 @@ AcDbEntity
 100
 AcDbLine
  10
-600.0
+650.0
  20
 750.0
  30
 0.0
  11
-2300.0
+2350.0
  21
 750.0
  31
@@ -5741,9 +6265,9 @@ AcDbLine
   0
 MTEXT
   5
-D7
+108
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5751,7 +6275,7 @@ DIM
 100
 AcDbMText
  10
-1450.0
+1500.0
  20
 772.0
  30
@@ -5767,9 +6291,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-D8
+109
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5777,7 +6301,7 @@ Defpoints
 100
 AcDbPoint
  10
-600.0
+650.0
  20
 750.0
  30
@@ -5785,9 +6309,9 @@ AcDbPoint
   0
 POINT
   5
-D9
+10A
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5795,7 +6319,7 @@ Defpoints
 100
 AcDbPoint
  10
-600.0
+650.0
  20
 1200.0
  30
@@ -5803,9 +6327,9 @@ AcDbPoint
   0
 POINT
   5
-DA
+10B
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5813,7 +6337,7 @@ Defpoints
 100
 AcDbPoint
  10
-2300.0
+2350.0
  20
 1200.0
  30
@@ -5821,9 +6345,9 @@ AcDbPoint
   0
 ENDBLK
   5
-CF
+100
 330
-CD
+FE
 100
 AcDbEntity
   8
@@ -5833,9 +6357,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-DD
+10E
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5843,7 +6367,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D2
+*D4
  70
 1
  10
@@ -5853,15 +6377,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D2
+*D4
   1
 
   0
 LINE
   5
-DF
+110
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5869,13 +6393,13 @@ AcDbEntity
 100
 AcDbLine
  10
-800.0
+850.0
  20
 990.0
  30
 0.0
  11
-800.0
+850.0
  21
 855.0
  31
@@ -5883,9 +6407,9 @@ AcDbLine
   0
 LINE
   5
-E0
+111
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5893,13 +6417,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2100.0
+2150.0
  20
 990.0
  30
 0.0
  11
-2100.0
+2150.0
  21
 855.0
  31
@@ -5907,9 +6431,9 @@ AcDbLine
   0
 INSERT
   5
-E1
+112
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5919,7 +6443,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-800.0
+850.0
  20
 870.0
  30
@@ -5933,9 +6457,9 @@ _ARCHTICK
   0
 INSERT
   5
-E3
+114
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5945,7 +6469,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2100.0
+2150.0
  20
 870.0
  30
@@ -5957,9 +6481,9 @@ _ARCHTICK
   0
 LINE
   5
-E5
+116
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5967,13 +6491,13 @@ AcDbEntity
 100
 AcDbLine
  10
-800.0
+850.0
  20
 870.0
  30
 0.0
  11
-2100.0
+2150.0
  21
 870.0
  31
@@ -5981,9 +6505,9 @@ AcDbLine
   0
 MTEXT
   5
-E6
+117
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -5991,7 +6515,7 @@ DIM
 100
 AcDbMText
  10
-1450.0
+1500.0
  20
 892.0
  30
@@ -6007,9 +6531,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-E7
+118
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -6017,7 +6541,7 @@ Defpoints
 100
 AcDbPoint
  10
-800.0
+850.0
  20
 870.0
  30
@@ -6025,9 +6549,9 @@ AcDbPoint
   0
 POINT
   5
-E8
+119
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -6035,7 +6559,7 @@ Defpoints
 100
 AcDbPoint
  10
-800.0
+850.0
  20
 1000.0
  30
@@ -6043,9 +6567,9 @@ AcDbPoint
   0
 POINT
   5
-E9
+11A
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -6053,7 +6577,7 @@ Defpoints
 100
 AcDbPoint
  10
-2100.0
+2150.0
  20
 1000.0
  30
@@ -6061,9 +6585,9 @@ AcDbPoint
   0
 ENDBLK
   5
-DE
+10F
 330
-DC
+10D
 100
 AcDbEntity
   8
@@ -6073,9 +6597,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-EC
+11D
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6083,7 +6607,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D3
+*D5
  70
 1
  10
@@ -6093,15 +6617,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D3
+*D5
   1
 
   0
 LINE
   5
-EE
+11F
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6109,13 +6633,13 @@ AcDbEntity
 100
 AcDbLine
  10
-850.0
+900.0
  20
 2350.0
  30
 0.0
  11
-850.0
+900.0
  21
 2445.0
  31
@@ -6123,9 +6647,9 @@ AcDbLine
   0
 LINE
   5
-EF
+120
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6133,13 +6657,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2050.0
+2100.0
  20
 2350.0
  30
 0.0
  11
-2050.0
+2100.0
  21
 2445.0
  31
@@ -6147,9 +6671,9 @@ AcDbLine
   0
 INSERT
   5
-F0
+121
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6159,7 +6683,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-850.0
+900.0
  20
 2430.0
  30
@@ -6173,9 +6697,9 @@ _ARCHTICK
   0
 INSERT
   5
-F2
+123
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6185,7 +6709,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2050.0
+2100.0
  20
 2430.0
  30
@@ -6197,9 +6721,9 @@ _ARCHTICK
   0
 LINE
   5
-F4
+125
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6207,13 +6731,13 @@ AcDbEntity
 100
 AcDbLine
  10
-850.0
+900.0
  20
 2430.0
  30
 0.0
  11
-2050.0
+2100.0
  21
 2430.0
  31
@@ -6221,9 +6745,9 @@ AcDbLine
   0
 MTEXT
   5
-F5
+126
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6231,7 +6755,7 @@ DIM
 100
 AcDbMText
  10
-1450.0
+1500.0
  20
 2452.0
  30
@@ -6247,9 +6771,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-F6
+127
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6257,7 +6781,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 2430.0
  30
@@ -6265,9 +6789,9 @@ AcDbPoint
   0
 POINT
   5
-F7
+128
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6275,7 +6799,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 2340.0
  30
@@ -6283,9 +6807,9 @@ AcDbPoint
   0
 POINT
   5
-F8
+129
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6293,7 +6817,7 @@ Defpoints
 100
 AcDbPoint
  10
-2050.0
+2100.0
  20
 2340.0
  30
@@ -6301,9 +6825,9 @@ AcDbPoint
   0
 ENDBLK
   5
-ED
+11E
 330
-EB
+11C
 100
 AcDbEntity
   8
@@ -6313,9 +6837,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-FB
+12C
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6323,7 +6847,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D4
+*D6
  70
 1
  10
@@ -6333,15 +6857,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D4
+*D6
   1
 
   0
 LINE
   5
-FD
+12E
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6349,13 +6873,13 @@ AcDbEntity
 100
 AcDbLine
  10
-590.0
+640.0
  20
 1000.0
  30
 0.0
  11
-435.0
+485.0
  21
 1000.0
  31
@@ -6363,9 +6887,9 @@ AcDbLine
   0
 LINE
   5
-FE
+12F
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6373,13 +6897,13 @@ AcDbEntity
 100
 AcDbLine
  10
-590.0
+640.0
  20
 1400.0
  30
 0.0
  11
-435.0
+485.0
  21
 1400.0
  31
@@ -6387,9 +6911,9 @@ AcDbLine
   0
 INSERT
   5
-FF
+130
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6399,7 +6923,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-450.0
+500.0
  20
 1000.0
  30
@@ -6413,9 +6937,9 @@ _ARCHTICK
   0
 INSERT
   5
-101
+132
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6425,7 +6949,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-450.0
+500.0
  20
 1400.0
  30
@@ -6439,9 +6963,9 @@ _ARCHTICK
   0
 LINE
   5
-103
+134
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6449,13 +6973,13 @@ AcDbEntity
 100
 AcDbLine
  10
-450.0
+500.0
  20
 1000.0
  30
 0.0
  11
-450.0
+500.0
  21
 1400.0
  31
@@ -6463,9 +6987,9 @@ AcDbLine
   0
 MTEXT
   5
-104
+135
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6473,7 +6997,7 @@ DIM
 100
 AcDbMText
  10
-428.0
+478.0
  20
 1200.0
  30
@@ -6491,9 +7015,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-105
+136
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6501,7 +7025,7 @@ Defpoints
 100
 AcDbPoint
  10
-450.0
+500.0
  20
 1000.0
  30
@@ -6509,9 +7033,9 @@ AcDbPoint
   0
 POINT
   5
-106
+137
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6519,7 +7043,7 @@ Defpoints
 100
 AcDbPoint
  10
-600.0
+650.0
  20
 1000.0
  30
@@ -6527,9 +7051,9 @@ AcDbPoint
   0
 POINT
   5
-107
+138
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6537,7 +7061,7 @@ Defpoints
 100
 AcDbPoint
  10
-600.0
+650.0
  20
 1400.0
  30
@@ -6545,9 +7069,9 @@ AcDbPoint
   0
 ENDBLK
   5
-FC
+12D
 330
-FA
+12B
 100
 AcDbEntity
   8
@@ -6557,9 +7081,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-10A
+13B
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6567,7 +7091,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D5
+*D7
  70
 1
  10
@@ -6577,15 +7101,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D5
+*D7
   1
 
   0
 LINE
   5
-10C
+13D
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6593,13 +7117,13 @@ AcDbEntity
 100
 AcDbLine
  10
-840.0
+890.0
  20
 1000.0
  30
 0.0
  11
-315.0
+365.0
  21
 1000.0
  31
@@ -6607,9 +7131,9 @@ AcDbLine
   0
 LINE
   5
-10D
+13E
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6617,13 +7141,13 @@ AcDbEntity
 100
 AcDbLine
  10
-840.0
+890.0
  20
 1580.0
  30
 0.0
  11
-315.0
+365.0
  21
 1580.0
  31
@@ -6631,9 +7155,9 @@ AcDbLine
   0
 INSERT
   5
-10E
+13F
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6643,7 +7167,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-330.0
+380.0
  20
 1000.0
  30
@@ -6657,9 +7181,9 @@ _ARCHTICK
   0
 INSERT
   5
-110
+141
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6669,7 +7193,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-330.0
+380.0
  20
 1580.0
  30
@@ -6683,9 +7207,9 @@ _ARCHTICK
   0
 LINE
   5
-112
+143
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6693,13 +7217,13 @@ AcDbEntity
 100
 AcDbLine
  10
-330.0
+380.0
  20
 1000.0
  30
 0.0
  11
-330.0
+380.0
  21
 1580.0
  31
@@ -6707,9 +7231,9 @@ AcDbLine
   0
 MTEXT
   5
-113
+144
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6717,7 +7241,7 @@ DIM
 100
 AcDbMText
  10
-308.0
+358.0
  20
 1290.0
  30
@@ -6735,9 +7259,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-114
+145
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6745,7 +7269,7 @@ Defpoints
 100
 AcDbPoint
  10
-330.0
+380.0
  20
 1000.0
  30
@@ -6753,9 +7277,9 @@ AcDbPoint
   0
 POINT
   5
-115
+146
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6763,7 +7287,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 1000.0
  30
@@ -6771,9 +7295,9 @@ AcDbPoint
   0
 POINT
   5
-116
+147
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6781,7 +7305,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 1580.0
  30
@@ -6789,9 +7313,9 @@ AcDbPoint
   0
 ENDBLK
   5
-10B
+13C
 330
-109
+13A
 100
 AcDbEntity
   8
@@ -6801,9 +7325,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-119
+14A
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6811,7 +7335,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D6
+*D8
  70
 1
  10
@@ -6821,15 +7345,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D6
+*D8
   1
 
   0
 LINE
   5
-11B
+14C
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6837,13 +7361,13 @@ AcDbEntity
 100
 AcDbLine
  10
-840.0
+890.0
  20
 1000.0
  30
 0.0
  11
-195.0
+245.0
  21
 1000.0
  31
@@ -6851,9 +7375,9 @@ AcDbLine
   0
 LINE
   5
-11C
+14D
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6861,13 +7385,13 @@ AcDbEntity
 100
 AcDbLine
  10
-840.0
+890.0
  20
 2340.0
  30
 0.0
  11
-195.0
+245.0
  21
 2340.0
  31
@@ -6875,9 +7399,9 @@ AcDbLine
   0
 INSERT
   5
-11D
+14E
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6887,7 +7411,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-210.0
+260.0
  20
 1000.0
  30
@@ -6901,9 +7425,9 @@ _ARCHTICK
   0
 INSERT
   5
-11F
+150
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6913,7 +7437,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-210.0
+260.0
  20
 2340.0
  30
@@ -6927,9 +7451,9 @@ _ARCHTICK
   0
 LINE
   5
-121
+152
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6937,13 +7461,13 @@ AcDbEntity
 100
 AcDbLine
  10
-210.0
+260.0
  20
 1000.0
  30
 0.0
  11
-210.0
+260.0
  21
 2340.0
  31
@@ -6951,9 +7475,9 @@ AcDbLine
   0
 MTEXT
   5
-122
+153
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6961,7 +7485,7 @@ DIM
 100
 AcDbMText
  10
-188.0
+238.0
  20
 1670.0
  30
@@ -6979,9 +7503,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-123
+154
 330
-118
+149
 100
 AcDbEntity
   8
@@ -6989,7 +7513,7 @@ Defpoints
 100
 AcDbPoint
  10
-210.0
+260.0
  20
 1000.0
  30
@@ -6997,9 +7521,9 @@ AcDbPoint
   0
 POINT
   5
-124
+155
 330
-118
+149
 100
 AcDbEntity
   8
@@ -7007,7 +7531,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 1000.0
  30
@@ -7015,9 +7539,9 @@ AcDbPoint
   0
 POINT
   5
-125
+156
 330
-118
+149
 100
 AcDbEntity
   8
@@ -7025,7 +7549,7 @@ Defpoints
 100
 AcDbPoint
  10
-850.0
+900.0
  20
 2340.0
  30
@@ -7033,9 +7557,9 @@ AcDbPoint
   0
 ENDBLK
   5
-11A
+14B
 330
-118
+149
 100
 AcDbEntity
   8
@@ -7045,9 +7569,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-128
+159
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7055,7 +7579,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D7
+*D9
  70
 1
  10
@@ -7065,15 +7589,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D7
+*D9
   1
 
   0
 LINE
   5
-12A
+15B
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7081,13 +7605,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2110.0
+2160.0
  20
 1000.0
  30
 0.0
  11
-2465.0
+2515.0
  21
 1000.0
  31
@@ -7095,9 +7619,9 @@ AcDbLine
   0
 LINE
   5
-12B
+15C
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7105,13 +7629,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2110.0
+2160.0
  20
 1250.0
  30
 0.0
  11
-2465.0
+2515.0
  21
 1250.0
  31
@@ -7119,9 +7643,9 @@ AcDbLine
   0
 INSERT
   5
-12C
+15D
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7131,7 +7655,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2450.0
+2500.0
  20
 1000.0
  30
@@ -7145,9 +7669,9 @@ _ARCHTICK
   0
 INSERT
   5
-12E
+15F
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7157,7 +7681,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2450.0
+2500.0
  20
 1250.0
  30
@@ -7171,9 +7695,9 @@ _ARCHTICK
   0
 LINE
   5
-130
+161
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7181,13 +7705,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2450.0
+2500.0
  20
 1000.0
  30
 0.0
  11
-2450.0
+2500.0
  21
 1250.0
  31
@@ -7195,9 +7719,9 @@ AcDbLine
   0
 MTEXT
   5
-131
+162
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7205,7 +7729,7 @@ DIM
 100
 AcDbMText
  10
-2428.0
+2478.0
  20
 1125.0
  30
@@ -7223,9 +7747,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-132
+163
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7233,7 +7757,7 @@ Defpoints
 100
 AcDbPoint
  10
-2450.0
+2500.0
  20
 1000.0
  30
@@ -7241,9 +7765,9 @@ AcDbPoint
   0
 POINT
   5
-133
+164
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7251,7 +7775,7 @@ Defpoints
 100
 AcDbPoint
  10
-2100.0
+2150.0
  20
 1000.0
  30
@@ -7259,9 +7783,9 @@ AcDbPoint
   0
 POINT
   5
-134
+165
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7269,7 +7793,7 @@ Defpoints
 100
 AcDbPoint
  10
-2100.0
+2150.0
  20
 1250.0
  30
@@ -7277,9 +7801,9 @@ AcDbPoint
   0
 ENDBLK
   5
-129
+15A
 330
-127
+158
 100
 AcDbEntity
   8
@@ -7289,9 +7813,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-137
+168
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7299,7 +7823,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D8
+*D10
  70
 1
  10
@@ -7309,15 +7833,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D8
+*D10
   1
 
   0
 LINE
   5
-139
+16A
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7325,13 +7849,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2060.0
+2110.0
  20
 1480.0
  30
 0.0
  11
-2585.0
+2635.0
  21
 1480.0
  31
@@ -7339,9 +7863,9 @@ AcDbLine
   0
 LINE
   5
-13A
+16B
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7349,13 +7873,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2060.0
+2110.0
  20
 1580.0
  30
 0.0
  11
-2585.0
+2635.0
  21
 1580.0
  31
@@ -7363,9 +7887,9 @@ AcDbLine
   0
 INSERT
   5
-13B
+16C
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7375,7 +7899,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2570.0
+2620.0
  20
 1480.0
  30
@@ -7389,9 +7913,9 @@ _ARCHTICK
   0
 INSERT
   5
-13D
+16E
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7401,7 +7925,7 @@ AcDbBlockReference
   2
 _ARCHTICK
  10
-2570.0
+2620.0
  20
 1580.0
  30
@@ -7415,9 +7939,9 @@ _ARCHTICK
   0
 LINE
   5
-13F
+170
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7425,13 +7949,13 @@ AcDbEntity
 100
 AcDbLine
  10
-2570.0
+2620.0
  20
 1480.0
  30
 0.0
  11
-2570.0
+2620.0
  21
 1580.0
  31
@@ -7439,9 +7963,9 @@ AcDbLine
   0
 MTEXT
   5
-140
+171
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7449,7 +7973,7 @@ DIM
 100
 AcDbMText
  10
-2548.0
+2598.0
  20
 1530.0
  30
@@ -7467,9 +7991,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-141
+172
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7477,7 +8001,7 @@ Defpoints
 100
 AcDbPoint
  10
-2570.0
+2620.0
  20
 1480.0
  30
@@ -7485,9 +8009,9 @@ AcDbPoint
   0
 POINT
   5
-142
+173
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7495,7 +8019,7 @@ Defpoints
 100
 AcDbPoint
  10
-2050.0
+2100.0
  20
 1480.0
  30
@@ -7503,9 +8027,9 @@ AcDbPoint
   0
 POINT
   5
-143
+174
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7513,7 +8037,7 @@ Defpoints
 100
 AcDbPoint
  10
-2050.0
+2100.0
  20
 1580.0
  30
@@ -7521,9 +8045,9 @@ AcDbPoint
   0
 ENDBLK
   5
-138
+169
 330
-136
+167
 100
 AcDbEntity
   8
@@ -7533,9 +8057,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-16C
+1A8
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7543,7 +8067,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D9
+*D11
  70
 1
  10
@@ -7553,15 +8077,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D9
+*D11
   1
 
   0
 LINE
   5
-16E
+1AA
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7583,9 +8107,9 @@ AcDbLine
   0
 LINE
   5
-16F
+1AB
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7607,9 +8131,9 @@ AcDbLine
   0
 INSERT
   5
-170
+1AC
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7633,9 +8157,9 @@ _ARCHTICK
   0
 INSERT
   5
-172
+1AE
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7657,9 +8181,9 @@ _ARCHTICK
   0
 LINE
   5
-174
+1B0
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7681,9 +8205,9 @@ AcDbLine
   0
 MTEXT
   5
-175
+1B1
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7707,9 +8231,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-176
+1B2
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7725,9 +8249,9 @@ AcDbPoint
   0
 POINT
   5
-177
+1B3
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7743,9 +8267,9 @@ AcDbPoint
   0
 POINT
   5
-178
+1B4
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7761,9 +8285,9 @@ AcDbPoint
   0
 ENDBLK
   5
-16D
+1A9
 330
-16B
+1A7
 100
 AcDbEntity
   8
@@ -7773,9 +8297,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-17B
+1B7
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7783,7 +8307,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D10
+*D12
  70
 1
  10
@@ -7793,15 +8317,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D10
+*D12
   1
 
   0
 LINE
   5
-17D
+1B9
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7823,9 +8347,9 @@ AcDbLine
   0
 LINE
   5
-17E
+1BA
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7847,9 +8371,9 @@ AcDbLine
   0
 INSERT
   5
-17F
+1BB
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7873,9 +8397,9 @@ _ARCHTICK
   0
 INSERT
   5
-181
+1BD
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7897,9 +8421,9 @@ _ARCHTICK
   0
 LINE
   5
-183
+1BF
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7921,9 +8445,9 @@ AcDbLine
   0
 MTEXT
   5
-184
+1C0
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7947,9 +8471,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-185
+1C1
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7965,9 +8489,9 @@ AcDbPoint
   0
 POINT
   5
-186
+1C2
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -7983,9 +8507,9 @@ AcDbPoint
   0
 POINT
   5
-187
+1C3
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -8001,9 +8525,9 @@ AcDbPoint
   0
 ENDBLK
   5
-17C
+1B8
 330
-17A
+1B6
 100
 AcDbEntity
   8
@@ -8013,9 +8537,9 @@ AcDbBlockEnd
   0
 BLOCK
   5
-18A
+1C6
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8023,7 +8547,7 @@ AcDbEntity
 100
 AcDbBlockBegin
   2
-*D11
+*D13
  70
 1
  10
@@ -8033,15 +8557,15 @@ AcDbBlockBegin
  30
 0.0
   3
-*D11
+*D13
   1
 
   0
 LINE
   5
-18C
+1C8
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8063,9 +8587,9 @@ AcDbLine
   0
 LINE
   5
-18D
+1C9
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8087,9 +8611,9 @@ AcDbLine
   0
 INSERT
   5
-18E
+1CA
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8113,9 +8637,9 @@ _ARCHTICK
   0
 INSERT
   5
-190
+1CC
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8137,9 +8661,9 @@ _ARCHTICK
   0
 LINE
   5
-192
+1CE
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8161,9 +8685,9 @@ AcDbLine
   0
 MTEXT
   5
-193
+1CF
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8187,9 +8711,9 @@ OpenSansCondensed-Light
   0
 POINT
   5
-194
+1D0
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8205,9 +8729,9 @@ AcDbPoint
   0
 POINT
   5
-195
+1D1
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8223,9 +8747,9 @@ AcDbPoint
   0
 POINT
   5
-196
+1D2
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8241,9 +8765,9 @@ AcDbPoint
   0
 ENDBLK
   5
-18B
+1C7
 330
-189
+1C5
 100
 AcDbEntity
   8
@@ -8525,9 +9049,9 @@ TEXT
 100
 AcDbText
  10
-1450.0
+1500.0
  20
-2520.0
+2680.0
  30
 0.0
  40
@@ -8537,9 +9061,9 @@ SIDE VIEW
  72
 1
  11
-1450.0
+1500.0
  21
-2520.0
+2680.0
  31
 0.0
 100
@@ -8559,13 +9083,13 @@ OUTLINE
 100
 AcDbLine
  10
-450.0
+500.0
  20
 1000.0
  30
 0.0
  11
-2450.0
+2500.0
  21
 1000.0
  31
@@ -8583,13 +9107,13 @@ DIM
 100
 AcDbLine
  10
-450.0
+500.0
  20
 1000.0
  30
 0.0
  11
-410.0
+460.0
  21
 960.0
  31
@@ -8607,13 +9131,13 @@ DIM
 100
 AcDbLine
  10
-510.0
+560.0
  20
 1000.0
  30
 0.0
  11
-470.0
+520.0
  21
 960.0
  31
@@ -8631,13 +9155,13 @@ DIM
 100
 AcDbLine
  10
-570.0
+620.0
  20
 1000.0
  30
 0.0
  11
-530.0
+580.0
  21
 960.0
  31
@@ -8655,13 +9179,13 @@ DIM
 100
 AcDbLine
  10
-630.0
+680.0
  20
 1000.0
  30
 0.0
  11
-590.0
+640.0
  21
 960.0
  31
@@ -8679,13 +9203,13 @@ DIM
 100
 AcDbLine
  10
-690.0
+740.0
  20
 1000.0
  30
 0.0
  11
-650.0
+700.0
  21
 960.0
  31
@@ -8703,13 +9227,13 @@ DIM
 100
 AcDbLine
  10
-750.0
+800.0
  20
 1000.0
  30
 0.0
  11
-710.0
+760.0
  21
 960.0
  31
@@ -8727,13 +9251,13 @@ DIM
 100
 AcDbLine
  10
-810.0
+860.0
  20
 1000.0
  30
 0.0
  11
-770.0
+820.0
  21
 960.0
  31
@@ -8751,13 +9275,13 @@ DIM
 100
 AcDbLine
  10
-870.0
+920.0
  20
 1000.0
  30
 0.0
  11
-830.0
+880.0
  21
 960.0
  31
@@ -8775,13 +9299,13 @@ DIM
 100
 AcDbLine
  10
-930.0
+980.0
  20
 1000.0
  30
 0.0
  11
-890.0
+940.0
  21
 960.0
  31
@@ -8799,13 +9323,13 @@ DIM
 100
 AcDbLine
  10
-990.0
+1040.0
  20
 1000.0
  30
 0.0
  11
-950.0
+1000.0
  21
 960.0
  31
@@ -8823,13 +9347,13 @@ DIM
 100
 AcDbLine
  10
-1050.0
+1100.0
  20
 1000.0
  30
 0.0
  11
-1010.0
+1060.0
  21
 960.0
  31
@@ -8847,13 +9371,13 @@ DIM
 100
 AcDbLine
  10
-1110.0
+1160.0
  20
 1000.0
  30
 0.0
  11
-1070.0
+1120.0
  21
 960.0
  31
@@ -8871,13 +9395,13 @@ DIM
 100
 AcDbLine
  10
-1170.0
+1220.0
  20
 1000.0
  30
 0.0
  11
-1130.0
+1180.0
  21
 960.0
  31
@@ -8895,13 +9419,13 @@ DIM
 100
 AcDbLine
  10
-1230.0
+1280.0
  20
 1000.0
  30
 0.0
  11
-1190.0
+1240.0
  21
 960.0
  31
@@ -8919,13 +9443,13 @@ DIM
 100
 AcDbLine
  10
-1290.0
+1340.0
  20
 1000.0
  30
 0.0
  11
-1250.0
+1300.0
  21
 960.0
  31
@@ -8943,13 +9467,13 @@ DIM
 100
 AcDbLine
  10
-1350.0
+1400.0
  20
 1000.0
  30
 0.0
  11
-1310.0
+1360.0
  21
 960.0
  31
@@ -8967,13 +9491,13 @@ DIM
 100
 AcDbLine
  10
-1410.0
+1460.0
  20
 1000.0
  30
 0.0
  11
-1370.0
+1420.0
  21
 960.0
  31
@@ -8991,13 +9515,13 @@ DIM
 100
 AcDbLine
  10
-1470.0
+1520.0
  20
 1000.0
  30
 0.0
  11
-1430.0
+1480.0
  21
 960.0
  31
@@ -9015,13 +9539,13 @@ DIM
 100
 AcDbLine
  10
-1530.0
+1580.0
  20
 1000.0
  30
 0.0
  11
-1490.0
+1540.0
  21
 960.0
  31
@@ -9039,13 +9563,13 @@ DIM
 100
 AcDbLine
  10
-1590.0
+1640.0
  20
 1000.0
  30
 0.0
  11
-1550.0
+1600.0
  21
 960.0
  31
@@ -9063,13 +9587,13 @@ DIM
 100
 AcDbLine
  10
-1650.0
+1700.0
  20
 1000.0
  30
 0.0
  11
-1610.0
+1660.0
  21
 960.0
  31
@@ -9087,13 +9611,13 @@ DIM
 100
 AcDbLine
  10
-1710.0
+1760.0
  20
 1000.0
  30
 0.0
  11
-1670.0
+1720.0
  21
 960.0
  31
@@ -9111,13 +9635,13 @@ DIM
 100
 AcDbLine
  10
-1770.0
+1820.0
  20
 1000.0
  30
 0.0
  11
-1730.0
+1780.0
  21
 960.0
  31
@@ -9135,13 +9659,13 @@ DIM
 100
 AcDbLine
  10
-1830.0
+1880.0
  20
 1000.0
  30
 0.0
  11
-1790.0
+1840.0
  21
 960.0
  31
@@ -9159,13 +9683,13 @@ DIM
 100
 AcDbLine
  10
-1890.0
+1940.0
  20
 1000.0
  30
 0.0
  11
-1850.0
+1900.0
  21
 960.0
  31
@@ -9183,13 +9707,13 @@ DIM
 100
 AcDbLine
  10
-1950.0
+2000.0
  20
 1000.0
  30
 0.0
  11
-1910.0
+1960.0
  21
 960.0
  31
@@ -9207,13 +9731,13 @@ DIM
 100
 AcDbLine
  10
-2010.0
+2060.0
  20
 1000.0
  30
 0.0
  11
-1970.0
+2020.0
  21
 960.0
  31
@@ -9231,13 +9755,13 @@ DIM
 100
 AcDbLine
  10
-2070.0
+2120.0
  20
 1000.0
  30
 0.0
  11
-2030.0
+2080.0
  21
 960.0
  31
@@ -9255,13 +9779,13 @@ DIM
 100
 AcDbLine
  10
-2130.0
+2180.0
  20
 1000.0
  30
 0.0
  11
-2090.0
+2140.0
  21
 960.0
  31
@@ -9279,13 +9803,13 @@ DIM
 100
 AcDbLine
  10
-2190.0
+2240.0
  20
 1000.0
  30
 0.0
  11
-2150.0
+2200.0
  21
 960.0
  31
@@ -9303,13 +9827,13 @@ DIM
 100
 AcDbLine
  10
-2250.0
+2300.0
  20
 1000.0
  30
 0.0
  11
-2210.0
+2260.0
  21
 960.0
  31
@@ -9327,13 +9851,13 @@ DIM
 100
 AcDbLine
  10
-2310.0
+2360.0
  20
 1000.0
  30
 0.0
  11
-2270.0
+2320.0
  21
 960.0
  31
@@ -9351,13 +9875,13 @@ DIM
 100
 AcDbLine
  10
-2370.0
+2420.0
  20
 1000.0
  30
 0.0
  11
-2330.0
+2380.0
  21
 960.0
  31
@@ -9375,13 +9899,13 @@ DIM
 100
 AcDbLine
  10
-2430.0
+2480.0
  20
 1000.0
  30
 0.0
  11
-2390.0
+2440.0
  21
 960.0
  31
@@ -9403,21 +9927,21 @@ AcDbPolyline
  70
 1
  10
-800.0
+850.0
  20
 1000.0
  10
-2100.0
+2150.0
  20
 1000.0
  42
 1.0
  10
-2100.0
+2150.0
  20
 1400.0
  10
-800.0
+850.0
  20
 1400.0
  42
@@ -9439,19 +9963,19 @@ AcDbPolyline
  70
 1
  10
-800.0
+850.0
  20
 1250.0
  10
-2100.0
+2150.0
  20
 1250.0
  10
-2100.0
+2150.0
  20
 1350.0
  10
-800.0
+850.0
  20
 1350.0
   0
@@ -9471,19 +9995,19 @@ AcDbPolyline
  70
 1
  10
-1200.0
+1250.0
  20
 1210.0
  10
-1700.0
+1750.0
  20
 1210.0
  10
-1700.0
+1750.0
  20
 1410.0
  10
-1200.0
+1250.0
  20
 1410.0
   0
@@ -9503,19 +10027,19 @@ AcDbPolyline
  70
 1
  10
-850.0
+900.0
  20
 1450.0
  10
-2050.0
+2100.0
  20
 1450.0
  10
-2050.0
+2100.0
  20
 1490.0
  10
-850.0
+900.0
  20
 1490.0
   0
@@ -9535,19 +10059,19 @@ AcDbPolyline
  70
 1
  10
-1885.0
+1935.0
  20
 1490.0
  10
-2015.0
+2065.0
  20
 1490.0
  10
-2015.0
+2065.0
  20
 1530.0
  10
-1885.0
+1935.0
  20
 1530.0
   0
@@ -9567,19 +10091,19 @@ AcDbPolyline
  70
 1
  10
-885.0
+935.0
  20
 1490.0
  10
-1015.0
+1065.0
  20
 1490.0
  10
-1015.0
+1065.0
  20
 1530.0
  10
-885.0
+935.0
  20
 1530.0
   0
@@ -9599,19 +10123,19 @@ AcDbPolyline
  70
 1
  10
-850.0
+900.0
  20
 1530.0
  10
-2050.0
+2100.0
  20
 1530.0
  10
-2050.0
+2100.0
  20
 1580.0
  10
-850.0
+900.0
  20
 1580.0
   0
@@ -9631,19 +10155,19 @@ AcDbPolyline
  70
 1
  10
-850.0
+900.0
  20
 1580.0
  10
-2050.0
+2100.0
  20
 1580.0
  10
-2050.0
+2100.0
  20
 2340.0
  10
-850.0
+900.0
  20
 2340.0
   0
@@ -9659,19 +10183,19 @@ CENTER
 100
 AcDbLine
  10
-1450.0
+1500.0
  20
 940.0
  30
 0.0
  11
-1450.0
+1500.0
  21
 2400.0
  31
 0.0
   0
-CIRCLE
+LWPOLYLINE
   5
 C7
 330
@@ -9681,17 +10205,29 @@ AcDbEntity
   8
 OUTLINE
 100
-AcDbCircle
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-1450.0
+640.0
  20
-1750.0
- 30
-0.0
- 40
-40.0
+1300.0
+ 10
+840.0
+ 20
+1300.0
+ 10
+840.0
+ 20
+1900.0
+ 10
+640.0
+ 20
+1900.0
   0
-LINE
+TEXT
   5
 C8
 330
@@ -9699,23 +10235,33 @@ C8
 100
 AcDbEntity
   8
-OUTLINE
+TEXT
 100
-AcDbLine
+AcDbText
  10
-1390.0
+740.0
  20
-1750.0
+1600.0
  30
 0.0
+ 40
+40.0
+  1
+E-BOX
+ 72
+1
  11
-1510.0
+740.0
  21
-1750.0
+1600.0
  31
 0.0
+100
+AcDbText
+ 73
+2
   0
-LINE
+LWPOLYLINE
   5
 C9
 330
@@ -9725,21 +10271,29 @@ AcDbEntity
   8
 OUTLINE
 100
-AcDbLine
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-1450.0
+2370.0
  20
-1690.0
- 30
-0.0
- 11
-1450.0
- 21
-1810.0
- 31
-0.0
+1170.0
+ 10
+2410.0
+ 20
+1170.0
+ 10
+2410.0
+ 20
+1320.0
+ 10
+2370.0
+ 20
+1320.0
   0
-TEXT
+LWPOLYLINE
   5
 CA
 330
@@ -9747,31 +10301,353 @@ CA
 100
 AcDbEntity
   8
-TEXT
+OUTLINE
 100
-AcDbText
+AcDbPolyline
+ 90
+4
+ 70
+1
  10
-1520.0
+2410.0
  20
-1770.0
- 30
-0.0
- 40
-30.0
-  1
-CoG ≈ 750 (full 500 kg, raised)
- 11
-1520.0
- 21
-1770.0
- 31
-0.0
+1180.0
+ 10
+2440.0
+ 20
+1180.0
+ 10
+2440.0
+ 20
+1310.0
+ 10
+2410.0
+ 20
+1310.0
+  0
+LWPOLYLINE
+  5
+CB
+330
+17
 100
-AcDbText
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+630.0
+ 20
+1170.0
+ 10
+590.0
+ 20
+1170.0
+ 10
+590.0
+ 20
+1320.0
+ 10
+630.0
+ 20
+1320.0
+  0
+LWPOLYLINE
+  5
+CC
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+590.0
+ 20
+1180.0
+ 10
+560.0
+ 20
+1180.0
+ 10
+560.0
+ 20
+1310.0
+ 10
+590.0
+ 20
+1310.0
+  0
+LWPOLYLINE
+  5
+CD
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2160.0
+ 20
+1250.0
+ 10
+2200.0
+ 20
+1250.0
+ 10
+2200.0
+ 20
+1850.0
+ 10
+2160.0
+ 20
+1850.0
+  0
+LWPOLYLINE
+  5
+CE
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2167.5
+ 20
+1850.0
+ 10
+2232.5
+ 20
+1850.0
+ 10
+2232.5
+ 20
+1910.0
+ 10
+2167.5
+ 20
+1910.0
+  0
+LWPOLYLINE
+  5
+CF
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2200.0
+ 20
+1720.0
+ 10
+2270.0
+ 20
+1720.0
+ 10
+2270.0
+ 20
+1790.0
+ 10
+2200.0
+ 20
+1790.0
+  0
+LWPOLYLINE
+  5
+D0
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2165.0
+ 20
+1850.0
+ 10
+2195.0
+ 20
+1850.0
+ 10
+2195.0
+ 20
+2500.0
+ 10
+2165.0
+ 20
+2500.0
+  0
+LWPOLYLINE
+  5
+D1
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2105.0
+ 20
+2500.0
+ 10
+2255.0
+ 20
+2500.0
+ 10
+2255.0
+ 20
+2560.0
+ 10
+2105.0
+ 20
+2560.0
+  0
+LWPOLYLINE
+  5
+D2
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+725.0
+ 20
+1900.0
+ 10
+755.0
+ 20
+1900.0
+ 10
+755.0
+ 20
+2500.0
+ 10
+725.0
+ 20
+2500.0
+  0
+LWPOLYLINE
+  5
+D3
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+665.0
+ 20
+2500.0
+ 10
+815.0
+ 20
+2500.0
+ 10
+815.0
+ 20
+2560.0
+ 10
+665.0
+ 20
+2560.0
+  0
+LWPOLYLINE
+  5
+D4
+330
+17
+100
+AcDbEntity
+  8
+HIDDEN
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+690.0
+ 20
+2350.0
+ 10
+790.0
+ 20
+2350.0
+ 10
+790.0
+ 20
+2500.0
+ 10
+690.0
+ 20
+2500.0
   0
 TEXT
   5
-CB
+D5
 330
 17
 100
@@ -9781,19 +10657,139 @@ TEXT
 100
 AcDbText
  10
-500.0
+2270.0
  20
-860.0
+1860.0
  30
 0.0
  40
-30.0
+25.0
   1
-FRONT →  (x+)
+LiDAR
  11
-500.0
+2270.0
  21
-860.0
+1860.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D6
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+2270.0
+ 20
+2510.0
+ 30
+0.0
+ 40
+25.0
+  1
+GNSS1
+ 11
+2270.0
+ 21
+2510.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D7
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+410.0
+ 20
+2510.0
+ 30
+0.0
+ 40
+25.0
+  1
+GNSS2
+ 11
+410.0
+ 21
+2510.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D8
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+410.0
+ 20
+2400.0
+ 30
+0.0
+ 40
+25.0
+  1
+beacon
+ 11
+410.0
+ 21
+2400.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+D9
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+2280.0
+ 20
+1660.0
+ 30
+0.0
+ 40
+25.0
+  1
+E-stop
+ 11
+2280.0
+ 21
+1660.0
  31
 0.0
 100
@@ -9801,7 +10797,7 @@ AcDbText
   0
 DIMENSION
   5
-CC
+DA
 330
 17
 100
@@ -9817,15 +10813,15 @@ AcDbDimension
   3
 EZDXF
  10
-600.0
+560.0
  20
-750.0
+630.0
  30
 0.0
  11
-1450.0
+1500.0
  21
-772.0
+652.0
  31
 0.0
  70
@@ -9837,15 +10833,15 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-600.0
+560.0
  23
-1200.0
+1170.0
  33
 0.0
  14
-2300.0
+2440.0
  24
-1200.0
+1170.0
  34
 0.0
  50
@@ -9895,7 +10891,7 @@ DSTYLE
   0
 DIMENSION
   5
-DB
+E9
 330
 17
 100
@@ -9911,15 +10907,15 @@ AcDbDimension
   3
 EZDXF
  10
-800.0
+140.0
  20
-870.0
+1000.0
  30
 0.0
  11
-1450.0
+118.0
  21
-892.0
+1780.0
  31
 0.0
  70
@@ -9931,19 +10927,19 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-800.0
+815.0
  23
 1000.0
  33
 0.0
  14
-2100.0
+815.0
  24
-1000.0
+2560.0
  34
 0.0
  50
-0.0
+90.0
 100
 AcDbRotatedDimension
 1001
@@ -9987,9 +10983,137 @@ DSTYLE
 1002
 }
   0
+CIRCLE
+  5
+F8
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbCircle
+ 10
+1500.0
+ 20
+1750.0
+ 30
+0.0
+ 40
+40.0
+  0
+LINE
+  5
+F9
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbLine
+ 10
+1440.0
+ 20
+1750.0
+ 30
+0.0
+ 11
+1560.0
+ 21
+1750.0
+ 31
+0.0
+  0
+LINE
+  5
+FA
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbLine
+ 10
+1500.0
+ 20
+1690.0
+ 30
+0.0
+ 11
+1500.0
+ 21
+1810.0
+ 31
+0.0
+  0
+TEXT
+  5
+FB
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+1570.0
+ 20
+1770.0
+ 30
+0.0
+ 40
+30.0
+  1
+CoG ≈ 750 (full 500 kg, raised)
+ 11
+1570.0
+ 21
+1770.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+FC
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+550.0
+ 20
+860.0
+ 30
+0.0
+ 40
+30.0
+  1
+FRONT →  (x+)
+ 11
+550.0
+ 21
+860.0
+ 31
+0.0
+100
+AcDbText
+  0
 DIMENSION
   5
-EA
+FD
 330
 17
 100
@@ -10005,15 +11129,109 @@ AcDbDimension
   3
 EZDXF
  10
-850.0
+650.0
  20
-2430.0
+750.0
  30
 0.0
  11
-1450.0
+1500.0
  21
-2452.0
+772.0
+ 31
+0.0
+ 70
+32
+ 71
+5
+  1
+<>
+100
+AcDbAlignedDimension
+ 13
+650.0
+ 23
+1200.0
+ 33
+0.0
+ 14
+2350.0
+ 24
+1200.0
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+1001
+ACAD
+1000
+DSTYLE
+1002
+{
+1070
+140
+1040
+28.0
+1070
+41
+1040
+25.0
+1070
+42
+1040
+10.0
+1070
+44
+1040
+15.0
+1070
+147
+1040
+8.0
+1070
+271
+1070
+0
+1070
+77
+1070
+1
+1070
+144
+1040
+1.0
+1002
+}
+  0
+DIMENSION
+  5
+10C
+330
+17
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbDimension
+280
+0
+  2
+*D4
+  3
+EZDXF
+ 10
+850.0
+ 20
+870.0
+ 30
+0.0
+ 11
+1500.0
+ 21
+892.0
  31
 0.0
  70
@@ -10027,11 +11245,105 @@ AcDbAlignedDimension
  13
 850.0
  23
+1000.0
+ 33
+0.0
+ 14
+2150.0
+ 24
+1000.0
+ 34
+0.0
+ 50
+0.0
+100
+AcDbRotatedDimension
+1001
+ACAD
+1000
+DSTYLE
+1002
+{
+1070
+140
+1040
+28.0
+1070
+41
+1040
+25.0
+1070
+42
+1040
+10.0
+1070
+44
+1040
+15.0
+1070
+147
+1040
+8.0
+1070
+271
+1070
+0
+1070
+77
+1070
+1
+1070
+144
+1040
+1.0
+1002
+}
+  0
+DIMENSION
+  5
+11B
+330
+17
+100
+AcDbEntity
+  8
+DIM
+100
+AcDbDimension
+280
+0
+  2
+*D5
+  3
+EZDXF
+ 10
+900.0
+ 20
+2430.0
+ 30
+0.0
+ 11
+1500.0
+ 21
+2452.0
+ 31
+0.0
+ 70
+32
+ 71
+5
+  1
+<>
+100
+AcDbAlignedDimension
+ 13
+900.0
+ 23
 2340.0
  33
 0.0
  14
-2050.0
+2100.0
  24
 2340.0
  34
@@ -10083,7 +11395,7 @@ DSTYLE
   0
 DIMENSION
   5
-F9
+12A
 330
 17
 100
@@ -10095,17 +11407,17 @@ AcDbDimension
 280
 0
   2
-*D4
+*D6
   3
 EZDXF
  10
-450.0
+500.0
  20
 1000.0
  30
 0.0
  11
-428.0
+478.0
  21
 1200.0
  31
@@ -10119,13 +11431,13 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-600.0
+650.0
  23
 1000.0
  33
 0.0
  14
-600.0
+650.0
  24
 1400.0
  34
@@ -10177,7 +11489,7 @@ DSTYLE
   0
 DIMENSION
   5
-108
+139
 330
 17
 100
@@ -10189,17 +11501,17 @@ AcDbDimension
 280
 0
   2
-*D5
+*D7
   3
 EZDXF
  10
-330.0
+380.0
  20
 1000.0
  30
 0.0
  11
-308.0
+358.0
  21
 1290.0
  31
@@ -10213,13 +11525,13 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-850.0
+900.0
  23
 1000.0
  33
 0.0
  14
-850.0
+900.0
  24
 1580.0
  34
@@ -10271,7 +11583,7 @@ DSTYLE
   0
 DIMENSION
   5
-117
+148
 330
 17
 100
@@ -10283,17 +11595,17 @@ AcDbDimension
 280
 0
   2
-*D6
+*D8
   3
 EZDXF
  10
-210.0
+260.0
  20
 1000.0
  30
 0.0
  11
-188.0
+238.0
  21
 1670.0
  31
@@ -10307,13 +11619,13 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-850.0
+900.0
  23
 1000.0
  33
 0.0
  14
-850.0
+900.0
  24
 2340.0
  34
@@ -10365,7 +11677,7 @@ DSTYLE
   0
 DIMENSION
   5
-126
+157
 330
 17
 100
@@ -10377,17 +11689,17 @@ AcDbDimension
 280
 0
   2
-*D7
+*D9
   3
 EZDXF
  10
-2450.0
+2500.0
  20
 1000.0
  30
 0.0
  11
-2428.0
+2478.0
  21
 1125.0
  31
@@ -10401,13 +11713,13 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-2100.0
+2150.0
  23
 1000.0
  33
 0.0
  14
-2100.0
+2150.0
  24
 1250.0
  34
@@ -10459,7 +11771,7 @@ DSTYLE
   0
 DIMENSION
   5
-135
+166
 330
 17
 100
@@ -10471,17 +11783,17 @@ AcDbDimension
 280
 0
   2
-*D8
+*D10
   3
 EZDXF
  10
-2570.0
+2620.0
  20
 1480.0
  30
 0.0
  11
-2548.0
+2598.0
  21
 1530.0
  31
@@ -10495,13 +11807,13 @@ EZDXF
 100
 AcDbAlignedDimension
  13
-2050.0
+2100.0
  23
 1480.0
  33
 0.0
  14
-2050.0
+2100.0
  24
 1580.0
  34
@@ -10553,7 +11865,7 @@ DSTYLE
   0
 LINE
   5
-144
+175
 330
 17
 100
@@ -10563,13 +11875,13 @@ PHANTOM
 100
 AcDbLine
  10
-1950.0
+2000.0
  20
 1480.0
  30
 0.0
  11
-2200.0
+2250.0
  21
 1480.0
  31
@@ -10577,7 +11889,7 @@ AcDbLine
   0
 TEXT
   5
-145
+176
 330
 17
 100
@@ -10587,7 +11899,7 @@ TEXT
 100
 AcDbText
  10
-2630.0
+2680.0
  20
 1520.0
  30
@@ -10597,7 +11909,7 @@ AcDbText
   1
 lift
  11
-2630.0
+2680.0
  21
 1520.0
  31
@@ -10607,7 +11919,7 @@ AcDbText
   0
 TEXT
   5
-146
+177
 330
 17
 100
@@ -10619,7 +11931,7 @@ AcDbText
  10
 3350.0
  20
-2520.0
+2680.0
  30
 0.0
  40
@@ -10631,7 +11943,7 @@ FRONT VIEW
  11
 3350.0
  21
-2520.0
+2680.0
  31
 0.0
 100
@@ -10641,7 +11953,7 @@ AcDbText
   0
 LINE
   5
-147
+178
 330
 17
 100
@@ -10665,7 +11977,7 @@ AcDbLine
   0
 LINE
   5
-148
+179
 330
 17
 100
@@ -10689,7 +12001,7 @@ AcDbLine
   0
 LINE
   5
-149
+17A
 330
 17
 100
@@ -10713,7 +12025,7 @@ AcDbLine
   0
 LINE
   5
-14A
+17B
 330
 17
 100
@@ -10737,7 +12049,7 @@ AcDbLine
   0
 LINE
   5
-14B
+17C
 330
 17
 100
@@ -10761,7 +12073,7 @@ AcDbLine
   0
 LINE
   5
-14C
+17D
 330
 17
 100
@@ -10785,7 +12097,7 @@ AcDbLine
   0
 LINE
   5
-14D
+17E
 330
 17
 100
@@ -10809,7 +12121,7 @@ AcDbLine
   0
 LINE
   5
-14E
+17F
 330
 17
 100
@@ -10833,7 +12145,7 @@ AcDbLine
   0
 LINE
   5
-14F
+180
 330
 17
 100
@@ -10857,7 +12169,7 @@ AcDbLine
   0
 LINE
   5
-150
+181
 330
 17
 100
@@ -10881,7 +12193,7 @@ AcDbLine
   0
 LINE
   5
-151
+182
 330
 17
 100
@@ -10905,7 +12217,7 @@ AcDbLine
   0
 LINE
   5
-152
+183
 330
 17
 100
@@ -10929,7 +12241,7 @@ AcDbLine
   0
 LINE
   5
-153
+184
 330
 17
 100
@@ -10953,7 +12265,7 @@ AcDbLine
   0
 LINE
   5
-154
+185
 330
 17
 100
@@ -10977,7 +12289,7 @@ AcDbLine
   0
 LINE
   5
-155
+186
 330
 17
 100
@@ -11001,7 +12313,7 @@ AcDbLine
   0
 LINE
   5
-156
+187
 330
 17
 100
@@ -11025,7 +12337,7 @@ AcDbLine
   0
 LINE
   5
-157
+188
 330
 17
 100
@@ -11049,7 +12361,7 @@ AcDbLine
   0
 LINE
   5
-158
+189
 330
 17
 100
@@ -11073,7 +12385,7 @@ AcDbLine
   0
 LINE
   5
-159
+18A
 330
 17
 100
@@ -11097,7 +12409,7 @@ AcDbLine
   0
 LINE
   5
-15A
+18B
 330
 17
 100
@@ -11121,7 +12433,7 @@ AcDbLine
   0
 LINE
   5
-15B
+18C
 330
 17
 100
@@ -11145,7 +12457,7 @@ AcDbLine
   0
 LINE
   5
-15C
+18D
 330
 17
 100
@@ -11169,7 +12481,7 @@ AcDbLine
   0
 LINE
   5
-15D
+18E
 330
 17
 100
@@ -11193,7 +12505,7 @@ AcDbLine
   0
 LINE
   5
-15E
+18F
 330
 17
 100
@@ -11217,7 +12529,7 @@ AcDbLine
   0
 LWPOLYLINE
   5
-15F
+190
 330
 17
 100
@@ -11249,7 +12561,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-160
+191
 330
 17
 100
@@ -11281,7 +12593,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-161
+192
 330
 17
 100
@@ -11313,7 +12625,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-162
+193
 330
 17
 100
@@ -11345,7 +12657,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-163
+194
 330
 17
 100
@@ -11377,7 +12689,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-164
+195
 330
 17
 100
@@ -11409,7 +12721,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-165
+196
 330
 17
 100
@@ -11441,7 +12753,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-166
+197
 330
 17
 100
@@ -11473,7 +12785,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-167
+198
 330
 17
 100
@@ -11505,7 +12817,7 @@ AcDbPolyline
   0
 LWPOLYLINE
   5
-168
+199
 330
 17
 100
@@ -11537,7 +12849,7 @@ AcDbPolyline
   0
 LINE
   5
-169
+19A
 330
 17
 100
@@ -11559,9 +12871,337 @@ AcDbLine
  31
 0.0
   0
+LWPOLYLINE
+  5
+19B
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+2800.0
+ 20
+1170.0
+ 10
+3900.0
+ 20
+1170.0
+ 10
+3900.0
+ 20
+1320.0
+ 10
+2800.0
+ 20
+1320.0
+  0
+LWPOLYLINE
+  5
+19C
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3580.0
+ 20
+1250.0
+ 10
+3620.0
+ 20
+1250.0
+ 10
+3620.0
+ 20
+1850.0
+ 10
+3580.0
+ 20
+1850.0
+  0
+LWPOLYLINE
+  5
+19D
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3565.0
+ 20
+1720.0
+ 10
+3635.0
+ 20
+1720.0
+ 10
+3635.0
+ 20
+1790.0
+ 10
+3565.0
+ 20
+1790.0
+  0
+CIRCLE
+  5
+19E
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbCircle
+ 10
+3600.0
+ 20
+1755.0
+ 30
+0.0
+ 40
+20.0
+  0
+LWPOLYLINE
+  5
+19F
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3120.0
+ 20
+1250.0
+ 10
+3080.0
+ 20
+1250.0
+ 10
+3080.0
+ 20
+1850.0
+ 10
+3120.0
+ 20
+1850.0
+  0
+LWPOLYLINE
+  5
+1A0
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3135.0
+ 20
+1720.0
+ 10
+3065.0
+ 20
+1720.0
+ 10
+3065.0
+ 20
+1790.0
+ 10
+3135.0
+ 20
+1790.0
+  0
+CIRCLE
+  5
+1A1
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbCircle
+ 10
+3100.0
+ 20
+1755.0
+ 30
+0.0
+ 40
+20.0
+  0
+LWPOLYLINE
+  5
+1A2
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3080.0
+ 20
+1810.0
+ 10
+3620.0
+ 20
+1810.0
+ 10
+3620.0
+ 20
+1850.0
+ 10
+3080.0
+ 20
+1850.0
+  0
+LWPOLYLINE
+  5
+1A3
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3317.5
+ 20
+1850.0
+ 10
+3382.5
+ 20
+1850.0
+ 10
+3382.5
+ 20
+1910.0
+ 10
+3317.5
+ 20
+1910.0
+  0
+LWPOLYLINE
+  5
+1A4
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3485.0
+ 20
+1850.0
+ 10
+3515.0
+ 20
+1850.0
+ 10
+3515.0
+ 20
+2500.0
+ 10
+3485.0
+ 20
+2500.0
+  0
+LWPOLYLINE
+  5
+1A5
+330
+17
+100
+AcDbEntity
+  8
+OUTLINE
+100
+AcDbPolyline
+ 90
+4
+ 70
+1
+ 10
+3425.0
+ 20
+2500.0
+ 10
+3575.0
+ 20
+2500.0
+ 10
+3575.0
+ 20
+2560.0
+ 10
+3425.0
+ 20
+2560.0
+  0
 DIMENSION
   5
-16A
+1A6
 330
 17
 100
@@ -11573,7 +13213,7 @@ AcDbDimension
 280
 0
   2
-*D9
+*D11
   3
 EZDXF
  10
@@ -11655,7 +13295,7 @@ DSTYLE
   0
 DIMENSION
   5
-179
+1B5
 330
 17
 100
@@ -11667,7 +13307,7 @@ AcDbDimension
 280
 0
   2
-*D10
+*D12
   3
 EZDXF
  10
@@ -11749,7 +13389,7 @@ DSTYLE
   0
 DIMENSION
   5
-188
+1C4
 330
 17
 100
@@ -11761,7 +13401,7 @@ AcDbDimension
 280
 0
   2
-*D11
+*D13
   3
 EZDXF
  10
@@ -11843,7 +13483,7 @@ DSTYLE
   0
 LINE
   5
-197
+1D3
 330
 17
 100
@@ -11867,7 +13507,7 @@ AcDbLine
   0
 LINE
   5
-198
+1D4
 330
 17
 100
@@ -11891,7 +13531,7 @@ AcDbLine
   0
 TEXT
   5
-199
+1D5
 330
 17
 100
@@ -11921,7 +13561,7 @@ AcDbText
   0
 TEXT
   5
-19A
+1D6
 330
 17
 100
@@ -11933,17 +13573,17 @@ AcDbText
  10
 200.0
  20
-555.0
+562.0
  30
 0.0
  40
 32.0
   1
-Overall L x W x H     1700 x 1200 x 1340 mm
+Overall L x W x H     1880 x 1200 x 1560 mm (bumpers, antennas)
  11
 200.0
  21
-555.0
+562.0
  31
 0.0
 100
@@ -11951,7 +13591,7 @@ AcDbText
   0
 TEXT
   5
-19B
+1D7
 330
 17
 100
@@ -11963,7 +13603,37 @@ AcDbText
  10
 200.0
  20
-490.0
+504.0
+ 30
+0.0
+ 40
+32.0
+  1
+Bin top 1340 mm (raised)
+ 11
+200.0
+ 21
+504.0
+ 31
+0.0
+100
+AcDbText
+  0
+TEXT
+  5
+1D8
+330
+17
+100
+AcDbEntity
+  8
+TEXT
+100
+AcDbText
+ 10
+200.0
+ 20
+446.0
  30
 0.0
  40
@@ -11973,7 +13643,7 @@ Track contact / gauge 1300 / 950 mm
  11
 200.0
  21
-490.0
+446.0
  31
 0.0
 100
@@ -11981,7 +13651,7 @@ AcDbText
   0
 TEXT
   5
-19C
+1D9
 330
 17
 100
@@ -11993,7 +13663,7 @@ AcDbText
  10
 200.0
  20
-425.0
+388.0
  30
 0.0
  40
@@ -12003,7 +13673,7 @@ Deck top low / raised 480 / 580 mm
  11
 200.0
  21
-425.0
+388.0
  31
 0.0
 100
@@ -12011,7 +13681,7 @@ AcDbText
   0
 TEXT
   5
-19D
+1DA
 330
 17
 100
@@ -12023,7 +13693,7 @@ AcDbText
  10
 200.0
  20
-360.0
+330.0
  30
 0.0
  40
@@ -12033,7 +13703,7 @@ Frame ground clearance 250 mm
  11
 200.0
  21
-360.0
+330.0
  31
 0.0
 100
@@ -12041,7 +13711,7 @@ AcDbText
   0
 TEXT
   5
-19E
+1DB
 330
 17
 100
@@ -12053,7 +13723,7 @@ AcDbText
  10
 200.0
  20
-295.0
+272.0
  30
 0.0
  40
@@ -12063,7 +13733,7 @@ Gross mass ≈ 960 kg (robot 420 + bin 540)
  11
 200.0
  21
-295.0
+272.0
  31
 0.0
 100
@@ -12071,7 +13741,7 @@ AcDbText
   0
 TEXT
   5
-19F
+1DC
 330
 17
 100
@@ -12083,7 +13753,7 @@ AcDbText
  10
 200.0
  20
-230.0
+214.0
  30
 0.0
  40
@@ -12093,7 +13763,7 @@ Limits loaded: 25° up/down, 10° cross-slope
  11
 200.0
  21
-230.0
+214.0
  31
 0.0
 100
@@ -12101,7 +13771,7 @@ AcDbText
   0
 TEXT
   5
-1A0
+1DD
 330
 17
 100
@@ -12113,7 +13783,7 @@ AcDbText
  10
 200.0
  20
-165.0
+156.0
  30
 0.0
  40
@@ -12123,7 +13793,7 @@ Undercarriage: bought, 48 V, 2 x ≥2 kW, brakes
  11
 200.0
  21
-165.0
+156.0
  31
 0.0
 100
@@ -13219,7 +14889,7 @@ CREATED_BY_EZDXF
   3
 WRITTEN_BY_EZDXF
 350
-1A3
+1E0
   0
 DICTIONARYVAR
   5
@@ -13231,7 +14901,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-28T14:31:42.420399+00:00
+1.4.5 @ 2026-10-28T16:14:49.364011+00:00
   0
 VISUALSTYLE
   5
@@ -13935,7 +15605,7 @@ X-Ray
   0
 DICTIONARYVAR
   5
-1A3
+1E0
 330
 2D
 100
@@ -13943,7 +15613,7 @@ DictionaryVariables
 280
 0
   1
-1.4.5 @ 2026-10-28T14:31:42.431941+00:00
+1.4.5 @ 2026-10-28T16:14:49.380567+00:00
   0
 ENDSEC
   0
