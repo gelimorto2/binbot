@@ -212,7 +212,7 @@ Layered: if one layer fails, the next still protects people.
 | 8 | **Watchdogs** | Lost comms / lost localisation / software crash / sensor fault → controlled stop |
 | 9 | **Awareness** | Rotating amber beacon, status light bar, buzzer before moving, display with state |
 | 10 | **Operations** | Harvester briefing, high‑vis, robot never approaches a person to < 1 m, manual mode only with pendant held (dead‑man) |
-| 12 | **Slopes & sliding** | 30° routes: ≤ 400 kg, deck low, dry only, nobody downhill; slide detection; **rear sprags** drop by spring if the robot slides or loses power ([BP‑09a](bp-09-safety-slopes.md), DWG‑005) |
+| 12 | **Slopes & sliding** | 30° routes: ≤ 400 kg, deck low, dry only, nobody downhill; slide + spin detection; held at **both ends** (rear sprags + front drag anchors) dropped if the robot slides or loses power ([BP‑09a](bp-09-safety-slopes.md), DWG‑005) |
 | 11 | **Records** | Black‑box log of every stop, fault and near miss |
 
 **Budget trade‑off:** a certified safety LiDAR (€2–4k) does not fit €8k.
@@ -279,11 +279,11 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | 3D LiDAR + 2 cameras | 800–1,100 |
 | Electronics (BP‑04): power tap, safety circuit, MCU, comms, E‑box, wiring | 2,000–3,350 |
 | Base: 1 FULL (certified load cells) + 1 EMPTY stand; +€1k for 2 + 2 | 950–1,450 |
-| Anti‑slide: rear sprags, magnets, rear radar, pendant GPS (BP‑09a) | 400–650 |
-| **Total** | **≈ 6,950–10,200** |
+| Anti‑slide/spin: rear sprags, front drag anchors, magnets, rear radar, pendant GPS (BP‑09a) | 500–850 |
+| **Total** | **≈ 7,050–10,400** |
 
 **Automatic navigation is a core requirement**, not an option. After the
-detailed electronics list (BP‑04 §7) the total is **≈ €6,950–10,200**: €8k is
+detailed electronics list (BP‑04 §7) the total is **≈ €7,050–10,400**: €8k is
 reachable only with low‑end choices (see BP‑04 savings). Keep ~€1k contingency.
 Build order, so problems show up early and cheaply:
 

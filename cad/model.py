@@ -190,6 +190,10 @@ def electronics():
         h, k = estop(FRONT_BAR_X0 + FRONT_BAR[0], s * 280, FRONT_BAR_Z0 - 15, 1)
         p += [("estop_front", h, YEL), ("estop_front_knob", k, RED)]
     p.append(("lidar", box(*LIDAR, bx, 0, FRONT_BAR_Z0 + FRONT_BAR[2]), BLK))
+    for s in (1, -1):   # front drag anchors (uphill end) in magnet holders under the sensor bar
+        ax_ = FRONT_BAR_X0 + FRONT_BAR[0] + ANCHOR_CLAW[0] / 2 + 5
+        p.append(("drag_anchor", box(*ANCHOR_CLAW, ax_, s * ANCHOR_Y, ANCHOR_Z0), (0.85, 0.2, 0.1)))
+        p.append(("anchor_holder", box(ANCHOR_CLAW[0], ANCHOR_CLAW[1], 20, ax_, s * ANCHOR_Y, ANCHOR_Z0 + ANCHOR_CLAW[2]), GRY))
     p.append(("cam_front", box(*CAM, bx + 10, 130, FRONT_BAR_Z0 + FRONT_BAR[2]), BLK))
     p.append(("safety_edge_front", box(EDGE[0], 380, EDGE[2], FRONT_BAR_X0 + FRONT_BAR[0] + EDGE[0] / 2, 0, FRONT_BAR_Z0), BLK))
     return p

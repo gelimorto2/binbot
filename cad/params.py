@@ -113,3 +113,8 @@ SPRAG_DEPLOY = 43                    # deg below horizontal, pointing backwards 
 SPRAG_STOP = 70                      # mechanical stop: arm becomes a strut, can't fold under
 SPRAG_ARM = 50                       # SHS 50x50x4
 SPRAG_CLAW = (150, 200, 12)          # claw plate width x length x thickness, 3 teeth
+# front drag anchors (uphill end): plough claws on chains, held under the front sensor bar
+ANCHOR_Y = 150                       # 2 anchors at y = ±150
+ANCHOR_CHAIN = 1000                  # chain length
+ANCHOR_CLAW = (100, 150, 100)        # stowed claw size x, y, z (≈ 8 kg plough claw)
+ANCHOR_Z0 = FRONT_BAR_Z0 - ANCHOR_CLAW[2] - 20   # stowed under the bar (340)
