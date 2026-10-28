@@ -51,6 +51,11 @@ Must have:
       encoders we can drive from our own controllers (BP‑04)
 - [ ] Sealed bearings, track tensioner (grease cylinder), spare tracks available
 
+**Quoted price €1,200.** That is low for a 1 t electric drivetrain, so confirm
+in writing what is included: motors, gearboxes, **brakes**, motor controllers,
+battery, charger. Check the motor power (≥ 2 kW each) and the rated load
+(≥ 1,000 kg) before paying.
+
 Ask the seller for: drawing with mounting holes, motor and brake datasheets,
 weight, and rated slope. Send them to me and I'll check them against this list.
 
@@ -205,14 +210,14 @@ adds to sinkage. Re‑check with the real undercarriage weight.
 
 | Item | Qty | Est. € |
 |---|---|---|
-| Electric rubber‑track undercarriage, 1.2 m, ≥ 1 t, with motors & brakes | 1 | 2,500–4,000 |
+| Electric rubber‑track undercarriage, 1.2 m (quoted) | 1 | 1,200 |
 | RHS 100×50×4, RHS 60×60×4, plate 5/8/10 mm (S355) | lot | 200 |
 | M16 8.8 bolts, nuts, washers | 32 | 40 |
 | HDPE 6 mm belly pan | 1 m² | 60 |
 | Mud scrapers (steel + rubber) | 4 | 40 |
 | Primer + epoxy paint | lot | 60 |
 | Spare brake + spare track (later) | — | — |
-| **Total** | | **≈ 2,900–4,400** |
+| **Total** | | **≈ 1,600** |
 
 ## 9. Tests for BP‑01
 

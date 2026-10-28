@@ -260,7 +260,7 @@ EMC & Radio Equipment Directives (CE marking).
 2. **Traction on wet clay** → test the undercarriage on your worst slope, loaded, before buying the rest.
 3. **GNSS under olive canopy** → field survey with an RTK receiver before buying sensors.
 4. **Docking precision in mud at base** → gravel/concrete pad at base.
-5. **Budget**: tight for an autonomous machine (§11).
+5. **Budget**: fits €8k at low/mid prices; the battery is the main unknown (§11).
 6. **Worker safety compliance** (§7).
 
 ## 9. Blueprint roadmap (next documents)
@@ -292,7 +292,7 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 
 | Item | Estimate (€) |
 |---|---|
-| Electric rubber‑track undercarriage 1.2 m, with motors & brakes | 2,500–4,000 |
+| Electric rubber‑track undercarriage 1.2 m (quoted) | **1,200** |
 | Lift deck: steel + 2–4 heavy linear actuators | 500–800 |
 | 4 load cells + weighing amplifier | 200–300 |
 | RTK GNSS: 2 rover + 1 base receiver, antennas | 700–900 |
@@ -303,13 +303,14 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 | Comms: 4G router, LoRa radios, harvester pendant | 200–300 |
 | Wiring, enclosures, connectors, beacon, display | 400–600 |
 | Base: 2 bin stands + certified 600 kg platform scale | 1,000–1,600 |
-| **Total** | **≈ 7,500–11,800** |
+| **Total** | **≈ 6,200–9,000** |
 
-**Automatic navigation is a core requirement**, not an option. €8k with full
-autonomy is only reachable at the low end (own labour, careful buying);
-plan for €9–12k to be safe. Build order, so problems show up early and cheaply:
+**Automatic navigation is a core requirement**, not an option. With the
+€1,200 undercarriage, the full autonomous robot fits **€8k at low/mid prices**
+(own labour). Keep ~€1k contingency.
+Build order, so problems show up early and cheaply:
 
-- **Step 1: drive base (≈ €6,000).** Undercarriage + frame, lift deck, weighing, E‑stops,
+- **Step 1: drive base (≈ €4,700).** Undercarriage + frame, lift deck, weighing, E‑stops,
   pendant, base stands and scale. Tested by remote control to prove
   traction and stability in your mud before buying sensors.
 - **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →
