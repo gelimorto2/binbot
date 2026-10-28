@@ -1,0 +1,339 @@
+<title>BinBot Anti-Slide 3D</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: control panel beside a full-height 3D viewport; stacks on phones. Machinery-decal labels, grove-soil palette. */
+:root {
+  --bg: #eceee6; --panel: #f7f8f3; --fg: #1d2318; --muted: #5d6555; --line: #cfd4c4;
+  --accent: #b88400; --danger: #b8361e; --ok: #2e7d4f; --sky: #dfe6ea; --soil: #8a7350;
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #151913; --panel: #1d221a; --fg: #e6eadf; --muted: #9aa392; --line: #343b2f;
+  --accent: #e2b42c; --danger: #e0644a; --ok: #5cbf86; --sky: #20271f; --soil: #6d5a3e; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #151913; --panel: #1d221a; --fg: #e6eadf; --muted: #9aa392; --line: #343b2f;
+  --accent: #e2b42c; --danger: #e0644a; --ok: #5cbf86; --sky: #20271f; --soil: #6d5a3e; color-scheme: dark }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 15px; line-height: 1.45;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px; box-sizing: border-box; }
+.app { display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 16px; height: 100%; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; min-width: 0; }
+h1 { font-family: var(--display); font-weight: 700; font-size: 28px; letter-spacing: .02em; line-height: 1.05; margin: 0; text-wrap: balance; text-transform: uppercase; }
+.sub { color: var(--muted); margin: 4px 0 0; font-size: 14px; }
+.label { font-family: var(--display); font-weight: 600; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.seg { display: grid; grid-template-columns: 1fr; gap: 6px; }
+.seg label { display: flex; gap: 10px; align-items: flex-start; border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px; cursor: pointer; }
+.seg input { margin-top: 3px; accent-color: var(--accent); }
+.seg label:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.seg b { display: block; font-size: 14px; }
+.seg span { color: var(--muted); font-size: 13px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+button { font-family: var(--display); font-weight: 600; font-size: 16px; letter-spacing: .04em; text-transform: uppercase;
+  border-radius: 8px; border: 1px solid var(--line); background: transparent; color: var(--fg); padding: 9px 14px; cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #1a1500; }
+button:focus-visible, .seg label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+button:disabled { opacity: .45; cursor: default; }
+.readout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.readout div { border-top: 2px solid var(--line); padding-top: 4px; }
+.readout b { display: block; font-family: var(--display); font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.readout span { font-size: 12px; color: var(--muted); }
+.status { font-family: var(--display); font-weight: 700; font-size: 20px; letter-spacing: .03em; text-transform: uppercase; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); }
+.status.ok { color: var(--ok); border-color: var(--ok); }
+.status.bad { color: var(--danger); border-color: var(--danger); }
+.status.warn { color: var(--accent); border-color: var(--accent); }
+ol.log { margin: 0; padding-left: 0; list-style: none; font-size: 13px; display: grid; gap: 3px; font-variant-numeric: tabular-nums; min-height: 5.5em; }
+ol.log li span { color: var(--muted); display: inline-block; width: 3.6em; }
+.note { font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+.view { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); min-height: 420px; background: var(--sky); }
+.view canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+.cams { position: absolute; right: 10px; top: 10px; display: flex; gap: 6px; }
+.cams button { font-size: 13px; padding: 5px 9px; background: var(--panel); }
+.legend { position: absolute; left: 10px; bottom: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 10px; font-size: 12px; display: flex; gap: 12px; flex-wrap: wrap; max-width: calc(100% - 20px); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+@media (max-width: 760px) {
+  html, body { height: auto; }
+  .app { grid-template-columns: 1fr; height: auto; }
+  .view { order: -1; height: 62vh; min-height: 340px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="app">
+  <section class="panel" aria-label="Controls">
+    <div>
+      <h1>Anti-slide on 30°</h1>
+      <p class="sub">BinBot climbing to the base with 400 kg of olives, deck lowered. Wet clay, grip lost. Choose the protection and start the slide.</p>
+    </div>
+    <div>
+      <p class="label">Protection</p>
+      <div class="seg" role="radiogroup">
+        <label><input type="radio" name="mode" id="m-both" value="both" checked><div><b>Held at both ends</b><span>Rear sprags prop the downhill end, front drag anchors hold the uphill end.</span></div></label>
+        <label><input type="radio" name="mode" id="m-rear" value="rear"><div><b>Rear sprags only</b><span>Grip only at the downhill end.</span></div></label>
+        <label><input type="radio" name="mode" id="m-none" value="none"><div><b>No protection</b><span>Brakes only.</span></div></label>
+      </div>
+    </div>
+    <div class="row">
+      <button class="primary" id="go">Start slide</button>
+      <button id="reset">Reset</button>
+      <button id="slow" aria-pressed="false">Slow motion</button>
+    </div>
+    <div id="status" class="status warn">Ready: climbing 30°</div>
+    <div class="readout">
+      <div><b id="r-t">0.0 s</b><span>time</span></div>
+      <div><b id="r-d">0.00 m</b><span>slid downhill</span></div>
+      <div><b id="r-y">0°</b><span>turned off the fall line</span></div>
+    </div>
+    <div>
+      <p class="label">What happened</p>
+      <ol class="log" id="log"><li><span>—</span>Press Start slide.</li></ol>
+    </div>
+    <p class="note">Scripted demonstration of the BP-09a logic, not a physics simulation. Robot dimensions come from the CAD model (cad/params.py). Drag to orbit, scroll or pinch to zoom.</p>
+  </section>
+  <section class="view" id="view" aria-label="3D view">
+    <div class="cams"><button data-cam="side">Side</button><button data-cam="down">Downhill</button><button data-cam="top">Top</button></div>
+    <div class="legend"><span><i style="background:#d0391b"></i>sprags &amp; anchors</span><span><i style="background:#e8a400"></i>beacon</span><span><i style="background:rgba(200,50,30,.35)"></i>keep-out corridor</span></div>
+  </section>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+const P = {"TRACK_LEN": 1700, "TRACK_H": 400, "TRACK_W": 250, "TRACK_Y": 475.0, "TRACK_OUTER_W": 1200, "BASE_BODY": [1300, 680, 190], "BASE_CLEARANCE": 250, "BASE_TOP": 450, "BASE_PLATE": [1300, 1200, 10], "FRAME_LEN": 1300, "FRAME_Z0": 460, "FRAME_Z1": 560, "RAIL_Y": 300, "RHS_B": 50, "LIFT_BAR": [1200, 60, 40], "LIFT_BAR_Z0": 565, "CELL": [130, 40, 40], "CELL_X": 500, "DECK_LX": 1200, "DECK_LY": 840, "DECK_H": 50, "DECK_TOP_LOW": 695, "BIN": [1200, 1000, 760], "BIN_WALL": 30, "EBOX": [200, 500, 500], "EBOX_X0": -660.0, "EBOX_Z0": 460, "MAST_Y": 500, "ANT_TOP": 1700, "ANT": [150, 60], "BEACON": [100, 150], "FRONT_BAR": [40, 700, 40], "FRONT_BAR_X0": 668.0, "FRONT_BAR_Z0": 460, "LIDAR": [65, 65, 60], "ESTOP_BOX": 70, "SPRAG_L": 750, "SPRAG_PIVOT": [-690.0, 490], "SPRAG_Y": 300, "SPRAG_DEPLOY": 43, "SPRAG_ARM": 50, "ANCHOR_Y": 150, "ANCHOR_CHAIN": 1000, "ANCHOR_CLAW": [100, 150, 100], "ANCHOR_Z0": 340, "SLOPE_MAX": 30, "STEEP_OLIVES": 400, "M_OLIVES": 500};
+const mm = v => v / 1000;
+const D2R = Math.PI / 180;
+const view = document.getElementById("view");
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+renderer.shadowMap.enabled = true;
+view.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 100);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;
+
+function themeColors() {
+  const cs = getComputedStyle(document.documentElement);
+  scene.background = new THREE.Color(cs.getPropertyValue("--sky").trim());
+  soilMat.color.set(cs.getPropertyValue("--soil").trim());
+}
+const soilMat = new THREE.MeshLambertMaterial({ color: 0x8a7350 });
+scene.add(new THREE.HemisphereLight(0xffffff, 0x5a4a30, 0.75));
+const sun = new THREE.DirectionalLight(0xffffff, 0.8);
+sun.position.set(-4, 9, 6); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -6, right: 6, top: 6, bottom: -6 });
+scene.add(sun);
+
+// ---- slope: wedge + incline frame (local x = uphill along the surface, y = normal, z = across)
+const SL = P.SLOPE_MAX * D2R, LEN = 9, WID = 6;
+const shape = new THREE.Shape();
+shape.moveTo(-LEN / 2 * Math.cos(SL), -LEN / 2 * Math.sin(SL)); shape.lineTo(LEN / 2 * Math.cos(SL), -LEN / 2 * Math.sin(SL));
+shape.lineTo(LEN / 2 * Math.cos(SL), LEN / 2 * Math.sin(SL)); shape.lineTo(-LEN / 2 * Math.cos(SL), -LEN / 2 * Math.sin(SL));
+const wedge = new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: WID, bevelEnabled: false }), soilMat);
+wedge.position.z = -WID / 2; wedge.receiveShadow = true; scene.add(wedge);
+const incline = new THREE.Group(); incline.rotation.z = SL; scene.add(incline);
+const grid = new THREE.GridHelper(LEN, LEN, 0x3d3220, 0x5e4d33); grid.position.y = 0.002; grid.scale.z = WID / LEN; incline.add(grid);
+const corridor = new THREE.Mesh(new THREE.PlaneGeometry(4, 2.4), new THREE.MeshBasicMaterial({ color: 0xc8321e, transparent: true, opacity: 0.22, depthWrite: false }));
+corridor.rotation.x = -Math.PI / 2; corridor.position.set(-2.4, 0.004, 0); incline.add(corridor);
+
+// ---- robot
+const M = c => new THREE.MeshLambertMaterial({ color: c });
+function box(w, h, d, mat, x, y, z, parent) {   // sizes in mm, centre x/z, bottom y
+  const m = new THREE.Mesh(new THREE.BoxGeometry(mm(w), mm(h), mm(d)), mat);
+  m.position.set(mm(x), mm(y + h / 2), mm(z)); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
+}
+const yawG = new THREE.Group(); incline.add(yawG);          // position on the slope + yaw
+const rollG = new THREE.Group(); yawG.add(rollG);           // roll pivot at the downhill track edge
+const body = new THREE.Group(); rollG.add(body);
+rollG.position.z = -mm(P.TRACK_OUTER_W / 2); body.position.z = mm(P.TRACK_OUTER_W / 2);
+
+const dark = M(0x2b2b2b), steel = M(0x7c848c), green = M(0x2f6b3f), orange = M(0xe39b1f), blue = M(0x3477c4), red = M(0xd0391b), yellow = M(0xf1c40f), black = M(0x111111);
+for (const s of [1, -1]) {
+  const z = s * P.TRACK_Y, r = P.TRACK_H / 2;
+  box(P.TRACK_LEN - P.TRACK_H, P.TRACK_H, P.TRACK_W, dark, 0, 0, z, body);
+  for (const e of [1, -1]) {
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(mm(r), mm(r), mm(P.TRACK_W), 24), dark);
+    c.rotation.x = Math.PI / 2; c.position.set(mm(e * (P.TRACK_LEN / 2 - r)), mm(r), mm(z)); c.castShadow = true; body.add(c);
+  }
+}
+box(P.BASE_BODY[0], P.BASE_BODY[2], P.BASE_BODY[1], M(0x444444), 0, P.BASE_CLEARANCE, 0, body);
+box(P.BASE_PLATE[0], P.BASE_PLATE[2], P.BASE_PLATE[1], M(0x555555), 0, P.BASE_TOP - P.BASE_PLATE[2], 0, body);
+for (const s of [1, -1]) {
+  box(P.FRAME_LEN, P.FRAME_Z1 - P.FRAME_Z0, P.RHS_B, green, 0, P.FRAME_Z0, s * P.RAIL_Y, body);
+  box(P.LIFT_BAR[0], P.LIFT_BAR[2], P.LIFT_BAR[1], orange, 0, P.LIFT_BAR_Z0, s * P.RAIL_Y, body);
+  for (const x of [-P.CELL_X, P.CELL_X]) box(P.CELL[0], P.CELL[2], P.CELL[1], blue, x, P.LIFT_BAR_Z0 + P.LIFT_BAR[2], s * P.RAIL_Y, body);
+}
+for (const x of [-625, -300, 300, 625]) box(50, P.FRAME_Z1 - P.FRAME_Z0, 2 * P.RAIL_Y - 50, green, x, P.FRAME_Z0, 0, body);
+const deckY = P.DECK_TOP_LOW - P.DECK_H;
+box(P.DECK_LX, P.DECK_H, P.DECK_LY, orange, 0, deckY, 0, body);
+// bin with olives
+const binMat = new THREE.MeshLambertMaterial({ color: 0xa9c7e6, transparent: true, opacity: 0.55 });
+const [BL, BW, BH] = P.BIN, bw = P.BIN_WALL, by = P.DECK_TOP_LOW;
+box(BL, bw, BW, binMat, 0, by, 0, body);
+box(BL, BH, bw, binMat, 0, by, BW / 2 - bw / 2, body); box(BL, BH, bw, binMat, 0, by, -BW / 2 + bw / 2, body);
+box(bw, BH, BW, binMat, BL / 2 - bw / 2, by, 0, body); box(bw, BH, BW, binMat, -BL / 2 + bw / 2, by, 0, body);
+box(BL - 2 * bw, (BH - 60) * P.STEEP_OLIVES / P.M_OLIVES, BW - 2 * bw, M(0x5b4a6b), 0, by + bw, 0, body);
+// rear E-box, masts, beacon
+const ex = P.EBOX_X0 - P.EBOX[0] / 2, eTop = P.EBOX_Z0 + P.EBOX[2];
+box(P.EBOX[0], P.EBOX[2], P.EBOX[1], steel, ex, P.EBOX_Z0, 0, body);
+for (const s of [1, -1]) {
+  box(40, 40, P.MAST_Y - P.EBOX[1] / 2 + 20, steel, ex, eTop - 40, s * (P.EBOX[1] / 2 + P.MAST_Y + 20) / 2, body);
+  box(30, P.ANT_TOP - P.ANT[1] - eTop + 40, 30, steel, ex, eTop - 40, s * P.MAST_Y, body);
+  const a = new THREE.Mesh(new THREE.CylinderGeometry(mm(P.ANT[0] / 2), mm(P.ANT[0] / 2), mm(P.ANT[1]), 20), M(0xeeeeee));
+  a.position.set(mm(ex), mm(P.ANT_TOP - P.ANT[1] / 2), mm(s * P.MAST_Y)); body.add(a);
+}
+const beaconMat = new THREE.MeshLambertMaterial({ color: 0xe8a400, emissive: 0x553300 });
+const beacon = new THREE.Mesh(new THREE.CylinderGeometry(mm(P.BEACON[0] / 2), mm(P.BEACON[0] / 2), mm(P.BEACON[1]), 20), beaconMat);
+beacon.position.set(mm(ex), mm(eTop + P.BEACON[1] / 2), 0); body.add(beacon);
+// low front sensor bar, LiDAR, E-stops
+const fx = P.FRONT_BAR_X0 + P.FRONT_BAR[0] / 2;
+box(P.FRONT_BAR[0], P.FRONT_BAR[2], P.FRONT_BAR[1], steel, fx, P.FRONT_BAR_Z0, 0, body);
+for (const s of [1, -1]) box(P.FRONT_BAR_X0 - P.FRAME_LEN / 2, 40, 40, steel, (P.FRONT_BAR_X0 + P.FRAME_LEN / 2) / 2, P.FRONT_BAR_Z0, s * 200, body);
+box(P.LIDAR[0], P.LIDAR[2], P.LIDAR[1], black, fx, P.FRONT_BAR_Z0 + P.FRONT_BAR[2], 0, body);
+for (const s of [1, -1]) box(P.ESTOP_BOX, P.ESTOP_BOX, P.ESTOP_BOX, yellow, P.FRONT_BAR_X0 + P.FRONT_BAR[0] + P.ESTOP_BOX / 2, P.FRONT_BAR_Z0 - 15, s * 280, body);
+
+// rear sprags: pivot groups rotating about z
+const sprags = [];
+for (const s of [1, -1]) {
+  const g = new THREE.Group(); g.position.set(mm(P.SPRAG_PIVOT[0]), mm(P.SPRAG_PIVOT[1]), mm(s * P.SPRAG_Y)); body.add(g);
+  const arm = new THREE.Mesh(new THREE.BoxGeometry(mm(P.SPRAG_ARM), mm(P.SPRAG_L), mm(P.SPRAG_ARM)), red);
+  arm.position.y = mm(P.SPRAG_L / 2); arm.castShadow = true; g.add(arm);
+  const claw = new THREE.Mesh(new THREE.BoxGeometry(mm(150), mm(40), mm(150)), M(0x555555)); claw.position.y = mm(P.SPRAG_L - 20); g.add(claw);
+  sprags.push(g);
+}
+const SPRAG_DOWN = (180 - (90 - P.SPRAG_DEPLOY)) * D2R;   // rotation that points the arm backwards-down at SPRAG_DEPLOY°
+// front drag anchors: claws live on the incline once released; chains drawn each frame
+const anchors = [];
+const holderX = P.FRONT_BAR_X0 + P.FRONT_BAR[0] + 5 + P.ANCHOR_CLAW[0] / 2;
+for (const s of [1, -1]) {
+  const claw = new THREE.Mesh(new THREE.ConeGeometry(mm(90), mm(160), 4), red);
+  claw.castShadow = true;
+  const chainGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(), new THREE.Vector3()]);
+  const chain = new THREE.Line(chainGeo, new THREE.LineDashedMaterial({ color: 0x222222, dashSize: 0.04, gapSize: 0.025 }));
+  incline.add(chain); incline.add(claw);
+  anchors.push({ s, claw, chain, from: new THREE.Vector3(), to: new THREE.Vector3() });
+}
+
+// ---- state machine (scripted)
+const S0 = { x: 1.2 };
+let st, mode = "both", speed = 1, running = false;
+function reset() {
+  st = { t: 0, x: S0.x, z: 0, yaw: 0, roll: 0, v: 0, phase: "ready", events: [], claw: null, detect: false, bite: false };
+  for (const g of sprags) { g.rotation.z = 0; g.visible = mode !== "none"; }
+  for (const a of anchors) { a.claw.visible = mode === "both"; a.chain.visible = false; a.state = "stowed"; }
+  running = false; log([["—", "Press Start slide."]]); setStatus("Ready: climbing 30°", "warn"); place(); render();
+  document.getElementById("go").disabled = false;
+}
+function event(msg) { st.events.push([st.t.toFixed(2) + " s", msg]); log(st.events); }
+function log(rows) { document.getElementById("log").innerHTML = rows.map(r => `<li><span>${r[0]}</span>${r[1]}</li>`).join(""); }
+function setStatus(txt, cls) { const el = document.getElementById("status"); el.textContent = txt; el.className = "status " + cls; }
+const lerp = (a, b, k) => a + (b - a) * Math.min(1, Math.max(0, k));
+const ease = k => { k = Math.min(1, Math.max(0, k)); return k * k * (3 - 2 * k); };
+
+function stowedAnchorLocal(s) { return new THREE.Vector3(mm(holderX), mm(P.ANCHOR_Z0 + P.ANCHOR_CLAW[2] / 2), mm(s * P.ANCHOR_Y)); }
+function bodyToIncline(v) { const w = body.localToWorld(v.clone()); return incline.worldToLocal(w); }
+
+function place() {
+  yawG.position.set(st.x, 0, st.z); yawG.rotation.y = st.yaw * D2R; rollG.rotation.x = -st.roll * D2R;
+  body.updateMatrixWorld(true); yawG.updateMatrixWorld(true);
+  for (const a of anchors) {
+    if (a.state === "stowed") { a.claw.position.copy(bodyToIncline(stowedAnchorLocal(a.s))); a.claw.rotation.set(0, 0, Math.PI); }
+    const hold = bodyToIncline(new THREE.Vector3(mm(holderX), mm(P.ANCHOR_Z0 + P.ANCHOR_CLAW[2]), mm(a.s * P.ANCHOR_Y)));
+    a.chain.geometry.setFromPoints([hold, a.claw.position]); a.chain.computeLineDistances();
+  }
+}
+
+function step(dt) {
+  st.t += dt; const t = st.t;
+  const tDetect = 0.3, tDeploy = 0.35;
+  // grip lost: sliding back with a small turning disturbance
+  if (!st.detect && t >= tDetect) {
+    st.detect = true;
+    event("Slide detected: moving 0.45 m/s while the tracks are stopped");
+    if (mode !== "none") event(mode === "both" ? "Magnets released: rear sprags + front anchors drop" : "Magnets released: rear sprags drop");
+    else event("No anchors fitted: brakes on, robot keeps sliding");
+    for (const a of anchors) if (mode === "both") {
+      a.state = "drop"; a.from.copy(a.claw.position);
+      a.to.copy(bodyToIncline(new THREE.Vector3(mm(1350), 0, mm(a.s * P.ANCHOR_Y)))); a.to.y = 0.05;
+      a.chain.visible = true;
+    }
+    setStatus("Slide detected", "bad");
+  }
+  if (st.detect && mode !== "none") {
+    const k = ease((t - tDetect) / tDeploy);
+    for (const g of sprags) g.rotation.z = SPRAG_DOWN * k;
+    for (const a of anchors) if (a.state === "drop") {
+      a.claw.position.lerpVectors(a.from, a.to, k); a.claw.rotation.set(0, 0, Math.PI * (1 - k) + 0.6 * k);
+      if (k >= 1) a.state = "set";
+    }
+  }
+  const bite = st.detect && mode !== "none" && t >= tDetect + tDeploy;
+  if (bite && !st.bite) { st.bite = true; event(mode === "both" ? "Claws bite at both ends, chains tight" : "Rear claws bite: robot pivots round them"); }
+
+  if (mode === "both") {
+    if (!bite) { st.v = Math.min(0.45, st.v + 1.5 * dt); st.yaw += 6 * dt; }
+    else { st.v = Math.max(0, st.v - 2.2 * dt); st.yaw = lerp(st.yaw, 1.5, 3 * dt); }
+    st.x -= st.v * dt;
+    if (bite && st.v === 0 && st.phase !== "held") {
+      st.phase = "held"; event(`Held: slid ${(S0.x - st.x).toFixed(2)} m, turned ${st.yaw.toFixed(0)}°`);
+      setStatus("Held at both ends", "ok"); running = false; beaconMat.emissive.set(0x550000);
+    }
+  } else if (mode === "rear") {
+    if (!bite) { st.v = Math.min(0.45, st.v + 1.5 * dt); st.yaw += 6 * dt; st.x -= st.v * dt; }
+    else {
+      if (!st.claw) { const r = mm(Math.abs(P.SPRAG_PIVOT[0]) + P.SPRAG_L * Math.cos(P.SPRAG_DEPLOY * D2R)); st.claw = { x: st.x - r * Math.cos(st.yaw * D2R), z: st.z + r * Math.sin(st.yaw * D2R), r, w: 10 }; }
+      if (st.yaw < 82) {
+        st.claw.w += 55 * dt; st.yaw = Math.min(82, st.yaw + st.claw.w * dt);
+        if (st.yaw > 45 && st.phase !== "side") { st.phase = "side"; event("Turning side-on to the slope"); setStatus("Spinning round the rear claws", "bad"); }
+      } else {
+        if (st.phase !== "roll") { st.phase = "roll"; event("Side-on to 30°: past the 33° tip angle, rolls over"); }
+        st.roll = Math.min(120, st.roll + 160 * dt);
+        if (st.roll >= 120 && running) { running = false; setStatus("Rolled over", "bad"); event("Rolled over downhill"); }
+      }
+      st.x = st.claw.x + st.claw.r * Math.cos(st.yaw * D2R); st.z = st.claw.z - st.claw.r * Math.sin(st.yaw * D2R);
+    }
+  } else {
+    st.v = Math.min(1.6, st.v + 1.1 * dt); st.x -= st.v * dt; st.yaw += (8 + 30 * t) * dt;
+    if (st.yaw > 80 && st.phase !== "roll") { st.phase = "roll"; event("Side-on while sliding: rolls over"); setStatus("Rolled over", "bad"); }
+    if (st.phase === "roll") st.roll = Math.min(150, st.roll + 170 * dt);
+    if (st.x < -3.2) { running = false; event(`Stopped ${(S0.x - st.x).toFixed(1)} m downhill, upside down`); }
+  }
+  if (st.detect && running) beaconMat.emissive.set(Math.floor(t * 6) % 2 ? 0xaa1100 : 0x330000);
+  if (st.detect) beaconMat.color.set(0xe0281c);
+  place();
+  document.getElementById("r-t").textContent = t.toFixed(1) + " s";
+  document.getElementById("r-d").textContent = Math.max(0, S0.x - st.x).toFixed(2) + " m";
+  document.getElementById("r-y").textContent = Math.round(st.yaw) + "°";
+}
+
+// ---- camera presets, sizing, loop
+function cam(name) {
+  const c = new THREE.Vector3(0.6, 1.2, 0);
+  const pos = { side: [1.8, 2.6, 6.8], down: [-6.2, 1.4, 2.6], top: [0.4, 8.5, 0.6] }[name];
+  camera.position.set(...pos); controls.target.copy(c); controls.update();
+}
+function resize() { const w = view.clientWidth, h = view.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / Math.max(1, h); camera.updateProjectionMatrix(); }
+new ResizeObserver(() => { resize(); render(); }).observe(view);
+function render() { renderer.render(scene, camera); }
+let last = performance.now();
+function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000) * speed; last = now;
+  if (running) step(dt);
+  controls.update(); render(); requestAnimationFrame(loop);
+}
+document.querySelectorAll("[data-cam]").forEach(b => b.addEventListener("click", () => cam(b.dataset.cam)));
+document.querySelectorAll('input[name="mode"]').forEach(r => r.addEventListener("change", () => { mode = r.value; reset(); }));
+document.getElementById("go").addEventListener("click", () => {
+  if (st.phase !== "ready") reset();
+  running = true; st.phase = "slide"; event("Grip lost on wet clay (needs 0.58 × weight to stand still)");
+  setStatus("Sliding", "warn"); document.getElementById("go").disabled = true;
+});
+document.getElementById("reset").addEventListener("click", reset);
+document.getElementById("slow").addEventListener("click", e => { speed = speed === 1 ? 0.25 : 1; e.target.setAttribute("aria-pressed", speed !== 1); e.target.textContent = speed === 1 ? "Slow motion" : "Normal speed"; });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", themeColors);
+new MutationObserver(themeColors).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) { speed = 0.25; const b = document.getElementById("slow"); b.textContent = "Normal speed"; b.setAttribute("aria-pressed", "true"); }
+themeColors(); resize(); cam("side"); reset(); requestAnimationFrame(loop);
+</script>
