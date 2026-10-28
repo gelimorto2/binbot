@@ -1,6 +1,9 @@
 # BP‑01 — Chassis & Drivetrain (v0.2)
 
-Part of the [BinBot wireframe](00-wireframe.md). This blueprint covers the
+Part of the [BinBot wireframe](00-wireframe.md).
+**Drawings & 3D model:** [DWG‑001 general arrangement](../cad/out/DWG-001_general_arrangement.pdf),
+[DWG‑002 upper frame weldment](../cad/out/DWG-002_upper_frame_weldment.pdf),
+[3D model](../cad/README.md). Dimensions there are generated from `cad/params.py`. This blueprint covers the
 tracked base: frame, tracks, motors, brakes, stability and traction.
 The bin lift deck sits on top of it (BP‑02), and the battery and electronics
 are bolted into it (BP‑03 and BP‑04).
@@ -62,8 +65,8 @@ Centre of gravity (CoG), bin carried on the raised deck:
 | Mass | kg | CoG height |
 |---|---|---|
 | Robot (tracks low, battery lowest) | 420 | 0.45 m |
-| Full bin (deck top 0.55 m + floor + half the olive load) | 540 | 0.95 m |
-| **Combined** | **960** | **≈ 0.73 m → design 0.75 m** |
+| Full bin (deck top 0.58 m + floor + half the olive load) | 540 | 0.98 m |
+| **Combined** | **960** | **≈ 0.75 m** |
 
 Static tip angle = atan(half‑base ÷ CoG height):
 
@@ -130,7 +133,7 @@ Test T3 checks this on the real slope.
                  │                                  │ 760
                  │                                  │
      bumper      └──────────────────────────────────┘
-      ┌─┐   ════════════ LIFT DECK (BP‑02) ═══════════ ← top 450 low / 550 raised
+      ┌─┐   ════════════ LIFT DECK (BP‑02) ═══════════ ← top 480 low / 580 raised
       │ │  ┌───────────────────────────────────────┐   ┐
       │ │  │  frame rails RHS 100×50×4             │   │ track top ≈ 420
       │ │  │   [battery tray, lowest]  [e‑box]     │   │
@@ -170,10 +173,12 @@ Test T3 checks this on the real slope.
 
 ### 6.4 Fabrication notes
 - Steel **S355** (S235 acceptable with the next size up). MIG welded.
-- Upper frame: 2 × **RHS 100×50×4** side rails on the undercarriage pads,
-  3 × RHS 100×50×4 cross beams, 1 × RHS 60×60×4 diagonal brace in plan view.
-- Joints to the undercarriage: 10 mm plates + **4 × M16 8.8 bolts** per pad
-  (bolted, so the undercarriage can be serviced), 8 mm triangular gussets.
+- Upper frame (DWG‑002): 2 × **RHS 100×50×4** side rails **inside the gap
+  between the tracks** (600 mm apart, underside 250 mm above ground),
+  4 × RHS 100×50×4 cross beams, 2 × RHS 60×60×4 diagonal braces. ≈ 70 kg.
+- Joints to the undercarriage: 4 side brackets, 10 mm plate, **4 × M16 8.8
+  bolts** each, bolted to the inner faces of the track frames (bolted, so the
+  undercarriage can be serviced). Hole positions to match the vendor drawing.
 - Deck interface: 4 load‑cell pads, 10 mm plate, machined flat ±1 mm (BP‑02).
 - Battery tray: 5 mm plate between the tracks, lowest point, ≥ 200 mm ground
   clearance kept.
@@ -187,13 +192,13 @@ Test T3 checks this on the real slope.
 | Part | kg |
 |---|---|
 | Undercarriage (tracks, motors, brakes) | 250 |
-| Upper frame, brace, plates | 55 |
+| Upper frame weldment (DWG‑002) | 70 |
 | Lift deck + actuators (BP‑02) | 55 |
 | Battery 48 V ~7.5 kWh LiFePO4 (BP‑03) | 60 |
 | Electronics, sensors, bumpers, belly pan | 30 |
-| **Total** | **450** ⚠ |
+| **Total** | **465** ⚠ |
 
-Over target by ~30 kg. That is acceptable for traction and power, but it
+Over target by ~45 kg. That is acceptable for traction and power, but it
 adds to sinkage. Re‑check with the real undercarriage weight.
 
 ## 8. Bill of materials (BP‑01 only)
@@ -224,7 +229,7 @@ T2 is a dangerous test. Do it slowly, with the machine strapped, and
 **nobody downhill**.
 
 ## 10. Hand‑offs to other blueprints
-- **BP‑02:** deck pads, 100 mm lift, deck top 450/550 mm, bin centred ±50 mm.
+- **BP‑02:** lift bars sit on the rail tops (z 350), 100 mm lift, deck top 480/580 mm, bin centred ±50 mm.
 - **BP‑03:** battery tray size, 48 V, 2 × ≥ 2 kW motors (peak 2×).
 - **BP‑04:** motor controller interface, brake release wiring through the safety relay.
 - **BP‑05:** limits: pitch stop 28°, roll alarm 8°, roll stop 13° loaded; slip detection; wet‑day mode.
