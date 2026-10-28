@@ -63,7 +63,7 @@ flowchart LR
 
 ## 4. Robot subsystems
 
-### 4.1 Physical layout (rev B, see [DWG‑001](../cad/out/DWG-001_general_arrangement.pdf) and the [3D model](../cad/README.md))
+### 4.1 Physical layout (rev C, see [DWG‑001](../cad/out/DWG-001_general_arrangement.pdf) and the [3D model](../cad/README.md))
 
 ```
   GNSS ×2 (rear corners, 1 m apart)
@@ -73,19 +73,19 @@ flowchart LR
  │  E  │ │                                          │
  │  B  │ └──────────────────────────────────────────┘
  │  O  │ ══════ DECK on 4 load cells, lifts 100 ══════
- │  X  │ [batt]  links   [actuators]   links  [batt]   ← all inside the frame (350–450)
- └─────┘ ────────── frame rails, 350 mm clear ────────── [LiDAR, E-stops] ← front ≤ 545
-   ( O )════════════ rubber tracks 1.2 m wide ═══════════( O )
+ │  X  │   links      [actuators]      links          ← lift inside the top frame (460–560)
+ └─────┘ ════════ top of the BOUGHT BASE (450), unchanged ═══ [LiDAR, E-stops] ← front ≤ 655
+   ( O )═══ base: tracks, motors, controllers, battery (vendor) ═══( O )
  REAR (tall parts)                                FRONT (low: drives under bins)
 ```
 
-### 4.2 Chassis & drivetrain (→ BP‑01)
-- **Bought electric rubber‑track undercarriage, 1.2 m wide**, with motors,
-  gearboxes and brakes; upper frame welded by the farmer (BP‑01).
-- 1.2 m width: safe for 25° up/down loaded; cross‑slope limited to 10° loaded.
-- Climbing 25° with ~1 t total needs ≈ 2 × 2 kW motors at 0.5 m/s.
-- **Spring‑applied brakes** (no power = braked), to be confirmed on the chosen undercarriage.
-- Mud scrapers, sealed bearings, track tensioners.
+### 4.2 Base & top frame (→ [BP‑01](bp-01-chassis-drivetrain.md))
+- **Bought electric rubber‑track base, 1.2 m wide, NOT modified:** tracks, motors,
+  brakes, motor controllers, battery, charger and remote stay as delivered.
+- **Top module** bolted down onto it: welded frame (DWG‑002), lift, E‑box, sensors.
+- Building on top raises the CoG to ≈ 0.83 m: 25° up/down OK, cross‑slope ≤ 9° loaded.
+- The base must have brakes that hold when power is off, ≥ 2 kW per motor, ≥ 1 t load,
+  an E‑stop/enable input and a way to command it (CAN/RS485/RC receiver).
 
 ### 4.3 Bin handling & weighing (→ [BP‑02](bp-02-bin-swap-weighing.md), [video](../cad/out/bin_swap.mp4))
 - **Drive‑under swap:** the robot drives under a bin standing on a steel stand,
@@ -97,14 +97,11 @@ flowchart LR
 - Official weight: the FULL bays stand on certified load cells (§5).
 
 ### 4.4 Power (→ BP‑03)
-- 48 V LiFePO4, ~7–10 kWh. Daily need ≤ 10 kWh: the robot is parked at the
-  spot most of the day. Use the undercarriage's battery if one is supplied,
-  lithium and big enough; otherwise buy one.
-- **Charged overnight by plug at base** (mains available). Auto‑docking
-  charger dropped for budget; can be added later.
-- Separate low‑voltage rail (24/12 V) for computers & sensors.
-- **Safety power path**: motor power runs through a contactor that the
-  safety circuit opens (E‑stop cuts drive power, not the safety controller).
+- **The base's own battery and charger.** The top module takes a fused tap
+  (40 A) from it: ≈ 50–120 W continuous + 480 W lift peaks, ≈ 0.5–0.7 kWh a day.
+- Separate low‑voltage rails (24/12 V) for computers & sensors.
+- **Safety path:** our safety relay opens the base's E‑stop/enable input
+  (base motors stop, its brakes clamp) and our lift contactor.
 
 ### 4.5 Electronics & compute (→ BP‑04)
 | Layer | Role | Example class |
@@ -164,7 +161,7 @@ flowchart TB
    ───────────────────────────►  [ EMPTY bay ]
    charge plug · base PC + RTK reference + 4G router + UPS in a cabinet · fenced
 ```
-- Each bay: 4 posts + 2 ledges at 635 mm, ground guides centre the tracks to ±30 mm,
+- Each bay: 4 posts + 2 ledges at 745 mm, ground guides centre the tracks to ±30 mm,
   AprilTag + reflectors for the LiDAR.
 - FULL bays stand on 4 load cells each with a certified indicator: official
   weight of every bin, logged with spot, team and time.
@@ -270,27 +267,25 @@ Also answered: 25° is **up/down** the hill · farmer welds and wires ·
 
 | Item | Estimate (€) |
 |---|---|
-| Electric rubber‑track undercarriage 1.2 m (quoted) | **1,200** |
+| Base: electric rubber‑track undercarriage 1.2 m with controllers + battery (quoted) | **1,200** |
 | Lift: 2 actuators, links, deck (BP‑02) | 400–650 |
 | 4 load cells + weighing amplifier | 200–300 |
 | RTK GNSS: 2 rover + 1 base receiver, antennas | 700–900 |
 | Main computer | 300–600 |
 | 3D LiDAR + 2 cameras | 800–1,100 |
-| Electronics (BP‑04): power distribution, safety circuit, MCU, comms, E‑box, wiring | 2,300–3,700 |
-| Motor controllers, only if not supplied with the drivetrain | 0–600 |
+| Electronics (BP‑04): power tap, safety circuit, MCU, comms, E‑box, wiring | 2,000–3,350 |
 | Base: 1 FULL (certified load cells) + 1 EMPTY stand; +€1k for 2 + 2 | 950–1,450 |
-| **Total** | **≈ 6,850–9,300** |
+| **Total** | **≈ 6,550–9,550** |
 
 **Automatic navigation is a core requirement**, not an option. After the
-detailed electronics list (BP‑04 §7) the total is **≈ €6,850–9,300**: €8k is
+detailed electronics list (BP‑04 §7) the total is **≈ €6,550–9,550**: €8k is
 reachable only with low‑end choices (see BP‑04 savings). Keep ~€1k contingency.
 Build order, so problems show up early and cheaply:
 
-- **Step 1: drive base (≈ €5,200 at low‑end prices).** Undercarriage + frame, lift deck, weighing, E‑stops,
+- **Step 1: drive base (≈ €4,900 at low‑end prices).** Base + top frame, lift, weighing, E‑stops,
   pendant, base stands and scale. Tested by remote control to prove
   traction and stability in your mud before buying sensors.
 - **Step 2: autonomy (≈ €2,000–2,600).** RTK, LiDAR, computer, software →
   the robot drives the taught routes by itself. This is the finished robot.
 
-Not included: battery, 2 packs × 16S 105 Ah (~10.7 kWh, 32 LiFePO4 cells + 2 BMS)
-if not supplied with the undercarriage (+€1.5–2.5k), workshop labour, safety consultant.
+Not included: anything the €1,200 base turns out not to include (battery, charger), workshop labour, safety consultant.

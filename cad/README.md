@@ -14,7 +14,7 @@ Change a number, re-run the scripts, and the 3D model, drawings and video update
 | DWG | Title | Files |
 |---|---|---|
 | 001 | General arrangement, robot with bin raised | [PDF](out/DWG-001_general_arrangement.pdf) · [PNG](out/DWG-001_general_arrangement.png) · [DXF](out/DWG-001_general_arrangement.dxf) |
-| 002 | Upper frame weldment (fabrication drawing + cut list) | [PDF](out/DWG-002_upper_frame_weldment.pdf) · [PNG](out/DWG-002_upper_frame_weldment.png) · [DXF](out/DWG-002_upper_frame_weldment.dxf) |
+| 002 | Top frame weldment (fabrication drawing + cut list) | [PDF](out/DWG-002_upper_frame_weldment.pdf) · [PNG](out/DWG-002_upper_frame_weldment.png) · [DXF](out/DWG-002_upper_frame_weldment.dxf) |
 | 003 | Base bin stand + clearance section (robot drives under) | [PDF](out/DWG-003_bin_stand.pdf) · [PNG](out/DWG-003_bin_stand.png) · [DXF](out/DWG-003_bin_stand.dxf) |
 
 ## Electrical drawings (BP‑04)
@@ -37,19 +37,20 @@ Change a number, re-run the scripts, and the 3D model, drawings and video update
 ![Robot front](out/chassis_iso.png) ![Robot rear](out/chassis_iso_rear.png)
 ![Robot under a stand](out/swap_scene_iso.png) ![Upper frame](out/upper_frame_iso.png)
 
-Rev B layout: 350 mm clear between the tracks, no low bumpers, low front
-(≤ 545 mm: LiDAR, E‑stops, camera on a sensor bar) so the robot drives under bins;
-tall parts only at the rear (E‑box, GNSS masts 1 m apart, beacon); battery as two
-packs in the frame's end bays; lift = 2 parallel links + 1 actuator per side.
-The 3D model was checked for collisions: robot vs stand in both lift positions,
-and moving lift parts vs frame and batteries.
+Rev C layout: the **bought base is not modified**. Everything of ours is a top
+module bolted down onto it: welded top frame, lift (2 parallel links + 1 actuator
+per side), deck on 4 load cells, rear E‑box with GNSS masts (1 m apart) and beacon,
+low front sensor bar (≤ 655 mm: LiDAR, E‑stops, camera) so the robot drives under
+bins on the stands. No bumpers. The base in the model (centre body, top plate) is a
+placeholder until the seller's drawing arrives. Collision‑checked: top module vs
+base, robot vs stand in both lift positions, moving lift parts vs frame.
 
 ## Status
 
-**PRELIMINARY.** Undercarriage size and mounting points are assumed
-(1200 wide, 1700 long, 400 high). When the seller's drawing arrives, update the
-`VENDOR` values and bracket positions in `params.py`, re‑run, and check DWG‑002
-before cutting steel. Stand ledge positions must be checked against the real bin.
+**PRELIMINARY.** Base size and top mounting points are assumed (1200 wide,
+1700 long, top at 450 mm). When the seller's drawing arrives, update the `VENDOR`
+values and base‑plate positions in `params.py`, re‑run, and check DWG‑002 before
+cutting steel. Stand ledge positions must be checked against the real bin.
 
 ## Regenerate
 

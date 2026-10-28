@@ -33,8 +33,8 @@ C = dict(track="#3a3a3a", frame="#2f6b3f", lift="#e39b1f", deck="#e39b1f", bin="
 
 # ---------------------------------------------------------------- timeline
 STEPS = [  # (start, end, title, caption)
-    (0, 5, "1  ARRIVE", "Back from the grove with a full bin (up to 500 kg). Deck raised: bin bottom at 685 mm."),
-    (5, 10, "2  DRIVE IN — FULL BAY", "Ground guides centre the tracks. The bin passes 50 mm ABOVE the ledges (635 mm)."),
+    (0, 5, "1  ARRIVE", f"Back from the grove with a full bin (up to 500 kg). Deck raised: bin bottom at {DECK_TOP_HIGH} mm."),
+    (5, 10, "2  DRIVE IN — FULL BAY", f"Ground guides centre the tracks. The bin passes 50 mm ABOVE the ledges ({LEDGE_TOP} mm)."),
     (10, 14, "3  LOWER", "Deck goes down 100 mm. At −50 mm the bin lands on the ledges. The bay stands on a\ncertified scale → official weight. Robot creeps 82 mm so the bin goes straight down."),
     (14, 19, "4  REVERSE OUT", "Deck down: everything at the front is lower than the bin. Only the rear (E-box, masts)\nis tall, and the rear never goes under a bin."),
     (19, 23, "5  CHANGE LANE", "Turns and lines up with the EMPTY bay next door."),
@@ -129,9 +129,9 @@ def draw_bin(ax, xc, zb, w, full, side=True):
 
 def draw_robot_side(ax, X, h):
     stadium(ax, X - TRACK_LEN / 2, X + TRACK_LEN / 2, TRACK_H, C["track"])
+    rect(ax, X - BASE_PLATE[0] / 2, BASE_TOP - BASE_PLATE[2], X + BASE_PLATE[0] / 2, BASE_TOP, "#555", z=4)
+    ax.text(X, TRACK_H / 2, "BASE (bought)", color="white", ha="center", va="center", fontsize=7, zorder=5)
     rect(ax, X - FRAME_LEN / 2, FRAME_Z0, X + FRAME_LEN / 2, FRAME_Z1, C["frame"], z=4)
-    for s_ in (1, -1):
-        rect(ax, X + s_ * BAY_X0, BATT_Z0, X + s_ * (BAY_X0 + BATT_PACK[0]), BATT_Z0 + BATT_PACK[2], "#c0392b", alpha=0.35, ls="--", z=4)
     sh = shift(h)
     v = LINK_V0 + h
     dx = (LINK_L ** 2 - v ** 2) ** 0.5
@@ -192,9 +192,10 @@ def draw_section(ax, s):
             rect(ax, sy * (RAIL_Y - LIFT_BAR[1] / 2), LIFT_BAR_Z0 + h, sy * (RAIL_Y + LIFT_BAR[1] / 2), LIFT_BAR_Z0 + h + LIFT_BAR[2], C["lift"], z=5)
             rect(ax, sy * (RAIL_Y - CELL[1] / 2), LIFT_BAR_Z0 + h + LIFT_BAR[2], sy * (RAIL_Y + CELL[1] / 2), DECK_Z0_LOW + h, "#3477c4", z=5)
         rect(ax, -(RAIL_Y - RHS_B / 2), FRAME_Z0, RAIL_Y - RHS_B / 2, FRAME_Z1, C["frame"], z=4, alpha=0.5)
+        rect(ax, -BASE_BODY[1] / 2, BASE_CLEARANCE, BASE_BODY[1] / 2, BASE_CLEARANCE + BASE_BODY[2], "#3a3a3a", z=3)
+        rect(ax, -BASE_PLATE[1] / 2, BASE_TOP - BASE_PLATE[2], BASE_PLATE[1] / 2, BASE_TOP, "#555", z=3)
         rect(ax, -DECK_LY / 2, DECK_Z0_LOW + h, DECK_LY / 2, DECK_TOP_LOW + h, C["deck"], z=5)
-        ax.annotate("", xy=(0, 0), xytext=(0, CLEARANCE), arrowprops=dict(arrowstyle="<->", lw=0.8), zorder=8)
-        ax.text(20, CLEARANCE / 2, f"{CLEARANCE} clear", fontsize=7, zorder=8)
+        ax.text(0, BASE_CLEARANCE + BASE_BODY[2] / 2, "base", color="white", ha="center", va="center", fontsize=7, zorder=8)
     else:
         ax.text(0, 250, "robot outside the bay", ha="center", fontsize=8, color="#555")
     # bin in this bay

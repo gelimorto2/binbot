@@ -1,4 +1,4 @@
-"""3D model of BinBot (rev B) and the base bin stand.
+"""3D model of BinBot (rev C: top module on an unmodified bought base) and the bin stand.
 
 Outputs (cad/out/):
   upper_frame.step / .stl        weldment to fabricate
@@ -82,25 +82,28 @@ def upper_frame():
         parts.append(rhs(BEAM_LEN, RHS_B, RHS_H, RHS_T, "y", s * END_BEAM_X, 0, FRAME_Z0))       # 2 end beams
         parts.append(rhs(BEAM_LEN, RHS_B, RHS_H, RHS_T, "y", s * INNER_BEAM_X, 0, FRAME_Z0))     # 3 inner beams
         for sx in (1, -1):
-            holes = [(u, v) for u in (-BRK_PITCH_X / 2, BRK_PITCH_X / 2) for v in (-BRK_PITCH_Z / 2, BRK_PITCH_Z / 2)]
-            yb = s * (RAIL_Y + hb + BRK_T / 2)
-            parts.append(plate_with_holes(BRK_L, BRK_T, BRK_H, holes, BRK_HOLE, sx * BRK_X, yb, BRK_Z0, "y"))   # 4
+            # 4 base plates under the rails, 4 x Ø18 down into the base top
+            pl = box(BRK_L, BRK_W, BRK_T, sx * BRK_X, s * RAIL_Y, FRAME_Z0 - BRK_T)
+            for u in (-BRK_PITCH_X / 2, BRK_PITCH_X / 2):
+                for v in (-BRK_PITCH_Y / 2, BRK_PITCH_Y / 2):
+                    pl = pl.cut(cyl(BRK_HOLE, BRK_T + 2, sx * BRK_X + u, s * RAIL_Y + v, FRAME_Z0 - BRK_T - 1))
+            parts.append(pl)
             xt = s * (FRAME_LEN / 2 + TAB_T / 2)
             parts.append(plate_with_holes(TAB_T, TAB_W, TAB_H, [(-30, 0), (30, 0)], TAB_HOLE,
                                           xt, sx * TAB_Y, FRAME_Z0 + (RHS_H - TAB_H) / 2, "x"))            # 5
-            # 6 battery support angles L40x4 along the rail inner faces, both end bays
-            xa = s * (BAY_X0 + BAY_X1) / 2
-            ya = sx * (RAIL_Y - hb - ANGLE[0] / 2)
-            la = BAY_X1 - BAY_X0
-            parts.append(box(la, ANGLE[0], ANGLE[1], xa, ya, FRAME_Z0))
-            parts.append(box(la, ANGLE[1], ANGLE[0], xa, sx * (RAIL_Y - hb - ANGLE[1] / 2), FRAME_Z0))
-            # 7 link pivot plates (10 mm) on the rail inner faces
+            # 6 link pivot plates (10 mm) on the rail inner faces
             for xl, zl in LINK_LOW:
                 parts.append(box(60, 10, 70, xl, sx * (RAIL_Y - hb - 5), zl - 35))
     frame = parts[0]
     for p in parts[1:]:
         frame = frame.union(p)
     return frame
+
+
+def base_parts():
+    """The bought base (placeholder, VENDOR): centre body between the tracks + flat top plate."""
+    return [("base_body", box(*BASE_BODY, 0, 0, BASE_CLEARANCE), (0.25, 0.25, 0.25)),
+            ("base_top_plate", box(*BASE_PLATE, 0, 0, BASE_TOP - BASE_PLATE[2]), (0.35, 0.35, 0.35))]
 
 
 def track(y):
@@ -154,21 +157,17 @@ def estop(x, y, z0, face):
 def electronics():
     RED, YEL, BLK, GRY, AMB, WHT = (0.8, 0.1, 0.1), (0.95, 0.8, 0.1), (0.1, 0.1, 0.1), (0.6, 0.6, 0.6), (1.0, 0.55, 0.0), (0.9, 0.9, 0.9)
     p = []
-    # batteries in the end bays
-    for s in (1, -1):
-        p.append(("battery", box(*BATT_PACK, s * (BAY_X0 + BAY_X1) / 2, 0, BATT_Z0), RED))
     # rear E-box with everything tall
     ex1 = EBOX_X0 - EBOX[0]
     mx = EBOX_X0 - EBOX[0] / 2
     ztop = EBOX_Z0 + EBOX[2]
     p.append(("ebox", box(EBOX[0], EBOX[1], EBOX[2], mx, 0, EBOX_Z0), GRY))
-    p.append(("ebox_mount", box(10, 500, 120, EBOX_X0 + 5, 0, FRAME_Z0 - 10), GRY))
-    p.append(("display", box(DISPLAY[0], DISPLAY[1], DISPLAY[2], ex1 - 5, 0, EBOX_Z0 + 420), BLK))
+    p.append(("ebox_mount", box(10, EBOX[1] - 100, RHS_H, EBOX_X0 + 5, 0, FRAME_Z0), GRY))
+    p.append(("display", box(DISPLAY[0], DISPLAY[1], DISPLAY[2], ex1 - 5, 0, EBOX_Z0 + EBOX[2] - 180), BLK))
     p.append(("isolator_S1", box(80, 40, 80, mx, EBOX[1] / 2 + 20, EBOX_Z0 + 150), RED))
-    p.append(("charge_inlet_X1", box(80, 40, 60, mx, -EBOX[1] / 2 - 20, EBOX_Z0 + 150), BLK))
     p.append(("safety_edge_rear", box(EDGE[0], EBOX[1] - 100, EDGE[2], ex1 - EDGE[0] / 2, 0, EBOX_Z0 + 10), BLK))
     for s in (1, -1):
-        h, k = estop(mx, s * EBOX[1] / 2, EBOX_Z0 + 380, 2 * s)
+        h, k = estop(mx, s * EBOX[1] / 2, EBOX_Z0 + EBOX[2] - 150, 2 * s)
         p += [("estop_rear", h, YEL), ("estop_rear_knob", k, RED)]
         # GNSS masts on outriggers at the rear corners (1 m baseline across)
         p.append(("mast_arm", box(40, MAST_Y - EBOX[1] / 2 + 20, 40, mx, s * (EBOX[1] / 2 + MAST_Y + 20) / 2, ztop - 40), GRY))
@@ -193,6 +192,8 @@ def robot(lift=LIFT_STROKE, with_bin=True, name="binbot"):
     a = cq.Assembly(name=name)
     for s in (1, -1):
         a.add(track(s * TRACK_Y), name=f"track_{'L' if s > 0 else 'R'}", color=cq.Color(0.15, 0.15, 0.15))
+    for n, shp, rgb in base_parts():
+        a.add(shp, name=n, color=cq.Color(*rgb))
     a.add(upper_frame(), name="upper_frame", color=cq.Color(0.2, 0.45, 0.25))
     parts, shift = lift_parts(lift)
     for i, (n, shp, rgb) in enumerate(parts + electronics()):

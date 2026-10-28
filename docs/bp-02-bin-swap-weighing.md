@@ -15,7 +15,7 @@ the base. The stand is open underneath and at both ends, so:
 - your tractor or forklift takes full bins out of the open front end the same way.
 
 Two rules make it work:
-1. **Everything at the front of the robot is lower than 545 mm** (LiDAR, E‑stops,
+1. **Everything at the front of the robot is lower than 655 mm** (LiDAR, E‑stops,
    sensor bar). The front is the only part that ever passes under a bin.
 2. **Everything tall is at the rear** (E‑box, GNSS masts, beacon). The rear never
    goes under a bin: the robot leaves a full bin by **reversing** out.
@@ -25,7 +25,7 @@ Two rules make it work:
 | Item | Value |
 |---|---|
 | Posts | 4 × SHS 80×80×4, 935 mm, on base plates, anchored |
-| Ledges | 2 × RHS 100×50 laid flat, top at **635 mm**, inner edges 910 mm apart, UHMW wear strip |
+| Ledges | 2 × RHS 100×50 laid flat, top at **745 mm**, inner edges 910 mm apart, UHMW wear strip |
 | Open space between posts | 1,360 mm (tracks are 1,200: 80 mm each side) |
 | Ground guides | RHS 120×60, 2 m + 0.5 m flare at the entry: centre the tracks to ±30 mm |
 | Bin keepers | Flat bar 60×10 outside the ledges, stop the bin sliding sideways |
@@ -42,8 +42,8 @@ without anyone touching the base until evening.
 | Item | Value |
 |---|---|
 | Deck | 1,200 × 840 mm (narrower than the 910 mm between the ledges), UHMW strips on top |
-| Heights | deck top **585 low / 685 raised**; ledges 635 → 50 mm clearance both ways |
-| Mechanism | Per side: lift bar on the rail, **2 parallel links** (200 mm) in the end bays, **1 linear actuator** in the middle bay |
+| Heights | deck top **695 low / 795 raised**; ledges 745 → 50 mm clearance both ways |
+| Mechanism | Per side: lift bar on the top‑frame rail, **2 parallel links** (200 mm) in the end bays, **1 linear actuator** in the middle bay. Bolted on top of the unmodified base |
 | Actuators | 2 × 24 V, ≥ 6 kN, 150 mm stroke, self‑locking screw, internal limit switches |
 | Loads | Lifts only **empty** bins (40 kg). Full bins are only held (~2 kN) and lowered (~4 kN at touch‑down) because the links are steep at the top of the stroke |
 | Side effect | Raising moves the deck 82 mm forward; the robot creeps 82 mm the other way so the bin goes straight up/down |
@@ -84,9 +84,9 @@ without anyone touching the base until evening.
 | Deck edge → ledge inner edge | 35 mm each side |
 | Tracks → posts | 80 mm each side |
 | Tracks → ground guides | 30 mm each side |
-| Track top → ledge underside | 185 mm |
-| Front parts (≤ 545) → ledge underside (585) | 40 mm |
-| Ground → anything between the tracks | 350 mm |
+| Track top → ledge underside | 295 mm |
+| Front parts (≤ 655) → ledge underside (695) | 40 mm |
+| Anything of ours → below the base top | never |
 
 ## 7. Safety at the base
 
@@ -110,7 +110,7 @@ without anyone touching the base until evening.
 
 ## 9. Still to confirm
 
-1. **Bin bottom:** the ledges (y 455–555 mm from centre) and deck (±420 mm)
+1. **Bin bottom:** the ledges (y 455–555 mm from centre, top 745 mm) and deck (±420 mm)
    must match the bin's skids or feet. Send a photo of the bin from below with
    measurements.
 2. Your tractor or forklift fork height and width, to take full bins out of the

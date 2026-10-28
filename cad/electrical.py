@@ -32,7 +32,7 @@ def sheet(d, number, title):
                  ((x0, 2.5), (SW - .5, 2.5)), ((x0, 1.5), (SW - .5, 1.5))):
         ln(p, q, lw=1)
     for y, t, s in ((4.0, "BINBOT — autonomous olive bin carrier", 12), (3.0, title, 12),
-                    (2.0, f"DWG {number}   REV A   BP-04 electronics", 10),
+                    (2.0, f"DWG {number}   REV C   BP-04 electronics", 10),
                     (1.0, f"PRELIMINARY — check against vendor datasheets   {TODAY}", 9)):
         d.add(elm.Label().at((x0 + 0.3, y)).label(t, fontsize=s, halign="left"))
 
@@ -91,71 +91,62 @@ def new():
 # ---------------------------------------------------------------- E-01 power
 def e01():
     d = new()
-    sheet(d, "E-01", "POWER DISTRIBUTION 48 V")
-    R = 23  # top rail
-    # battery + BMS
-    d.add(elm.Battery().at((4, 15)).to((4, 19)).label("BT1a ∥ BT1b  48 V LiFePO4\n2 × 16S 105 Ah = 10.7 kWh\n(one pack per end bay)\nBMS each, CAN → MCU", loc="bottom", fontsize=9))
-    gnd(d, 4, 15, "0V star point")
-    wire(d, (4, 19), (4, R))
-    d.add(elm.Dot().at((4, 21)))
-    # charge inlet
-    d.add(elm.Fuse().at((1.5, 17)).to((1.5, 21)).label("F7\n40 A", loc="bottom", fontsize=8))
-    wire(d, (1.5, 21), (4, 21))
-    text(d, 1.0, 16.2, "X1 charge inlet\nSB175 + detect pin\n→ MCU (no drive\nwhile plugged)", fs=8)
-    # main path
-    d.add(elm.Fuse().at((4, R)).to((7, R)).label("F1 200 A\nMEGA", fontsize=8))
-    d.add(elm.Switch().at((7, R)).to((10, R)).label("S1 isolator\n(key)", fontsize=8))
-    d.add(elm.Dot().at((10, R)))
-    d.add(elm.Switch().at((10, R)).to((14, R)).label("K1 main contactor\n24 V coil (E-02)", loc="bottom", fontsize=8))
-    wire(d, (10, R), (10, R + 2.2))
-    d.add(elm.Resistor().at((10, R + 2.2)).to((14, R + 2.2)).label("R1 100 Ω 25 W precharge", fontsize=8))
-    wire(d, (14, R + 2.2), (14, R))
-    d.add(elm.Dot().at((14, R)))
-    wire(d, (14, R), (31, R), label="+48 V DRIVE  (off when E-stop / safety trips)   35 mm²", fs=9)
-    # drive drops
-    for x, n, side in ((17, "L", "left"), (22, "R", "right")):
-        d.add(elm.Dot().at((x, R)))
-        d.add(elm.Fuse().at((x, R)).to((x, 19.5)).label(f"F{2 if n == 'L' else 3}\n100 A", loc="bottom", fontsize=8))
-        box(d, x - 1.6, 16, x + 1.6, 19.5, f"MC-{n}\nmotor ctrl\n{side}\nCAN", fs=8)
-        wire(d, (x + 1.6, 16.6), (x + 2.1, 16.6)); gnd(d, x + 2.1, 16.6, "")
-        d.add(elm.Motor().at((x, 16)).to((x, 12.5)).label(f"M{1 if n == 'L' else 2}\n3~ BLDC\n≥ 2 kW\n+ encoder", loc="bottom", fontsize=8))
-        text(d, x - 2.6, 11.4, f"brake YB{1 if n == 'L' else 2} → E-02", fs=8)
-    # lift drop
-    d.add(elm.Dot().at((27, R)))
-    d.add(elm.Fuse().at((27, R)).to((27, 19.5)).label("F4\n40 A", loc="bottom", fontsize=8))
-    box(d, 25.4, 16, 28.6, 19.5, "U3 DC/DC\n40-60 → 24 V\n25 A  LIFT", fs=8)
-    wire(d, (27, 16), (27, 14.5))
-    box(d, 25.4, 11, 28.6, 14.5, "Lift H-bridge\nK7/K8 (MCU)\n2× actuator\nM3, M4", fs=8)
-    wire(d, (28.6, 16.6), (29.1, 16.6)); gnd(d, 29.1, 16.6, "")
-    # aux
-    wire(d, (10, R), (10, 20.5))
-    d.add(elm.Fuse().at((10, 20.5)).to((10, 17.5)).label("F5 20 A\nAUX 4 mm²", loc="bottom", fontsize=8))
-    wire(d, (10, 17.5), (10, 8))
-    d.add(elm.Dot().at((10, 10.3)))
-    wire(d, (10, 10.3), (23, 10.3), (23, 8))
-    for x0, f, lab, out in ((10, "F6 10 A", "U1 DC/DC\n40-60 → 24 V 10 A\nCONTROL", "+24 V CTRL → F10…F16:\ncomputer, LiDAR, cameras,\nGNSS, MCU, safety relay,\nbrakes (via K3/K6)"),
-                            (23, "F8 5 A", "U2 DC/DC\n40-60 → 12 V 5 A\nCOMMS", "+12 V → 4G router,\nLoRa, beacon, buzzer,\ndisplay")):
-        xb = x0 + (2.2 if x0 == 10 else 1.8)
-        d.add(elm.Fuse().at((x0, 8)).to((xb, 8)).label(f, fontsize=8))
-        box(d, xb, 6.4, xb + 4, 9.6, lab, fs=8)
-        wire(d, (xb + 4, 8), (xb + 4.6, 8))
-        text(d, xb + 4.8, 8, out, fs=8)
-        wire(d, (xb + 2, 6.4), (xb + 2, 5.9)); gnd(d, xb + 2, 5.9, "")
+    sheet(d, "E-01", "POWER — TOP MODULE FED FROM THE BASE")
+    R = 24.5
+    # the bought base, untouched
+    box(d, 0.9, 12.5, 9.3, 27, "", ls="--")
+    text(d, 1.2, 26.4, "BASE — bought, NOT modified (vendor)", fs=9)
+    d.add(elm.Battery().at((2.5, 18)).to((2.5, 22)).label("base battery\n+ BMS", loc="bottom", fontsize=8))
+    gnd(d, 2.5, 18, "")
+    wire(d, (2.5, 22), (2.5, R))
+    d.add(elm.Switch().at((2.5, R)).to((5, R)).label("base main\nswitch", fontsize=8))
+    d.add(elm.Dot().at((5, R)))
+    wire(d, (5, R), (6.4, R), (6.4, 20))
+    box(d, 4, 14, 8.8, 20, "MC-L / MC-R\nmotor controllers\nmotors + spring brakes\nRC receiver\nE-stop / enable input\n(all vendor)", fs=8)
+    wire(d, (5, R), (10.5, R))
+    text(d, 7.0, 25.4, "aux tap at the base battery\n(vendor terminal / ring lug)", fs=7)
+    d.add(elm.Fuse().at((10.5, R)).to((13, R)).label("F1 40 A\n(at the tap)", fontsize=8))
+    d.add(elm.Switch().at((13, R)).to((15.5, R)).label("S1 key\nisolator 50 A", fontsize=8))
+    d.add(elm.Dot().at((15.5, R)))
+    d.add(elm.Switch().at((15.5, R)).to((19, R)).label("K1 lift contactor\n50 A, 24 V coil (E-02)", loc="bottom", fontsize=8))
+    d.add(elm.Fuse().at((19, R)).to((21.2, R)).label("F4 40 A", fontsize=8))
+    box(d, 21.2, R - 1.6, 25.2, R + 1.6, "U3 DC/DC\n36-75 → 24 V 25 A\nLIFT", fs=8)
+    wire(d, (25.2, R), (26.2, R))
+    box(d, 26.2, R - 1.6, 30.6, R + 1.6, "Lift H-bridge K7/K8\n(MCU) → actuators\nM3, M4 + limits", fs=8)
+    wire(d, (23.2, R - 1.6), (23.2, R - 2.1)); gnd(d, 23.2, R - 2.1, "")
+    d.add(elm.Fuse().at((15.5, R)).to((15.5, 20.5)).label("F5 20 A\nAUX 4 mm²", loc="bottom", fontsize=8))
+    wire(d, (15.5, 20.5), (15.5, 13.5))
+    for y, f, lab, out in ((18.5, "F6 10 A", "U1 DC/DC\n36-75 → 24 V 10 A\nCONTROL", "+24 V CTRL → F10…F16: computer, LiDAR,\ncameras, GNSS, MCU, safety relay, display"),
+                           (13.5, "F8 5 A", "U2 DC/DC\n36-75 → 12 V 5 A\nCOMMS", "+12 V → 4G router, LoRa, beacon, buzzer")):
+        d.add(elm.Dot().at((15.5, y)))
+        d.add(elm.Fuse().at((15.5, y)).to((17.7, y)).label(f, fontsize=8))
+        box(d, 17.7, y - 1.6, 21.7, y + 1.6, lab, fs=8)
+        wire(d, (21.7, y), (22.5, y))
+        text(d, 22.7, y, out, fs=8)
+        wire(d, (19.7, y - 1.6), (19.7, y - 2.1)); gnd(d, 19.7, y - 2.1, "")
+    wire(d, (8.8, 16), (12.5, 16), ls="--")
+    wire(d, (8.8, 15), (12.5, 15), ls="--")
+    text(d, 9.0, 16.4, "drive commands (E-03)", fs=7)
+    text(d, 9.0, 14.4, "E-stop / enable (E-02)", fs=7)
+    text(d, 1.2, 10.8, "DRIVE INTERFACE — nothing on the base is changed:\n"
+                       "• CAN or RS485 to the base controllers, if the base has it; otherwise\n"
+                       "• the MCU imitates the RC receiver (PWM / SBUS) through changeover relay K9.\n"
+                       "  The handheld remote always has priority (manual mode).\n"
+                       "• The safety relay (E-02) opens the base's own E-stop / enable input.", fs=8.5)
     notes = ("NOTES\n"
-             "1. Battery 16S LiFePO4: 40-58.4 V. All DC/DC inputs rated 36-75 V.\n"
-             "2. K1 is opened by the safety circuit (E-02): drive + lift lose power, brakes apply.\n"
-             "3. R1 keeps controller capacitors charged so K1 does not arc when it closes.\n"
-             "4. Wired 0 V returns to the star point; frame bonded to 0 V at ONE point only.\n"
-             "5. Fuses in IP67 holders in the E-box. Wire: tinned flexible, 105 °C.\n"
-             "6. Aux (computer, sensors, radio) stays on after E-stop so the robot can report.")
-    text(d, 1.2, 4.4, notes, fs=8.5)
+             "1. Base battery voltage assumed 48 V (check). DC/DCs 36-75 V in; for a 60/72 V base use 40-160 V input types.\n"
+             "2. Our load: ≈ 50-120 W continuous + lift 480 W for ~20 s per swap: small next to the base battery.\n"
+             "3. E-stop: K1 drops (lift stops) and the base's E-stop input opens (motors stop, base brakes clamp).\n"
+             "4. Computer, sensors and radio stay powered after an E-stop so the robot can report.\n"
+             "5. Charging: with the base's own charger and socket (vendor).")
+    text(d, 1.2, 5.0, notes, fs=8.5)
     save(d, "E-01_power")
 
 
 # ---------------------------------------------------------------- E-02 safety
 def e02():
     d = new()
-    sheet(d, "E-02", "SAFETY CIRCUIT — E-STOP, CONTACTOR, BRAKES")
+    sheet(d, "E-02", "SAFETY CIRCUIT — E-STOP, BASE ENABLE, LIFT")
     L, Rr = 2, 36.5
     top, bot = 26, 5.5
     wire(d, (L, top), (L, bot)); text(d, L - 0.3, top + 0.6, "+24 V SAFE (F9 2 A)", fs=9)
@@ -180,28 +171,30 @@ def e02():
            ("nc", "WES ch2"), ("nc", "BF ch2"), ("nc", "BR ch2"), ("nc", "K4\nwatchdog\n(MCU)")]
     chain(25.5, ch1, KS[0]); text(d, KS[0] + 0.1, 25.9, "S12", fs=7)
     chain(22.5, ch2, KS[0]); text(d, KS[0] + 0.1, 22.9, "S22", fs=7)
-    chain(19.5, [("btn", "S2 RESET\n(blue)"), ("nc", "K1 aux\n21-22"), ("nc", "K3 aux\n21-22")], KS[0])
+    chain(19.5, [("btn", "S2 RESET\n(blue)"), ("nc", "K1 aux\n21-22")], KS[0])
     text(d, KS[0] + 0.1, 19.9, "S34", fs=7)
     chain(16.5, [], KS[0]); text(d, KS[0] + 0.1, 16.9, "A1", fs=7)
     wire(d, ((KS[0] + KS[2]) / 2, KS[1]), ((KS[0] + KS[2]) / 2, 14.2), (Rr, 14.2)); text(d, 25.6, 14.6, "A2", fs=7)
     d.add(elm.Dot().at((Rr, 14.2)))
     # outputs as rungs
-    for y, items in ((12, [("no", "KS 13-14"), ("no", "K5 drive\nenable (MCU)"), ("coil", "K1 coil\nmain contactor")]),
-                     (9, [("no", "KS 23-24"), ("coil", "K3 coil\nbrake supply")]),
-                     (6.2, [("no", "K3 13-14"), ("no", "K6 brake\nrelease (MCU)"), ("coil", "YB1 ∥ YB2\nbrake coils 24 V")])):
+    for y, items in ((12, [("no", "KS 13-14"), ("no", "K5 drive\nenable (MCU)"), ("coil", "BASE E-stop /\nenable in, ch 1")]),
+                     (9, [("no", "KS 23-24"), ("coil", "BASE E-stop /\nenable in, ch 2")]),
+                     (6.2, [("no", "KS 33-34"), ("coil", "K1 coil\nlift contactor")])):
         chain(y, items, Rr)
         d.add(elm.Dot().at((Rr, y)))
     text(d, 12.6, 21.0, "Wireless E-stop (WES): own safety radio, receiver relay opens if the\n"
-                       "transmitter's heartbeat is lost. Safety edges BF/BR (front sensor bar, rear E-box; no low bumpers): own\n"
-                       "control unit (dual-channel output).", fs=8)
+                       "transmitter's heartbeat is lost. Safety edges BF/BR (front sensor bar,\n"
+                       "rear E-box; no low bumpers): own control unit, 2-channel output.", fs=8)
     text(d, 29, 23.5, "HOW IT FAILS SAFE\n"
-                      "• any button / safety edge / radio loss / software\n  watchdog → KS opens → K1 + K3 drop\n"
-                      "• K1 open: no power to motors or lift\n"
-                      "• K3 open: brake coils lose power →\n  spring brakes clamp the tracks\n"
+                      "• any button / safety edge / radio loss / software\n  watchdog → KS opens all 3 outputs\n"
+                      "• base E-stop input open: base motors stop,\n  base spring brakes clamp (vendor)\n"
+                      "• K1 open: lift has no power\n"
                       "• restart only with RESET after cause cleared\n"
-                      "• welded K1/K3 contact → aux 21-22 stays\n  open → reset refused", fs=8)
+                      "• welded K1 contact → aux 21-22 stays\n  open → reset refused\n"
+                      "• the base's own remote E-stop still works", fs=8)
     text(d, 1.2, 3.0, "Shown generic. On PNOZ X-type relays the chains run S11→S12, S21→S22, S33→S34 (relay-supplied test voltage)\n"
-                      "instead of from +24 V. E-stops: 2 NC contact blocks each (a/b). Final design to be checked against ISO 13849 by a qualified person.", fs=8)
+                      "instead of from +24 V. E-stops: 2 NC contact blocks each (a/b). The base's E-stop input type (NC loop / enable / 1 or 2 ch) must be read\n"
+                      "from the vendor manual; if it has only 1 channel, wire ch 1 and ch 2 in series. Check against ISO 13849 by a qualified person.", fs=8)
     save(d, "E-02_safety_circuit")
 
 
@@ -224,15 +217,13 @@ def e03():
     b("g1", 14.5, 22, 18, 25, "GNSS1 F9P\nrear-left mast\n(RTK rover)")
     b("g2", 18.6, 22, 22.1, 25, "GNSS2 F9P\nrear-right mast\n(heading, 1 m)")
     b("mcu", 26, 13.5, 33, 20, "MCU\nmotion + I/O controller\n(STM32-class on\n24 V I/O board)\nwatchdog to PC1")
-    b("mcl", 13, 6.5, 16.5, 9, "MC-L\nmotor ctrl")
-    b("mcr", 17.5, 6.5, 21, 9, "MC-R\nmotor ctrl")
-    b("bms", 22, 6.5, 25.5, 9, "BT1 BMS")
+    b("base", 13, 5.5, 25.5, 9.5, "BASE (bought, not modified)\nmotor controllers L/R, battery + BMS,\nmotors + brakes, RC receiver, E-stop input\n← CAN / RS485, or RC-PWM imitation via K9", ls="--")
     b("wg", 34, 16.5, 38.8, 20, "WG1 load-cell amp\n4 ch, RS485\n← LC1…LC4")
     b("lora", 34, 21.5, 38.8, 25, "RF1 LoRa 868 MHz\npendant + remote\nstop + heartbeat")
     b("disp", 34, 12.3, 38.8, 15.5, "HMI1 display\nweight / state\n(RS485)")
     b("imu", 26, 21.5, 30, 25, "IMU1\ntilt / roll\n(I²C)")
-    b("io", 26, 5.5, 33, 11.5, "MCU I/O (24 V)\nOUT: K4 watchdog, K5 drive en,\nK6 brake rel, K7/K8 lift,\nbeacon, buzzer\nIN: lift limits S5/S6, charge\ndetect, KS status, E-stop aux")
-    b("base", 1.2, 5.5, 9.5, 11.5, "BASE STATION\nmini PC: fleet manager, logs\nRTK reference F9P → NTRIP\ncertified scale (RS232)\n4G / Wi-Fi router", ls="--")
+    b("io", 26, 5.5, 33, 11.5, "MCU I/O (24 V)\nOUT: K4 watchdog, K5 drive en,\nK7/K8 lift, K9 RC changeover,\nbeacon, buzzer\nIN: lift limits S5/S6, base\ncharging, KS status, E-stop aux")
+    b("yard", 1.2, 5.5, 9.5, 11.5, "BASE STATION (farm yard)\nmini PC: fleet manager, logs\nRTK reference F9P → NTRIP\ncertified scale (RS232)\n4G / Wi-Fi router", ls="--")
     b("pend", 34, 5.5, 38.8, 10.5, "PENDANTS (harvesters)\nCALL / SEND / STOP\nLoRa\n+ wireless E-stop TX\n(→ WES, E-02)", ls="--")
 
     def mid(k, side):
@@ -249,9 +240,8 @@ def e03():
     text(d, 16.4, 20.5, "USB", fs=7)
     wire(d, mid("pc", "e"), mid("mcu", "w"), label="USB + CAN")
     # CAN bus
-    wire(d, (14.75, 12.3), (27, 12.3)); text(d, 17, 12.7, "CAN bus 500 kbit/s (twisted, 120 Ω each end)", fs=7)
-    for k in ("mcl", "mcr", "bms"):
-        wire(d, mid(k, "n"), (mid(k, "n")[0], 12.3))
+    wire(d, (16.5, 12.3), (27, 12.3)); text(d, 17, 12.7, "CAN / RS485 / RC lead to the base (whatever it offers)", fs=7)
+    wire(d, mid("base", "n"), (mid("base", "n")[0], 12.3))
     wire(d, (16.5, 12.3), (16.5, 15))
     wire(d, (27, 12.3), (27, 13.5))
     wire(d, (31, 11.5), (31, 13.5)); text(d, 31.2, 12.5, "24 V I/O", fs=7)
@@ -269,7 +259,7 @@ def e03():
 def e04():
     W, Hh = EBOX[1] - 40, EBOX[2] - 40          # backplate inside 600 x 600 enclosure
     fig, ax = plt.subplots(figsize=(16.54, 11.69), facecolor="white")
-    ax.set_xlim(-40, 1180); ax.set_ylim(-140, 720); ax.set_aspect("equal"); ax.axis("off")
+    ax.set_xlim(-40, 1000); ax.set_ylim(-150, 560); ax.set_aspect("equal"); ax.axis("off")
 
     def r(x, y, w, h, t, fc="#ffffff", fs=7):
         ax.add_patch(Rectangle((x, y), w, h, fc=fc, ec="black", lw=0.8, zorder=3))
@@ -277,61 +267,60 @@ def e04():
 
     ax.add_patch(Rectangle((-20, -20), W + 40, Hh + 40, fc="none", ec="black", lw=2))
     ax.add_patch(Rectangle((0, 0), W, Hh, fc="#f4f4f4", ec="black", lw=1))
-    for y in (150, 275, 415):                       # cable ducts
-        r(0, y, W, 35, "cable duct 40", fc="#dddddd", fs=6)
-    for y in (240, 360, 480):                        # DIN rails
+    for y in (105, 225, 355):                       # cable ducts
+        r(0, y, W, 30, "cable duct", fc="#dddddd", fs=6)
+    for y in (55, 180, 305, 418):                   # DIN rails
         ax.plot([5, W - 5], [y, y], color="gray", lw=4, alpha=0.5, zorder=2)
-    # row A: power
-    r(10, 10, 170, 130, "MC-L\nmotor controller\nleft")
-    r(190, 10, 170, 130, "MC-R\nmotor controller\nright")
-    r(370, 20, 90, 110, "K1\nmain contactor\n200 A")
-    r(470, 80, 80, 60, "R1 precharge\non heatsink")
-    r(470, 10, 80, 60, "+48 V / 0 V\nbusbars\n(star point)")
-    # row B: DIN rail 240
-    r(10, 195, 90, 75, "U1 DC/DC\n24 V 10 A")
-    r(110, 195, 80, 75, "U2 DC/DC\n12 V 5 A")
-    r(200, 195, 110, 75, "U3 DC/DC\n24 V 25 A\nlift")
-    r(320, 195, 25, 75, "KS", fs=6)
-    for i, k in enumerate(("K3", "K4", "K5", "K6", "K7", "K8")):
-        r(350 + i * 20, 205, 18, 60, k, fs=6)
-    r(475, 195, 75, 75, "F1-F8\nfuse\nholders")
-    # row C: DIN rail 360
-    r(10, 315, 120, 95, "MCU + 24 V\nI/O board")
-    r(140, 315, 90, 95, "WG1\nload-cell amp")
-    r(240, 315, 130, 95, "PC1\nmain computer\n(in heatsink case)")
-    r(380, 315, 80, 95, "SW1\nEthernet\nswitch")
-    r(470, 315, 80, 95, "F9-F16\n24 V branch\nfuses")
-    # row D: DIN rail 480
-    r(10, 455, 120, 85, "RTR1\n4G router")
-    r(140, 455, 60, 85, "GNSS1\nF9P")
-    r(210, 455, 60, 85, "GNSS2\nF9P")
-    r(280, 455, 60, 85, "RF1\nLoRa")
-    r(350, 455, 60, 85, "CAN-USB\n+ IMU1")
-    r(420, 455, 130, 85, "X2 / X3\nterminal blocks\npower | signal")
-    ax.text(W / 2, Hh + 40, f"E-BOX BACKPLATE  {W}×{Hh} mm  (enclosure {EBOX[1]}×{EBOX[2]}×{EBOX[0]} IP65, steel, mounted at the rear)",
+    # row A: power in
+    r(10, 10, 90, 90, "K1\nlift contactor\n50 A")
+    r(110, 10, 140, 90, "F1-F8\nfuse holders")
+    r(260, 10, 90, 90, "X2\npower\nterminals")
+    r(360, 10, 90, 90, "K9\nRC changeover\n(remote ↔ MCU)")
+    # row B
+    r(10, 140, 80, 80, "U1 DC/DC\n24 V 10 A")
+    r(100, 140, 70, 80, "U2 DC/DC\n12 V 5 A")
+    r(180, 140, 100, 80, "U3 DC/DC\n24 V 25 A\nlift")
+    r(290, 140, 25, 80, "KS", fs=6)
+    for i, k in enumerate(("K4", "K5", "K7", "K8")):
+        r(320 + i * 20, 150, 18, 60, k, fs=6)
+    r(405, 140, 45, 80, "F9-\nF16", fs=6)
+    # row C
+    r(10, 260, 110, 90, "MCU + 24 V\nI/O board")
+    r(130, 260, 80, 90, "WG1\nload-cell\namp")
+    r(220, 260, 130, 90, "PC1\nmain computer\n(heatsink case)")
+    r(360, 260, 90, 90, "SW1\nEthernet\nswitch")
+    # row D
+    r(10, 390, 110, 60, "RTR1 4G router")
+    r(130, 390, 55, 60, "GNSS1\nF9P", fs=6)
+    r(190, 390, 55, 60, "GNSS2\nF9P", fs=6)
+    r(250, 390, 55, 60, "RF1\nLoRa", fs=6)
+    r(310, 390, 60, 60, "CAN-USB\n+ IMU1", fs=6)
+    r(380, 390, 70, 60, "X3\nsignal\nterminals", fs=6)
+    ax.text(W / 2, Hh + 40, f"E-BOX BACKPLATE {W}×{Hh} mm (enclosure {EBOX[1]}×{EBOX[2]}×{EBOX[0]} IP65, rear of the top module)",
             ha="center", fontsize=10, weight="bold")
     # bottom face connectors
-    con = ["X10 MC-L motor 3~ + encoder", "X11 MC-R motor 3~ + encoder", "X12 brakes YB1/YB2", "X13 lift M3/M4 + limits",
+    con = ["X10 base drive interface (CAN / RS485 or RC lead)", "X11 base E-stop / enable loop (2 ch)",
+           "X12 power tap from base battery (2 × 6 mm²)", "X13 lift M3/M4 + limits S5/S6",
            "X14 load cells LC1-LC4 (4× M12)", "X15 front bar: LiDAR, CAM-F, ES1/ES2, edge BF",
-           "X16 rear: ES3/ES4, CAM-R, HMI1, beacon, BR, GNSS1/2", "batteries BT1a/b + / − (4 × 25 mm² glands)"]
+           "X16 rear: ES3/ES4, CAM-R, HMI1, beacon, BR, GNSS1/2", "nothing goes into the base except X10-X12"]
     ax.text(0, -45, "BOTTOM FACE (all cables enter from below, drip loop):", fontsize=8, weight="bold")
     for i, c in enumerate(con):
-        ax.text(0 + (i % 2) * 300, -70 - (i // 2) * 18, "• " + c, fontsize=7.5)
-    side = ("RIGHT SIDE: S1 battery isolator (key), X1 charge inlet\n"
+        ax.text(0 + (i % 2) * 290, -70 - (i // 2) * 18, "• " + c, fontsize=7.5)
+    side = ("RIGHT SIDE: S1 key isolator for the top module\n"
             "LEFT SIDE: IP65 breather vent + filter fan (thermostat 40 °C)\n"
             "DOOR: nothing mounted (keeps it sealed)\n\n"
             "BUILD NOTES\n"
-            "• 3 mm aluminium backplate = heat spreader for MC-L/R\n"
+            "• motor controllers stay in the base (vendor)\n"
             "• power wiring kept in row A, signals rows C/D\n"
             "• CAN and Ethernet away from motor cables\n"
             "• label every wire both ends with its number\n"
             "• all connectors IP67: Deutsch DT (signals),\n  M12 (sensors/CAN/ETH), Anderson (power)")
-    ax.text(620, 520, side, fontsize=8.5, va="top")
+    ax.text(520, 440, side, fontsize=8.5, va="top")
     # title block
-    tb = (760, -130, 400, 110)
+    tb = (600, -145, 380, 110)
     ax.add_patch(Rectangle(tb[:2], tb[2], tb[3], fc="none", ec="black", lw=1.2))
     for i, t in enumerate(("BINBOT — autonomous olive bin carrier", "E-BOX LAYOUT (front view, door open)",
-                           "DWG E-04   REV A   SCALE ≈ 1:4   mm", f"PRELIMINARY   {TODAY}")):
+                           "DWG E-04   REV C   SCALE ≈ 1:4   mm", f"PRELIMINARY   {TODAY}")):
         ax.text(tb[0] + 10, tb[1] + tb[3] - 18 - i * 26, t, fontsize=9)
     for ext in ("pdf", "png"):
         fig.savefig(OUT + f"E-04_ebox_layout.{ext}", dpi=150 if ext == "png" else None, bbox_inches="tight", facecolor="white")

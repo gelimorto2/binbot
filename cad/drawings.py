@@ -1,7 +1,7 @@
 """2D drawings (DXF + PDF + PNG) generated from params.py.
 
 DWG-001  General arrangement, robot (bin raised)          1:10 on A3
-DWG-002  Upper frame weldment — fabrication drawing        1:10 on A3
+DWG-002  Top frame weldment — fabrication drawing          1:10 on A3
 DWG-003  Base bin stand + clearance section                 1:10 on A3
 """
 import datetime
@@ -87,7 +87,7 @@ class Sheet:
             self.msp.add_line((x0, yy), (x1, yy), dxfattribs={"layer": "BORDER"})
         self.text(x0 + 3 * self.S, y1 - 7.5 * self.S, "BINBOT — autonomous olive bin carrier", h=4.5)
         self.text(x0 + 3 * self.S, y1 - 17.5 * self.S, self.title, h=4.5)
-        self.text(x0 + 3 * self.S, y0 + 12.5 * self.S, f"DWG {self.number}   REV B   SCALE 1:{self.S} (A3)   UNITS mm", h=3.5)
+        self.text(x0 + 3 * self.S, y0 + 12.5 * self.S, f"DWG {self.number}   REV C   SCALE 1:{self.S} (A3)   UNITS mm", h=3.5)
         self.text(x0 + 3 * self.S, y0 + 2.5 * self.S,
                   f"PRELIMINARY — undercarriage values assumed   {datetime.date.today():%Y-%m-%d}", h=3.5)
 
@@ -149,8 +149,9 @@ def dwg_001():
     sh.ground(E, -1100, 1100)
     sh.poly(E, stadium(TRACK_LEN, TRACK_H))
     sh.rect(E, -FRAME_LEN / 2, FRAME_Z0, FRAME_LEN / 2, FRAME_Z1)
-    for s_ in (1, -1):
-        sh.rect(E, s_ * BAY_X0, BATT_Z0, s_ * (BAY_X0 + BATT_PACK[0]), BATT_Z0 + BATT_PACK[2], "HIDDEN")
+    sh.rect(E, -BASE_PLATE[0] / 2, BASE_TOP - BASE_PLATE[2], BASE_PLATE[0] / 2, BASE_TOP)
+    sh.rect(E, -BASE_BODY[0] / 2, BASE_CLEARANCE, BASE_BODY[0] / 2, BASE_CLEARANCE + BASE_BODY[2], "HIDDEN")
+    sh.text(E[0] - 330, E[1] + BASE_CLEARANCE + 60, "BASE (bought, not modified)", h=2.5)
     v = LINK_V0 + h
     dx = (LINK_L ** 2 - v ** 2) ** 0.5
     for xl, zl in LINK_LOW:
@@ -172,10 +173,10 @@ def dwg_001():
     sh.line(E, sx_, -60, sx_, bin_top + 60, "CENTER")
     sh.line(E, 400, FRONT_ENVELOPE_Z, 1050, FRONT_ENVELOPE_Z, "PHANTOM")
     sh.text(E[0] + 700, E[1] + FRONT_ENVELOPE_Z + 20, f"front max {FRONT_ENVELOPE_Z:.0f}", h=2.5)
-    cog = 745
+    cog = 830
     sh.circle(E, sx_, cog, 40)
     sh.line(E, sx_ - 60, cog, sx_ + 60, cog), sh.line(E, sx_, cog - 60, sx_, cog + 60)
-    sh.text(E[0] + sx_ + 70, E[1] + cog + 20, "CoG ≈ 745 (full, raised)", h=3)
+    sh.text(E[0] + sx_ + 70, E[1] + cog + 20, "CoG ≈ 830 (full, raised)", h=3)
     sh.text(E[0] + mx - 330, E[1] + ANT_TOP - 50, "GNSS", h=2.5)
     sh.text(E[0] + fx + 120, E[1] + FRONT_BAR_Z0 + 90, "LiDAR", h=2.5)
     sh.text(E[0] - 1000, E[1] - 140, "FRONT →  (x+)", h=3)
@@ -183,7 +184,7 @@ def dwg_001():
     sh.dim(E, (-TRACK_CONTACT / 2, 0), (TRACK_CONTACT / 2, 0), (0, -130))
     sh.dim(E, (xr, 0), (xf, TRACK_H / 2), (0, -250))
     sh.dim(E, (sx_ - BIN[0] / 2, bin_top), (sx_ + BIN[0] / 2, bin_top), (sx_, bin_top + 90))
-    for z, b in ((FRAME_Z0, -1080), (DECK_TOP_HIGH, -1180), (bin_top, -1280), (ANT_TOP, -1380)):
+    for z, b in ((BASE_TOP, -1080), (DECK_TOP_HIGH, -1180), (bin_top, -1280), (ANT_TOP, -1380)):
         sh.dim(E, (xr if z == ANT_TOP else -FRAME_LEN / 2, 0), (xr if z == ANT_TOP else -FRAME_LEN / 2, z), (b, 0), vertical=True)
     sh.dim(E, (TRACK_LEN / 2, 0), (TRACK_LEN / 2, TRACK_H), (1000, 0), vertical=True)
     sh.dim(E, (DECK_LX / 2 + sx_, DECK_TOP_LOW), (DECK_LX / 2 + sx_, DECK_TOP_HIGH), (1120, 0), vertical=True)
@@ -202,6 +203,8 @@ def dwg_001():
         sh.rect(F, s_ * (MAST_Y - MAST_D / 2), ez1, s_ * (MAST_Y + MAST_D / 2), ANT_TOP - ANT[1], "HIDDEN")
         sh.rect(F, s_ * (MAST_Y - ANT[0] / 2), ANT_TOP - ANT[1], s_ * (MAST_Y + ANT[0] / 2), ANT_TOP)
     sh.rect(F, -(RAIL_Y + RHS_B / 2), FRAME_Z0, RAIL_Y + RHS_B / 2, FRAME_Z1)
+    sh.rect(F, -BASE_PLATE[1] / 2, BASE_TOP - BASE_PLATE[2], BASE_PLATE[1] / 2, BASE_TOP)
+    sh.rect(F, -BASE_BODY[1] / 2, BASE_CLEARANCE, BASE_BODY[1] / 2, BASE_CLEARANCE + BASE_BODY[2])
     sh.rect(F, -FRONT_BAR[1] / 2, FRONT_BAR_Z0, FRONT_BAR[1] / 2, FRONT_BAR_Z0 + FRONT_BAR[2])
     sh.rect(F, -LIDAR[1] / 2, FRONT_BAR_Z0 + FRONT_BAR[2], LIDAR[1] / 2, FRONT_BAR_Z0 + FRONT_BAR[2] + LIDAR[2])
     sh.rect(F, -EBOX[1] / 2, EBOX_Z0, EBOX[1] / 2, ez1, "HIDDEN")
@@ -211,24 +214,25 @@ def dwg_001():
     sh.dim(F, (-TRACK_OUTER_W / 2, 0), (TRACK_OUTER_W / 2, 0), (0, -250))
     sh.dim(F, (-TRACK_INNER_Y, TRACK_H), (TRACK_INNER_Y, TRACK_H), (0, -130))
     sh.dim(F, (-MAST_Y, ANT_TOP), (MAST_Y, ANT_TOP), (0, ANT_TOP + 70))
-    sh.dim(F, (TRACK_INNER_Y, 0), (TRACK_INNER_Y, FRAME_Z0), (700, 0), vertical=True)
-    sh.text(F[0] - 130, F[1] + 160, f"{CLEARANCE} CLEAR", h=3)
+    sh.dim(F, (BASE_BODY[1] / 2, 0), (BASE_BODY[1] / 2, BASE_CLEARANCE), (700, 0), vertical=True)
+    sh.dim(F, (BASE_PLATE[1] / 2, 0), (BASE_PLATE[1] / 2, BASE_TOP), (800, 0), vertical=True)
+    sh.text(F[0] - 210, F[1] + 90, "base clearance (vendor)", h=2.5)
 
     rows = ["KEY DATA",
             f"Overall L x W x H     {xf - xr:.0f} x {TRACK_OUTER_W} x {ANT_TOP} mm",
-            f"Ground clearance between tracks {CLEARANCE} mm (no bumpers)",
+            f"Top module bolted on the unmodified base (top {BASE_TOP} mm); no bumpers",
             f"Deck top low / raised {DECK_TOP_LOW} / {DECK_TOP_HIGH} mm, bin top {bin_top} mm",
             f"Front parts ≤ {FRONT_ENVELOPE_Z:.0f} mm: robot drives under bins on stands",
             "Tall parts (E-box, GNSS masts, beacon) only at the rear",
-            "Gross mass ≈ 1,020 kg; limits loaded: 25° up/down, 10° cross",
-            "Undercarriage: bought, 48 V, 2 x ≥2 kW, brakes"]
+            "Gross mass ≈ 1,000 kg; limits loaded: 25° up/down, 9° cross",
+            "Base: bought with motors, controllers, battery, brakes"]
     notes(sh, 200, 560, rows)
     sh.save("DWG-001_general_arrangement")
 
 
 # ---------------------------------------------------------------- DWG-002
 def dwg_002():
-    sh = Sheet("002", "UPPER FRAME — WELDMENT (FABRICATE)")
+    sh = Sheet("002", "TOP FRAME — WELDMENT (FABRICATE)")
     hb, rb = RHS_B / 2, RAIL_Y
     la = BAY_X1 - BAY_X0
     P = (1150, 1450)
@@ -238,15 +242,17 @@ def dwg_002():
         sh.rect(P, s * (END_BEAM_X - hb), -(rb - hb), s * (END_BEAM_X + hb), rb - hb)
         sh.rect(P, s * (INNER_BEAM_X - hb), -(rb - hb), s * (INNER_BEAM_X + hb), rb - hb)
         for sx in (1, -1):
-            sh.rect(P, sx * BRK_X - BRK_L / 2, s * (rb + hb), sx * BRK_X + BRK_L / 2, s * (rb + hb + BRK_T))
+            sh.rect(P, sx * BRK_X - BRK_L / 2, s * rb - BRK_W / 2, sx * BRK_X + BRK_L / 2, s * rb + BRK_W / 2, "HIDDEN")
+            for u in (-BRK_PITCH_X / 2, BRK_PITCH_X / 2):
+                for v in (-BRK_PITCH_Y / 2, BRK_PITCH_Y / 2):
+                    sh.circle(P, sx * BRK_X + u, s * rb + v, BRK_HOLE / 2, "HIDDEN")
             sh.rect(P, s * FRAME_LEN / 2, sx * TAB_Y - TAB_W / 2, s * (FRAME_LEN / 2 + TAB_T), sx * TAB_Y + TAB_W / 2)
-            sh.rect(P, s * BAY_X0, sx * (rb - hb), s * BAY_X1, sx * (rb - hb - ANGLE[0]))
             for xl, _ in LINK_LOW:
                 sh.rect(P, xl - 30, sx * (rb - hb), xl + 30, sx * (rb - hb - 10))
     sh.line(P, -FRAME_LEN / 2 - 80, 0, FRAME_LEN / 2 + 80, 0, "CENTER")
     sh.line(P, 0, -rb - 80, 0, rb + 80, "CENTER")
     sh.dim(P, (-FRAME_LEN / 2, -rb), (FRAME_LEN / 2, -rb), (0, -rb - 350))
-    sh.dim(P, (-BRK_X, -rb - hb - BRK_T), (BRK_X, -rb - hb - BRK_T), (0, -rb - 150))
+    sh.dim(P, (-BRK_X, -rb - BRK_W / 2), (BRK_X, -rb - BRK_W / 2), (0, -rb - 150))
     sh.dim(P, (-INNER_BEAM_X, -rb), (INNER_BEAM_X, -rb), (0, -rb - 250))
     sh.dim(P, (LINK_LOW[1][0], rb), (LINK_LOW[0][0], rb), (0, rb + 150))
     sh.dim(P, (-FRAME_LEN / 2, -rb), (-FRAME_LEN / 2, rb), (-FRAME_LEN / 2 - 150, 0), vertical=True)
@@ -254,70 +260,66 @@ def dwg_002():
     sh.dim(P, (FRAME_LEN / 2 + TAB_T, -TAB_Y), (FRAME_LEN / 2 + TAB_T, TAB_Y), (FRAME_LEN / 2 + 150, 0), vertical=True)
     sh.text(P[0] + LINK_LOW[1][0] - 60, P[1] + rb + 230, "link pivots", h=2.8)
     for n, (u, v, du, dv) in enumerate([(-200, rb + hb, -60, 300), (END_BEAM_X, 150, 160, 330),
-                                        (INNER_BEAM_X, 150, 60, 300), (-BRK_X, rb + hb + BRK_T, -40, 300),
-                                        (FRAME_LEN / 2 + TAB_T, -TAB_Y, 150, -100), (460, -rb + hb + 20, 60, 160),
+                                        (INNER_BEAM_X, 150, 60, 300), (-BRK_X - BRK_L / 2, rb + BRK_W / 2, -40, 300),
+                                        (FRAME_LEN / 2 + TAB_T, -TAB_Y, 150, -100),
                                         (LINK_LOW[0][0], -rb + hb + 5, 0, 200)], start=1):
         sh.balloon(P, u, v, du, dv, n)
     for s in (1, -1):
-        sh.text(P[0] + s * 462 - 110, P[1] - 15, "battery bay", h=2.5)
+        sh.text(P[0] + s * 462 - 80, P[1] - 15, "links", h=2.5)
     sh.text(P[0] - 120, P[1] + 160, "actuators", h=2.5)
 
     E = (1150, 2050)
-    sh.label(E, 0, 640, "SIDE VIEW")
+    sh.label(E, 0, 760, "SIDE VIEW")
     sh.ground(E, -800, 800)
     sh.rect(E, -FRAME_LEN / 2, FRAME_Z0, FRAME_LEN / 2, FRAME_Z1)
     for s in (1, -1):
         for xx in (END_BEAM_X - hb, INNER_BEAM_X - hb, INNER_BEAM_X + hb):
             sh.line(E, s * xx, FRAME_Z0, s * xx, FRAME_Z1, "HIDDEN")
-        sh.rect(E, s * BRK_X - BRK_L / 2, BRK_Z0, s * BRK_X + BRK_L / 2, BRK_Z0 + BRK_H)
-        for du in (-BRK_PITCH_X / 2, BRK_PITCH_X / 2):
-            for dv in (-BRK_PITCH_Z / 2, BRK_PITCH_Z / 2):
-                sh.circle(E, s * BRK_X + du, BRK_Z0 + BRK_H / 2 + dv, BRK_HOLE / 2)
+        sh.rect(E, s * BRK_X - BRK_L / 2, FRAME_Z0 - BRK_T, s * BRK_X + BRK_L / 2, FRAME_Z0)
         sh.rect(E, s * FRAME_LEN / 2, FRAME_Z0 + (RHS_H - TAB_H) / 2, s * (FRAME_LEN / 2 + TAB_T), FRAME_Z0 + (RHS_H + TAB_H) / 2)
     for xl, zl in LINK_LOW:
         sh.rect(E, xl - 30, zl - 35, xl + 30, zl + 35, "HIDDEN")
         sh.circle(E, xl, zl, 10, "HIDDEN")
     sh.dim(E, (FRAME_LEN / 2, 0), (FRAME_LEN / 2, FRAME_Z0), (FRAME_LEN / 2 + 120, 0), vertical=True)
     sh.dim(E, (FRAME_LEN / 2, FRAME_Z0), (FRAME_LEN / 2, FRAME_Z1), (FRAME_LEN / 2 + 220, 0), vertical=True)
-    sh.dim(E, (BRK_X - BRK_L / 2, BRK_Z0 + BRK_H), (BRK_X + BRK_L / 2, BRK_Z0 + BRK_H), (BRK_X, BRK_Z0 + BRK_H + 90))
-    sh.dim(E, (BRK_X - BRK_PITCH_X / 2, BRK_Z0 + BRK_H / 2 + BRK_PITCH_Z / 2),
-           (BRK_X + BRK_PITCH_X / 2, BRK_Z0 + BRK_H / 2 + BRK_PITCH_Z / 2), (BRK_X, BRK_Z0 + BRK_H + 190))
-    sh.dim(E, (-BRK_X - BRK_L / 2, BRK_Z0 + BRK_H / 2 - BRK_PITCH_Z / 2), (-BRK_X - BRK_L / 2, BRK_Z0 + BRK_H / 2 + BRK_PITCH_Z / 2),
-           (-BRK_X - 170, 0), vertical=True)
+    sh.dim(E, (BRK_X - BRK_L / 2, FRAME_Z0 - BRK_T), (BRK_X + BRK_L / 2, FRAME_Z0 - BRK_T), (BRK_X, FRAME_Z0 - 120))
+    sh.dim(E, (-FRAME_LEN / 2, 0), (-FRAME_LEN / 2, BASE_TOP), (-FRAME_LEN / 2 - 120, 0), vertical=True)
     sh.dim(E, (LINK_LOW[1][0], 0), (LINK_LOW[1][0], LINK_LOW[1][1]), (LINK_LOW[1][0] - 120, 0), vertical=True)
-    sh.text(E[0] + BRK_X - 90, E[1] + BRK_Z0 - 90, "4x Ø18 (M16)", h=3)
+    sh.text(E[0] + BRK_X - 90, E[1] + FRAME_Z0 - 230, "base plate, 4x Ø18 (M16) down", h=3)
+    sh.line(E, -800, BASE_TOP, 800, BASE_TOP, "PHANTOM")
+    sh.text(E[0] - 790, E[1] + BASE_TOP - 70, "top of bought base", h=2.5)
     sh.text(E[0] + LINK_LOW[1][0] - 60, E[1] + FRAME_Z1 + 40, "pivot Ø20", h=2.5)
 
     F = (3100, 2050)
-    sh.label(F, 0, 640, "FRONT VIEW")
+    sh.label(F, 0, 760, "FRONT VIEW")
     sh.ground(F, -500, 500)
     sh.rect(F, -(rb + hb), FRAME_Z0, rb + hb, FRAME_Z1)
     for s in (1, -1):
         sh.line(F, s * (rb - hb), FRAME_Z0, s * (rb - hb), FRAME_Z1)
-        sh.rect(F, s * (rb + hb), BRK_Z0, s * (rb + hb + BRK_T), BRK_Z0 + BRK_H)
+        sh.rect(F, s * rb - BRK_W / 2, FRAME_Z0 - BRK_T, s * rb + BRK_W / 2, FRAME_Z0)
         sh.rect(F, s * TAB_Y - TAB_W / 2, FRAME_Z0 + (RHS_H - TAB_H) / 2, s * TAB_Y + TAB_W / 2, FRAME_Z0 + (RHS_H + TAB_H) / 2)
         for du in (-30, 30):
             sh.circle(F, s * TAB_Y + du, FRAME_Z0 + RHS_H / 2, TAB_HOLE / 2)
-    sh.dim(F, (-(rb + hb + BRK_T), BRK_Z0 + BRK_H), (rb + hb + BRK_T, BRK_Z0 + BRK_H), (0, BRK_Z0 + BRK_H + 190))
-    sh.dim(F, (-(rb + hb), FRAME_Z1), (rb + hb, FRAME_Z1), (0, BRK_Z0 + BRK_H + 90))
-    sh.dim(F, (rb + hb, 0), (rb + hb, FRAME_Z0), (rb + 200, 0), vertical=True)
+    sh.dim(F, (-(rb + hb), FRAME_Z1), (rb + hb, FRAME_Z1), (0, FRAME_Z1 + 90))
+    sh.dim(F, (-rb, FRAME_Z0 - BRK_T), (rb, FRAME_Z0 - BRK_T), (0, FRAME_Z0 - 120))
+    sh.dim(F, (rb + hb, 0), (rb + hb, BASE_TOP), (rb + 200, 0), vertical=True)
+    sh.line(F, -500, BASE_TOP, 500, BASE_TOP, "PHANTOM")
     sh.text(F[0] + TAB_Y - 120, F[1] + FRAME_Z1 + 40, "2x Ø14", h=3)
 
     items = [
         (1, "Side rail", "RHS 100x50x4", FRAME_LEN, 2, m_rhs(FRAME_LEN, 50, 100, 4)),
         (2, "End cross beam", "RHS 100x50x4", BEAM_LEN, 2, m_rhs(BEAM_LEN, 50, 100, 4)),
         (3, "Inner cross beam", "RHS 100x50x4", BEAM_LEN, 2, m_rhs(BEAM_LEN, 50, 100, 4)),
-        (4, "U/C bracket, 4x Ø18", f"PL {BRK_T} {BRK_L}x{BRK_H}", BRK_L, 4, BRK_T * BRK_L * BRK_H * STEEL),
+        (4, "Base plate, 4x Ø18", f"PL {BRK_T} {BRK_L}x{BRK_W}", BRK_L, 4, BRK_T * BRK_L * BRK_W * STEEL),
         (5, "Tab (sensor bar / E-box)", f"PL {TAB_T} {TAB_W}x{TAB_H}", TAB_W, 4, TAB_T * TAB_W * TAB_H * STEEL),
-        (6, "Battery support angle", f"L {ANGLE[0]}x{ANGLE[1]}", la, 4, 2 * ANGLE[0] * ANGLE[1] * la * STEEL),
-        (7, "Link pivot plate, Ø20", "PL 10 60x70", 60, 8, 10 * 60 * 70 * STEEL),
+        (6, "Link pivot plate, Ø20", "PL 10 60x70", 60, 8, 10 * 60 * 70 * STEEL),
     ]
     cut_list(sh, 2150, 1450, items)
     notes(sh, 160, 520, ["NOTES",
           "1. Material: RHS S355J2H (EN 10219), plate/angle S355J2. MIG, fillet a4 all round.",
           "2. Weld on a flat table, clamped. Rail tops flat within ±1 mm (lift bars run here).",
-          "3. Items 4: drill to MATCH UNDERCARRIAGE DRAWING. Nothing below the rails (350 clear).",
-          "4. Items 7: pivot holes line-bored in pairs (both rails together) for parallel links.",
+          "3. Items 4: drill to MATCH THE BASE TOP. The base is not modified (use its holes/rails).",
+          "4. Items 6: pivot holes line-bored in pairs (both rails together) for parallel links.",
           "5. Ø8 drain hole at the low point of every closed RHS. Deburr. Optional 8 mm corner gussets.",
           "6. Zinc-rich primer + 2-part epoxy. General tolerance ±2 mm. 4x M16 8.8 per bracket, 210 Nm."])
     sh.save("DWG-002_upper_frame_weldment")
@@ -344,6 +346,8 @@ def dwg_003():
         sh.rect(X, s * (RAIL_Y - RHS_B / 2), FRAME_Z0, s * (RAIL_Y + RHS_B / 2), FRAME_Z1, "PHANTOM")
         sh.rect(X, s * (RAIL_Y - LIFT_BAR[1] / 2), LIFT_BAR_Z0, s * (RAIL_Y + LIFT_BAR[1] / 2), LIFT_BAR_Z0 + LIFT_BAR[2], "PHANTOM")
     sh.rect(X, -DECK_LY / 2, DECK_Z0_LOW, DECK_LY / 2, DECK_TOP_LOW, "PHANTOM")
+    sh.rect(X, -BASE_PLATE[1] / 2, BASE_TOP - BASE_PLATE[2], BASE_PLATE[1] / 2, BASE_TOP, "PHANTOM")
+    sh.rect(X, -BASE_BODY[1] / 2, BASE_CLEARANCE, BASE_BODY[1] / 2, BASE_CLEARANCE + BASE_BODY[2], "PHANTOM")
     sh.rect(X, -DECK_LY / 2, DECK_Z0_LOW + LIFT_STROKE, DECK_LY / 2, DECK_TOP_HIGH, "HIDDEN")
     sh.rect(X, -BIN[1] / 2, LEDGE_TOP, BIN[1] / 2, LEDGE_TOP + BIN[2])
     sh.line(X, 0, -60, 0, LEDGE_TOP + BIN[2] + 60, "CENTER")
@@ -389,7 +393,7 @@ def dwg_003():
     notes(sh, 240, 780, ["NOTES",
           "1. EMPTY bays as drawn. FULL bays: each post on a 1 t load cell + certified",
           "   indicator (NAWI class III) → official weight of every bin, logged by base PC.",
-          "2. Open underneath and at both ends: nothing below 635 mm except the ledges.",
+          f"2. Open underneath and at both ends: nothing below {LEDGE_TOP} mm except the ledges.",
           "3. Concrete or compacted gravel pad, level ±10 mm. Anchor base plates with 4x M12 each.",
           "4. AprilTag on the far post pair + LiDAR reflectors for final positioning (±30 mm).",
           "5. Ledge positions to be checked against the real bin's skids before welding.",
