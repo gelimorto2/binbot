@@ -44,10 +44,11 @@ without anyone touching the base until evening.
 | Deck | 1,200 × 840 mm (narrower than the 910 mm between the ledges), UHMW strips on top |
 | Heights | deck top **695 low / 795 raised**; ledges 745 → 50 mm clearance both ways |
 | Mechanism | Per side: lift bar on the top‑frame rail, **2 parallel links** (200 mm) in the end bays, **1 linear actuator** in the middle bay. Bolted on top of the unmodified base |
-| Actuators | 2 × 24 V, ≥ 6 kN, 150 mm stroke, self‑locking screw, internal limit switches |
-| Loads | Lifts only **empty** bins (40 kg). Full bins are only held (~2 kN) and lowered (~4 kN at touch‑down) because the links are steep at the top of the stroke |
+| Actuators | 2 × 24 V, **8 kN**, 150 mm stroke, self‑locking screw, internal limit switches (8 kN so a full bin can be lifted again after road mode) |
+| Loads | Empty bins: ~1 kN. Full bin held raised: ~2 kN. Full bin lowered to touch‑down: ~4 kN. **Full bin lifted from road mode: ~7.5 kN** (links flat at the start) |
 | Side effect | Raising moves the deck 82 mm forward; the robot creeps 82 mm the other way so the bin goes straight up/down |
 | Lift time | ~10 s up or down |
+| Road mode | Full bin carried with the deck **lowered** on roads and long transfers (CoG −55 mm, see [DWG‑004](../cad/out/DWG-004_stability.pdf)); raised only near the base |
 
 ## 4. Weighing
 

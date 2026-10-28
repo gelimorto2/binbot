@@ -15,6 +15,7 @@ Change a number, re-run the scripts, and the 3D model, drawings and video update
 |---|---|---|
 | 001 | General arrangement, robot with bin raised | [PDF](out/DWG-001_general_arrangement.pdf) · [PNG](out/DWG-001_general_arrangement.png) · [DXF](out/DWG-001_general_arrangement.dxf) |
 | 002 | Top frame weldment (fabrication drawing + cut list) | [PDF](out/DWG-002_upper_frame_weldment.pdf) · [PNG](out/DWG-002_upper_frame_weldment.png) · [DXF](out/DWG-002_upper_frame_weldment.dxf) |
+| 004 | Stability limits: tilt drawings + limits per load state | [PDF](out/DWG-004_stability.pdf) · [PNG](out/DWG-004_stability.png) |
 | 003 | Base bin stand + clearance section (robot drives under) | [PDF](out/DWG-003_bin_stand.pdf) · [PNG](out/DWG-003_bin_stand.png) · [DXF](out/DWG-003_bin_stand.dxf) |
 
 ## Electrical drawings (BP‑04)
@@ -56,5 +57,5 @@ cutting steel. Stand ledge positions must be checked against the real bin.
 
 ```bash
 pip install -r cad/requirements.txt
-cd cad && python3 model.py && python3 drawings.py && python3 electrical.py && python3 animate.py
+cd cad && python3 model.py && python3 drawings.py && python3 electrical.py && python3 stability.py && python3 animate.py
 ```

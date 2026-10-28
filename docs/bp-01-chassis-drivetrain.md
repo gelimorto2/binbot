@@ -59,22 +59,29 @@ Send this:
 If the listing offers options, choose: **1.2 m width, ≥ 1 t load, 48 V, the most
 ground clearance, CAN/RS485 controllers.**
 
-## 4. Stability (CoG computed part by part)
+## 4. Stability (CoG computed part by part) — drawing: [DWG‑004](../cad/out/DWG-004_stability.pdf)
 
 | Mass | kg | CoG height |
 |---|---|---|
 | Base (battery low, assumed) | 300 | 0.28 m |
 | Top module | 150 | 0.62 m |
 | Full bin on raised deck (795 + floor + half the olives) | 540 | 1.20 m |
-| **Combined** | **≈ 990** | **≈ 0.83 m** |
+| **Combined** | **≈ 990** | **≈ 0.85 m** (x ≈ +27 mm: raised deck sits 82 mm forward) |
 
 | Direction | Half‑base | Static tip angle | Operating limit (loaded) |
 |---|---|---|---|
-| Sideways (track centre lines) | 0.475 m | **30°** | **9° cross‑slope**, alarm 7°, stop 12° |
-| Fore/aft (contact 1.3 m) | 0.65 m | **38°** | **25° up/down**, stop at 28° pitch |
+| Sideways (track centre lines) | 0.475 m | **29°** | **9° cross‑slope**, alarm 7°, stop 12° |
+| Forward (going down) | 0.62 m | **36°** | **25° down**, gentle braking, stop at 28° pitch |
+| Backward (climbing) | 0.68 m | **39°** | **25° up** |
 
 Building on top raises the CoG by about 8 cm compared with a frame between the
-tracks. Up/down 25° keeps a 10° margin with gentle braking (0.5 m/s²). Rules:
+tracks. Going down 25° keeps an 8° margin with gentle braking (0.5 m/s²).
+On a muddy road, a 9° camber plus a 100 mm rut under one track ≈ 15°, still 14°
+from tipping: that is why the cross‑slope limit is only ~30 % of the tip angle.
+
+**Road mode (recommended):** on roads and long transfers carry the full bin with
+the deck **lowered**: CoG 0.79 m, sideways tip 31°, forward tip 40°. Needs 8 kN
+actuators to lift the full bin again before a FULL bay (BP‑02). Rules:
 bin centred ±50 mm over the tracks, no turning on slopes > 10°, loaded routes on
 the fall line, software refuses cross‑slopes > 9° when loaded.
 

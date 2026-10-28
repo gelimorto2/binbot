@@ -173,10 +173,10 @@ def dwg_001():
     sh.line(E, sx_, -60, sx_, bin_top + 60, "CENTER")
     sh.line(E, 400, FRONT_ENVELOPE_Z, 1050, FRONT_ENVELOPE_Z, "PHANTOM")
     sh.text(E[0] + 700, E[1] + FRONT_ENVELOPE_Z + 20, f"front max {FRONT_ENVELOPE_Z:.0f}", h=2.5)
-    cog = 830
+    cog = 845
     sh.circle(E, sx_, cog, 40)
     sh.line(E, sx_ - 60, cog, sx_ + 60, cog), sh.line(E, sx_, cog - 60, sx_, cog + 60)
-    sh.text(E[0] + sx_ + 70, E[1] + cog + 20, "CoG ≈ 830 (full, raised)", h=3)
+    sh.text(E[0] + sx_ + 70, E[1] + cog + 20, "CoG ≈ 845 (full, raised)", h=3)
     sh.text(E[0] + mx - 330, E[1] + ANT_TOP - 50, "GNSS", h=2.5)
     sh.text(E[0] + fx + 120, E[1] + FRONT_BAR_Z0 + 90, "LiDAR", h=2.5)
     sh.text(E[0] - 1000, E[1] - 140, "FRONT →  (x+)", h=3)

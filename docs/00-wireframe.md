@@ -83,7 +83,8 @@ flowchart LR
 - **Bought electric rubber‑track base, 1.2 m wide, NOT modified:** tracks, motors,
   brakes, motor controllers, battery, charger and remote stay as delivered.
 - **Top module** bolted down onto it: welded frame (DWG‑002), lift, E‑box, sensors.
-- Building on top raises the CoG to ≈ 0.83 m: 25° up/down OK, cross‑slope ≤ 9° loaded.
+- Building on top raises the CoG to ≈ 0.85 m: 25° up/down OK, cross‑slope ≤ 9° loaded.
+  Stability drawing: [DWG‑004](../cad/out/DWG-004_stability.pdf). Road mode: full bin carried with the deck lowered.
 - The base must have brakes that hold when power is off, ≥ 2 kW per motor, ≥ 1 t load,
   an E‑stop/enable input and a way to command it (CAN/RS485/RC receiver).
 
